@@ -8,7 +8,6 @@ class MyList:
             self._prev = prev  # previous node reference
             self._next = next  # next node reference
 
-
     __slots__ = '_size', '_header', '_trailer'
 
     def __init__(self):
