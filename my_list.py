@@ -1,4 +1,3 @@
-
 class MyList:
     class _Node:
         __slots__ = '_element', '_prev', '_next'  # streamline memory
@@ -18,31 +17,31 @@ class MyList:
         # self._trailer._prev = self._header                  # header is before trailer
         self._size = 0  # number of elements
 
-    def __add__(self,add):
+    def __add__(self, add):
         raise NotImplementedError("Not implemented")
 
-    def __iadd__(self,add):
+    def __iadd__(self, add):
         raise NotImplementedError("Not implemented")
 
-    def __le__(self,other):
+    def __le__(self, other):
         return self < other or self == other
 
-    def __eq__(self,other):
+    def __eq__(self, other):
         raise NotImplementedError("Not implemented")
 
-    def __ne__(self,other):
+    def __ne__(self, other):
         return not self == other
 
-    def __ge__(self,other):
+    def __ge__(self, other):
         return self == other or self > other
 
-    def __gt__(self,other):
+    def __gt__(self, other):
         raise NotImplementedError("Not implemented")
 
-    def __lt__(self,other):
+    def __lt__(self, other):
         raise NotImplementedError("Not implemented")
 
-    def __contains__(self,item):
+    def __contains__(self, item):
         raise NotImplementedError("Not implemented")
 
     def __setitem__(self, key, value):
@@ -51,7 +50,7 @@ class MyList:
         current = self._header
         for x in range(key):
             current = current._next
-        current._element=value
+        current._element = value
 
     def __getitem__(self, item):
         if item >= len(self):
@@ -61,7 +60,7 @@ class MyList:
             current = current._next
         return current._element
 
-    def __delitem__(self,item):
+    def __delitem__(self, item):
         raise NotImplementedError("Not implemented")
 
     def __del__(self):
@@ -87,8 +86,11 @@ class MyList:
             self._trailer = new_node
         self._size += 1
 
-    def extend(self,iterable):
-        raise NotImplementedError("Not implemented")
+    def extend(self, iterable):
+        for x in iterable:
+            self.append(x)
+            next(iterable)
+        # raise NotImplementedError("Not implemented")
 
     def _insert_between(self, e, predecessor, successor):
         """Add element e between two existing nodes and return new node."""
@@ -125,23 +127,23 @@ class MyList:
 
                 current_node = current_node._next
 
-    def pop(self,i=None):
+    def pop(self, i=None):
         raise NotImplementedError("Not implemented")
 
     def clear(self):
         raise NotImplementedError("Not implemented")
 
-    def index(self,x,start=0,end=None):
+    def index(self, x, start=0, end=None):
         raise NotImplementedError("Not implemented")
 
-    def count(self,x):
-        count=0
+    def count(self, x):
+        count = 0
         for i in range(len(self._size)):
             if self[i] == x:
-                count +=1
+                count += 1
         return count
 
-    def sort(key=None,reverse=False):
+    def sort(key=None, reverse=False):
         raise NotImplementedError("Not implemented")
 
     def reverse(self):
@@ -159,7 +161,6 @@ class MyList:
     def copy(self):
         raise NotImplementedError("Not implemented")
 
-
     def show(self):
         """This is not a method of project"""
         print("List data is: ")
@@ -173,7 +174,8 @@ class MyList:
             current_node = current_node._next
         print("*" * 50)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     d = MyList()
     d.append(5)
     d.append(7)
