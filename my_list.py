@@ -18,6 +18,64 @@ class MyList:
         # self._trailer._prev = self._header                  # header is before trailer
         self._size = 0  # number of elements
 
+    def __add__(self,add):
+        raise NotImplementedError("Not implemented")
+
+    def __iadd__(self,add):
+        raise NotImplementedError("Not implemented")
+
+    def __le__(self,other):
+        return self < other or self == other
+
+    def __eq__(self,other):
+        raise NotImplementedError("Not implemented")
+
+    def __ne__(self,other):
+        return not self == other
+
+    def __ge__(self,other):
+        return self == other or self > other
+
+    def __gt__(self,other):
+        raise NotImplementedError("Not implemented")
+
+    def __lt__(self,other):
+        raise NotImplementedError("Not implemented")
+
+    def __contains__(self,item):
+        raise NotImplementedError("Not implemented")
+
+    def __setitem__(self, key, value):
+        if key >= len(self):
+            raise IndexError
+        current = self._header
+        for x in range(key):
+            current = current._next
+        current._element=value
+
+    def __getitem__(self, item):
+        if item >= len(self):
+            raise IndexError
+        current = self._header
+        for x in range(item):
+            current = current._next
+        return current._element
+
+    def __delitem__(self,item):
+        raise NotImplementedError("Not implemented")
+
+    def __del__(self):
+        raise NotImplementedError("Not implemented")
+
+    def __str__(self):
+        raise NotImplementedError("Not implemented")
+
+    def __bool__(self):
+        raise NotImplementedError("Not implemented")
+
+    def __len__(self):
+        return self._size
+
     def append(self, x):
         new_node = self._Node(x, None, None)
         if self._header is None:
@@ -29,8 +87,9 @@ class MyList:
             self._trailer = new_node
         self._size += 1
 
-    # def extend(iterable):
-    #
+    def extend(self,iterable):
+        raise NotImplementedError("Not implemented")
+
     def _insert_between(self, e, predecessor, successor):
         """Add element e between two existing nodes and return new node."""
         newest = self._Node(e, predecessor, successor)  # linked to neighbors
@@ -51,7 +110,6 @@ class MyList:
                 count = count + 1
             self._insert_between(x, current_node, current_node._next)
 
-    #
     def remove(self, x):
         current_node = self._header
         if current_node == x:
@@ -67,29 +125,14 @@ class MyList:
 
                 current_node = current_node._next
 
-    #
-    # def pop([i]):
-    #
-    # def clear():
-    #
-    # def index(x[,start[,end]]):
-    #
-    #MIA
-    def __setitem__(self, key, value):
-        if key >= len(self):
-            raise IndexError
-        current = self._header
-        for x in range(key):
-            current = current._next
-        current._element=value
+    def pop(self,i=None):
+        raise NotImplementedError("Not implemented")
 
-    def __getitem__(self, item):
-        if item >= len(self):
-            raise IndexError
-        current = self._header
-        for x in range(item):
-            current = current._next
-        return current._element
+    def clear(self):
+        raise NotImplementedError("Not implemented")
+
+    def index(self,x,start=0,end=None):
+        raise NotImplementedError("Not implemented")
 
     def count(self,x):
         count=0
@@ -98,8 +141,9 @@ class MyList:
                 count +=1
         return count
 
-    # def sort(key=None,reverse=False):
-    #
+    def sort(key=None,reverse=False):
+        raise NotImplementedError("Not implemented")
+
     def reverse(self):
         current_node = self._header
         while current_node is not None:
@@ -112,10 +156,12 @@ class MyList:
         self._header = self._trailer
         self._trailer = var
 
-    #
-    # def copy():
+    def copy(self):
+        raise NotImplementedError("Not implemented")
+
 
     def show(self):
+        """This is not a method of project"""
         print("List data is: ")
         current_node = self._header
         while current_node is not None:
@@ -127,17 +173,17 @@ class MyList:
             current_node = current_node._next
         print("*" * 50)
 
-
-d = MyList()
-d.append(5)
-d.append(7)
-d.append(8)
-d.show()
-# d.remove(7)
-# d.show()
-# d.append(6)
-# d.show()
-# d.reverse()
-# d.show()
-d.insert(1, 9)
-d.show()
+if __name__=="__main__":
+    d = MyList()
+    d.append(5)
+    d.append(7)
+    d.append(8)
+    d.show()
+    # d.remove(7)
+    # d.show()
+    # d.append(6)
+    # d.show()
+    # d.reverse()
+    # d.show()
+    d.insert(1, 9)
+    d.show()
