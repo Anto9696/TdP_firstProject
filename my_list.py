@@ -45,7 +45,7 @@ class MyList:
 
     def is_empty(self):
         """restituisce True se la lista è vuota e False altrimenti"""
-        if len(self) == 0:
+        if self.__len__() == 0:
             return True
         else:
             return False
@@ -54,9 +54,8 @@ class MyList:
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
         current_node = self._validate(self.first())
-        last_node = self._validate(self.last())
 
-        while current_node != last_node:
+        for i in range(self.__len__()):
             if current_node._element < current_node._next._element:
                 current_node = current_node._next
             else:
