@@ -37,7 +37,7 @@ class MyList:
     def last(self):
         return self._make_position(self._back)
 
-    def _before(self,p):
+    def _before(self,p): #restituisce il nodo
         node=self._validate(p)
         current_node=self._front
         i=0
@@ -51,7 +51,7 @@ class MyList:
         else:
             return pre
 
-    def before(self,p):
+    def before(self,p): #restituisce l'elemento
         var=self._before(p)
         if(var is None):
             return None
@@ -59,11 +59,11 @@ class MyList:
             return var._element
 
     def after(self,p):
-        self._validate(p)
         if(p._node.next is None):
             return None
         else:
-            return p._node.next._element
+            node=self._validate(p)
+            return node.next._element
 
     def is_empty(self):
         raise NotImplementedError("Not implemented")
