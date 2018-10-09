@@ -19,16 +19,22 @@ class MyList:
         self._size = 0
 
     def _validate(self,p):
-        raise NotImplementedError("Not implemented")
+        if not isinstance(p, self.Position):
+            raise TypeError('p must be proper Position type')
+        if p._container is not self:
+            raise ValueError('p does not belong to this container')
+        if p._node._next is None:  # convention for deprecated nodes
+            raise ValueError('p is no longer valid')
+        return p._node
 
     def _make_position(self, node):
         raise NotImplementedError("Not implemented")
 
     def first(self):
-        raise NotImplementedError("Not implemented")
+        return self._make_position(self._first)
 
     def last(self):
-        raise NotImplementedError("Not implemented")
+        return self._make_position(self._back)
 
     def before(self,p):
         raise NotImplementedError("Not implemented")
