@@ -32,7 +32,7 @@ class MyList:
         return self.Position(self, node)  # legitimate position
 
     def first(self):
-        return self._make_position(self._first)
+        return self._make_position(self._front)
 
     def last(self):
         return self._make_position(self._back)
@@ -66,10 +66,24 @@ class MyList:
             return node.next._element
 
     def is_empty(self):
-        raise NotImplementedError("Not implemented")
+        """restituisce True se la lista è vuota e False altrimenti"""
+        if self.__len__() == 0:
+            return True
+        else:
+            return False
+        # raise NotImplementedError("Not implemented")
 
     def is_sorted(self):
-        raise NotImplementedError("Not implemented")
+        """restituisce True se la lista è ordinata e False altrimenti"""
+        current_node = self._validate(self.first())
+
+        for i in range(self.__len__()):
+            if current_node._element < current_node._next._element:
+                current_node = current_node._next
+            else:
+                return False
+        return True
+        # raise NotImplementedError("Not implemented")
 
     def add_first(self,e):
         raise NotImplementedError("Not implemented")
@@ -84,7 +98,15 @@ class MyList:
         raise NotImplementedError("Not implemented")
 
     def find(self,e):
-        raise NotImplementedError("Not implemented")
+        """Restituisce una Position contenente la prima occorrenza dell’elemento e
+        nella lista o None se e non è presente"""
+        current_node = self._front
+        while True:
+            if current_node == e:
+                return self._make_position(current_node)
+            elif current_node == self._back:
+                return None
+        # raise NotImplementedError("Not implemented")
 
     def replace(self,p,e):
         raise NotImplementedError("Not implemented")
@@ -111,7 +133,15 @@ class MyList:
         raise NotImplementedError("Not implemented")
 
     def count(self,e):
-        raise NotImplementedError("Not implemented")
+        """Resituisce il numero di occorrenze di e nella Lista"""
+        current_node = self._front
+        counter = 0
+        for i in range(self.__len__()):
+            if current_node._element == e:
+                counter += 1
+            current_node = current_node._next
+        return counter
+        # raise NotImplementedError("Not implemented")
 
     def reverse(self):
         raise NotImplementedError("Not implemented")
@@ -132,10 +162,18 @@ class MyList:
         raise NotImplementedError("Not implemented")
 
     def __contains__(self, item):
-        raise NotImplementedError("Not implemented")
+        current_position = self.first()
+        last_position = self.last()
+        while current_position != last_position:
+            if current_position == item:
+                return True
+            current_position = self._make_position(current_position._node._next)
+        return False
+        # raise NotImplementedError("Not implemented")
 
     def __getitem__(self, item):
-        raise NotImplementedError("Not implemented")
+        return item.element()
+        #raise NotImplementedError("Not implemented")
 
     def __setitem__(self, key, value):
         raise NotImplementedError("Not implemented")
