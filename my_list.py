@@ -77,7 +77,15 @@ class MyList:
         raise NotImplementedError("Not implemented")
 
     def find(self,e):
-        raise NotImplementedError("Not implemented")
+        """Restituisce una Position contenente la prima occorrenza dell’elemento e
+        nella lista o None se e non è presente"""
+        current_node = self._front
+        while True:
+            if current_node == e:
+                return self._make_position(current_node)
+            elif current_node == self._back:
+                return None
+        # raise NotImplementedError("Not implemented")
 
     def replace(self,p,e):
         raise NotImplementedError("Not implemented")
