@@ -94,11 +94,11 @@ class MyList:
         i=0
         while (i<self.__len__() ):
             i+=1
-            if( p!=self._make_position(current_node._next)):
-                var= current_node.next
-                element=current_node._element
-                current_node.next=current_node._next._next
-                current_node._next=None
+            if( p==self._make_position(current_node._next)):
+                var= current_node._next
+                element=current_node._next._element
+                current_node._next=current_node._next._next
+                var=None
                 return element
             current_node=current_node._next
         return None
@@ -124,7 +124,6 @@ class MyList:
             i+=1
             new.add_last(current_node._element)
             current_node=current_node._next
-            self.add_last()
         return new
 
 
@@ -145,7 +144,7 @@ class MyList:
         return self._size
 
     def __del__(self,p):
-        raise NotImplementedError("Not implemented")
+        self.delete(p)
 
     def __iter__(self):
         raise NotImplementedError("Not implemented")
