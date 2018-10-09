@@ -32,7 +32,7 @@ class MyList:
         return self.Position(self, node)  # legitimate position
 
     def first(self):
-        return self._make_position(self._first)
+        return self._make_position(self._front)
 
     def last(self):
         return self._make_position(self._back)
@@ -53,7 +53,15 @@ class MyList:
 
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
-
+        current_node = self._validate(self.first())
+        last_node = self._validate(self.last())
+        
+        while current_node != last_node:
+            if current_node._element < current_node._next._element:
+                current_node = current_node._next
+            else:
+                return False
+        return True
         # raise NotImplementedError("Not implemented")
 
     def add_first(self,e):
@@ -81,7 +89,9 @@ class MyList:
         raise NotImplementedError("Not implemented")
 
     def count(self,e):
-        raise NotImplementedError("Not implemented")
+        """Resituisce il numero di occorrenze di e nella Lista"""
+
+        # raise NotImplementedError("Not implemented")
 
     def reverse(self):
         raise NotImplementedError("Not implemented")
