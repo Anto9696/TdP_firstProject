@@ -40,11 +40,33 @@ class MyList:
     def last(self):
         return self._make_position(self._back)
 
+    def _before(self,p):
+        node=self._validate(p)
+        current_node=self._front
+        i=0
+        pre=None
+        while (i<self.__len__())  and  (current_node._next!=node):
+            i+=1
+            current_node=current_node._next
+            pre=current_node
+        if(i==self.__len__()):
+            raise ValueError
+        else:
+            return pre
+
     def before(self,p):
-        raise NotImplementedError("Not implemented")
+        var=self._before(p)
+        if(var is None):
+            return None
+        else:
+            return var._element
 
     def after(self,p):
-        raise NotImplementedError("Not implemented")
+        self._validate(p)
+        if(p._node.next is None):
+            return None
+        else:
+            return p._node.next._element
 
     def is_empty(self):
         raise NotImplementedError("Not implemented")
@@ -71,7 +93,18 @@ class MyList:
         raise NotImplementedError("Not implemented")
 
     def delete(self,p):
-        raise NotImplementedError("Not implemented")
+        current_node=self._front
+        i=0
+        while (i<self.__len__() and p!=self._make_position(current_node._next)):
+            i+=1
+            current_node=current_node._next
+        var= current_node.next
+        element=current_node._element
+        current_node.next=current_node._next._next
+        current_node._next=None
+        return element
+
+
 
     def clear(self):
         raise NotImplementedError("Not implemented")
@@ -83,7 +116,17 @@ class MyList:
         raise NotImplementedError("Not implemented")
 
     def copy(self):
-        raise NotImplementedError("Not implemented")
+        new=MyList()
+        current_node=self._front
+        i=0
+        while (i<self.__len__()):
+            i+=1
+            new.add_last(current_node._element)
+            current_node=current_node._next
+            self.add_last()
+        return new
+
+
 
     def __add__(self, other):
         raise NotImplementedError("Not implemented")
@@ -98,9 +141,9 @@ class MyList:
         raise NotImplementedError("Not implemented")
 
     def __len__(self):
-        raise NotImplementedError("Not implemented")
+        return self._size
 
-    def __del__(self):
+    def __del__(self,p):
         raise NotImplementedError("Not implemented")
 
     def __iter__(self):
