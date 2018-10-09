@@ -92,14 +92,18 @@ class MyList:
     def delete(self,p):
         current_node=self._front
         i=0
-        while (i<self.__len__() and p!=self._make_position(current_node._next)):
+        while (i<self.__len__() ):
             i+=1
+            if( p!=self._make_position(current_node._next)):
+                var= current_node.next
+                element=current_node._element
+                current_node.next=current_node._next._next
+                current_node._next=None
+                return element
             current_node=current_node._next
-        var= current_node.next
-        element=current_node._element
-        current_node.next=current_node._next._next
-        current_node._next=None
-        return element
+        return None
+
+
 
 
 
