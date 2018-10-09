@@ -44,10 +44,17 @@ class MyList:
         raise NotImplementedError("Not implemented")
 
     def is_empty(self):
-        raise NotImplementedError("Not implemented")
+        """restituisce True se la lista è vuota e False altrimenti"""
+        if len(self) == 0:
+            return True
+        else:
+            return False
+        # raise NotImplementedError("Not implemented")
 
     def is_sorted(self):
-        raise NotImplementedError("Not implemented")
+        """restituisce True se la lista è ordinata e False altrimenti"""
+
+        # raise NotImplementedError("Not implemented")
 
     def add_first(self,e):
         raise NotImplementedError("Not implemented")
