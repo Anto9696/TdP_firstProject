@@ -55,7 +55,7 @@ class MyList:
         """restituisce True se la lista è ordinata e False altrimenti"""
         current_node = self._validate(self.first())
         last_node = self._validate(self.last())
-        
+
         while current_node != last_node:
             if current_node._element < current_node._next._element:
                 current_node = current_node._next
@@ -90,7 +90,13 @@ class MyList:
 
     def count(self,e):
         """Resituisce il numero di occorrenze di e nella Lista"""
-
+        current_node = self._front
+        counter = 0
+        for i in range(self.__len__()):
+            if current_node._element == e:
+                counter += 1
+            current_node = current_node._next
+        return counter
         # raise NotImplementedError("Not implemented")
 
     def reverse(self):
