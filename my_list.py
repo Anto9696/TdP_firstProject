@@ -90,6 +90,7 @@ class MyList:
         for x in iterable:
             self.append(x)
             next(iterable)
+            self._trailer = x
         # raise NotImplementedError("Not implemented")
 
     def _insert_between(self, e, predecessor, successor):
