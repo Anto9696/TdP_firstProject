@@ -117,7 +117,14 @@ class MyList:
         raise NotImplementedError("Not implemented")
 
     def __contains__(self, item):
-        raise NotImplementedError("Not implemented")
+        current_position = self.first()
+        last_position = self.last()
+        while current_position != last_position:
+            if current_position == item:
+                return True
+            current_position = self._make_position(current_position._node._next)
+        return False
+        # raise NotImplementedError("Not implemented")
 
     def __getitem__(self, item):
         raise NotImplementedError("Not implemented")
