@@ -1,182 +1,106 @@
+from TdP_collections.list.positional_list import PositionalList
+
 class MyList:
     class _Node:
-        __slots__ = '_element', '_prev', '_next'  # streamline memory
+        __slots__ = '_element', '_next'  # streamline memory
 
-        def __init__(self, element, prev, next):  # initialize node's fields
+        def __init__(self, element, next):  # initialize node's fields
             self._element = element  # user's element
-            self._prev = prev  # previous node reference
             self._next = next  # next node reference
 
-    __slots__ = '_size', '_header', '_trailer'
+    class Position(PositionalList.Position):
+        pass
 
+    __slots__ = '_size', '_front', '_back'
     def __init__(self):
         """Create an empty list."""
-        self._header = None
-        self._trailer = None
-        # self._header._next = self._trailer                  # trailer is after header
-        # self._trailer._prev = self._header                  # header is before trailer
-        self._size = 0  # number of elements
+        self._front = None
+        self._back = None
+        self._size = 0
 
-    def __add__(self, add):
+    def _validate(self,p):
         raise NotImplementedError("Not implemented")
 
-    def __iadd__(self, add):
+    def _make_position(self, node):
         raise NotImplementedError("Not implemented")
 
-    def __le__(self, other):
-        return self < other or self == other
-
-    def __eq__(self, other):
+    def first(self):
         raise NotImplementedError("Not implemented")
 
-    def __ne__(self, other):
-        return not self == other
-
-    def __ge__(self, other):
-        return self == other or self > other
-
-    def __gt__(self, other):
+    def last(self):
         raise NotImplementedError("Not implemented")
 
-    def __lt__(self, other):
+    def before(self,p):
         raise NotImplementedError("Not implemented")
 
-    def __contains__(self, item):
+    def after(self,p):
         raise NotImplementedError("Not implemented")
 
-    def __setitem__(self, key, value):
-        if key >= len(self):
-            raise IndexError
-        current = self._header
-        for x in range(key):
-            current = current._next
-        current._element = value
-
-    def __getitem__(self, item):
-        if item >= len(self):
-            raise IndexError
-        current = self._header
-        for x in range(item):
-            current = current._next
-        return current._element
-
-    def __delitem__(self, item):
+    def is_empty(self):
         raise NotImplementedError("Not implemented")
 
-    def __del__(self):
+    def is_sorted(self):
         raise NotImplementedError("Not implemented")
 
-    def __str__(self):
+    def add_first(self,e):
         raise NotImplementedError("Not implemented")
 
-    def __bool__(self):
+    def add_last(self,e):
         raise NotImplementedError("Not implemented")
 
-    def __len__(self):
-        return self._size
+    def add_before(self,p,e):
+        raise NotImplementedError("Not implemented")
 
-    def append(self, x):
-        new_node = self._Node(x, None, None)
-        if self._header is None:
-            self._header = self._trailer = new_node
-        else:
-            new_node._prev = self._trailer
-            new_node._next = None
-            self._trailer._next = new_node
-            self._trailer = new_node
-        self._size += 1
+    def add_after(self,p,e):
+        raise NotImplementedError("Not implemented")
 
-    def extend(self, iterable):
-        for x in iterable:
-            self.append(x)
-            next(iterable)
-            self._trailer = x # coso
-        # raise NotImplementedError("Not implemented")
+    def find(self,e):
+        raise NotImplementedError("Not implemented")
 
-    def _insert_between(self, e, predecessor, successor):
-        """Add element e between two existing nodes and return new node."""
-        newest = self._Node(e, predecessor, successor)  # linked to neighbors
-        predecessor._next = newest
-        successor._prev = newest
-        self._size += 1
-        return newest
+    def replace(self,p,e):
+        raise NotImplementedError("Not implemented")
 
-    def insert(self, i, x):
-        new_node = self._Node(x, None, None)
-        if self._header is None:
-            self._header = self._trailer = new_node
-        else:
-            current_node = self._header
-            count = 0
-            while current_node is not None and count < i - 1:
-                current_node = current_node._next
-                count = count + 1
-            self._insert_between(x, current_node, current_node._next)
-
-    def remove(self, x):
-        current_node = self._header
-        if current_node == x:
-            self._header = current_node._next
-            current_node._next._prev = None
-            self._size -= 1
-        else:
-            while current_node is not None:
-                if current_node._element == x:
-                    current_node._prev._next = current_node._next
-                    current_node._next._prev = current_node._prev
-                    self._size -= 1
-
-                current_node = current_node._next
-
-    def pop(self, i=None):
+    def delete(self,p):
         raise NotImplementedError("Not implemented")
 
     def clear(self):
         raise NotImplementedError("Not implemented")
 
-    def index(self, x, start=0, end=None):
-        raise NotImplementedError("Not implemented")
-
-    def count(self, x):
-        count = 0
-        for i in range(len(self._size)):
-            if self[i] == x:
-                count += 1
-        return count
-
-    def sort(key=None, reverse=False):
+    def count(self,e):
         raise NotImplementedError("Not implemented")
 
     def reverse(self):
-        current_node = self._header
-        while current_node is not None:
-            var = current_node._prev
-            current_node._prev = current_node._next
-            current_node._next = var
-            current_node = current_node._prev
-
-        var = self._header
-        self._header = self._trailer
-        self._trailer = var
+        raise NotImplementedError("Not implemented")
 
     def copy(self):
         raise NotImplementedError("Not implemented")
 
-    def show(self):
-        """This is not a method of project"""
-        print("List data is: ")
-        current_node = self._header
-        while current_node is not None:
-            print(current_node._prev._element if hasattr(current_node._prev, "_element") else None)
-            print(current_node._element)
-            print(current_node._next._element if hasattr(current_node._next, "_element") else None)
-            print()
+    def __add__(self, other):
+        raise NotImplementedError("Not implemented")
 
-            current_node = current_node._next
-        print("*" * 50)
+    def __contains__(self, item):
+        raise NotImplementedError("Not implemented")
+
+    def __getitem__(self, item):
+        raise NotImplementedError("Not implemented")
+
+    def __setitem__(self, key, value):
+        raise NotImplementedError("Not implemented")
+
+    def __len__(self):
+        raise NotImplementedError("Not implemented")
+
+    def __del__(self):
+        raise NotImplementedError("Not implemented")
+
+    def __iter__(self):
+        raise NotImplementedError("Not implemented")
+
+    def __str__(self):
+        raise NotImplementedError("Not implemented")
 
 
-if __name__ == "__main__":
+if __name__=="__main__":
     d = MyList()
     d.append(5)
     d.append(7)
