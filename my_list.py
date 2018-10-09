@@ -29,10 +29,7 @@ class MyList:
 
     def _make_position(self, node):
         """Return Position instance for given node (or None if sentinel)."""
-        if node is self._header or node is self._trailer:
-            return None  # boundary violation
-        else:
-            return self.Position(self, node)  # legitimate position
+        return self.Position(self, node)  # legitimate position
 
     def first(self):
         return self._make_position(self._first)
