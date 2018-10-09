@@ -127,7 +127,8 @@ class MyList:
         # raise NotImplementedError("Not implemented")
 
     def __getitem__(self, item):
-        raise NotImplementedError("Not implemented")
+        return item.element()
+        #raise NotImplementedError("Not implemented")
 
     def __setitem__(self, key, value):
         raise NotImplementedError("Not implemented")
