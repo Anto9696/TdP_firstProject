@@ -47,4 +47,7 @@ class ScoreBoard:
 
     def last(self,i):
         """Restituisce i peggiori i score nello ScoreBoard"""
+        ordered_score = bubblesorted(self._best)
+        for el in ordered_score:
+            pass
         raise NotImplementedError("Not implemented")
