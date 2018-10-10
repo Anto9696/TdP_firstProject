@@ -1,26 +1,24 @@
 from my_list import MyList
 
-class MyList_Bubbled(MyList):
+def bubblesorted(list):
+    list_ordered=list
+    sup=len(list)
+    while sup!=0:
+        last_swap = 0
+        cursor=list_ordered.first()
+        succ_cursor=list_ordered.after(cursor)
+        for i in range(sup-1):
+            if cursor.element() > succ_cursor.element():
+                list_ordered.replace(succ_cursor,list_ordered.replace(cursor,succ_cursor.element()))
+                last_swap = i
+        sup=last_swap
 
-    def bubblesorted(self):
-        list_ordered=self.copy()
-        sup=len(self)
-        while sup!=0:
-            last_swap = 0
-            cursor=list_ordered.first()
-            succ_cursor=list_ordered.after(cursor)
-            for i in range(sup-1):
-                if cursor.element() > succ_cursor.element():
-                    list_ordered.replace(succ_cursor,list_ordered.replace(cursor,succ_cursor.element()))
-                    last_swap = i
-            sup=last_swap
-
-        for element in list_ordered:
-            yield element
+    for element in list_ordered:
+        yield element
 
 if __name__=="__main__":
-    list1 = MyList_Bubbled()
-    list2 = MyList_Bubbled()
+    list1 = MyList()
+    list2 = MyList()
     for i in range(10):
         list1.add_first(i)
         list2.add_last(i+11)
@@ -38,5 +36,5 @@ if __name__=="__main__":
         print(e)
 
     print("ORDERED LIST 3")
-    for e in list3.bubblesorted():
+    for e in bubblesorted(list3):
         print(e)
