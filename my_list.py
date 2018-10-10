@@ -139,7 +139,7 @@ class MyList(PositionalList):
         # raise NotImplementedError("Not implemented")
 
     def reverse(self):
-        raise NotImplementedError("Not implemented")
+        #raise NotImplementedError("Not implemented")
 
     def copy(self):
         new=MyList()
