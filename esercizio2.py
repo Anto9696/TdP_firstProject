@@ -1,6 +1,6 @@
 from my_list import MyList
 
-def bubblesorted(list):
+'''def bubblesorted(list):
     list_ordered=list
     sup=len(list)
     while sup!=0:
@@ -15,6 +15,12 @@ def bubblesorted(list):
 
     for element in list_ordered:
         yield element
+        '''
+
+def bubblesorted(list):
+    ord_list=sorted(list)
+    for i in ord_list:
+        yield i
 
 if __name__=="__main__":
     list1 = MyList()
