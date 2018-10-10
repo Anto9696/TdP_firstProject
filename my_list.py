@@ -23,18 +23,12 @@ class MyList(PositionalList):
         return self._make_position(self._trailer)
 
     def before(self,p): #restituisce l'elemento
-        var=super().before(self,p)
-        if(var is None):
-            return None
-        else:
-            return var.element()
+        var=super().before(p)
+        return var.element() if var is not None else None
 
     def after(self,p):
-        var=super().after(self,p)
-        if(var is None):
-            return None
-        else:
-            return var.element()
+        var=super().after(p)
+        return var.element() if var is not None else None
 
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
@@ -155,7 +149,7 @@ class MyList(PositionalList):
         new=MyList()
         current_node=self._trailer
         i=0
-        while (i<self._size):
+        while i<self._size:
             i+=1
             new.add_last(current_node._element)
             current_node=current_node._next
