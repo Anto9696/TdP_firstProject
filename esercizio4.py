@@ -40,14 +40,19 @@ class ScoreBoard:
 
     def top(self,i):
         """Restituisce i migliori i score nello ScoreBoard"""
-        ordered_score = bubblesorted(self._best)
-        for el in ordered_score:
-            pass
+        imp = len(self._best) - i
+        counter = 0
+        for el in bubblesorted(self._best):
+            if counter > imp:
+                yield el
         # raise NotImplementedError("Not implemented")
 
     def last(self,i):
         """Restituisce i peggiori i score nello ScoreBoard"""
-        ordered_score = bubblesorted(self._best)
-        for el in ordered_score:
-            pass
+        counter = 0
+        for el in bubblesorted(self._best):
+            if counter < i:
+                yield el
+            else:
+                break
         # raise NotImplementedError("Not implemented")
