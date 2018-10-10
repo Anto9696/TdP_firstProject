@@ -9,7 +9,7 @@ for i in range(10):
 
 print("LIST 1")
 for e in list1:
-    print(e)
+    print("Value"+str(e))
 print("LIST 2")
 for e in list2:
-    print(e)
+    print("Value"+str(e))
