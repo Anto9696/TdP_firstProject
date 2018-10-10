@@ -9,10 +9,14 @@ class MyList(PositionalList):
         self._size = 0
 
     def first(self):
-        return self._make_position(self._front)
+        """restituisce la Position dell’elemento che è identificato come il primo oppure
+        None se la lista è vuota"""
+        return self._make_position(self._header)
 
     def last(self):
-        return self._make_position(self._back)
+        """restituisce la Position dell’elemento che è identificato come l’ultimo oppure
+        None se la lista è vuota"""
+        return self._make_position(self._trailer)
 
     def _before(self,p): #restituisce il nodo
         node=self._validate(p)
@@ -44,10 +48,7 @@ class MyList(PositionalList):
 
     def is_empty(self):
         """restituisce True se la lista è vuota e False altrimenti"""
-        if self.__len__() == 0:
-            return True
-        else:
-            return False
+        return self._size == 0
         # raise NotImplementedError("Not implemented")
 
     def is_sorted(self):
@@ -77,11 +78,11 @@ class MyList(PositionalList):
     def find(self,e):
         """Restituisce una Position contenente la prima occorrenza dell’elemento e
         nella lista o None se e non è presente"""
-        current_node = self._front
+        current_node = self._header
         while True:
             if current_node == e:
                 return self._make_position(current_node)
-            elif current_node == self._back:
+            elif current_node == self._trailer:
                 return None
         # raise NotImplementedError("Not implemented")
 
@@ -89,19 +90,38 @@ class MyList(PositionalList):
         raise NotImplementedError("Not implemented")
 
     def delete(self,p):
-        current_node=self._front
-        i=0
-        while (i<self.__len__() ):
-            i+=1
-            if( p==self._make_position(current_node._next)):
-                var= current_node._next
-                element=current_node._next._element
-                current_node._next=current_node._next._next
-                var=None
-                return element
-            current_node=current_node._next
-        return None
+        """Rimuove e restituisce l’elemento in Position p dalla lista e invalida p"""
+        remove_pos=self.find(p.element())
+        if self.first() == remove_pos:  # if the position is header
+            self.first()._node = self.first()._node._next
+            self._size -= 1
+            return remove_pos.element()
+        elif remove_pos is None:        # if the position not exist
+            print("Non-existent position")
+            return None
+        else:
+            prev = self._validate(remove_pos._node._prev)
+            next = self._validate(remove_pos._node._next)
+            elem = remove_pos.element()
+            prev._next = next
+            next._prev = prev
+            remove_pos._node._next = remove_pos._node._prev = remove_pos._node._element = None
+            self._size -= 1
+            return elem
 
+        # FIRST VER
+        # current_node=self._front
+        # i=0
+        # while (i<self.__len__() ):
+        #     i+=1
+        #     if( p==self._make_position(current_node._next)):
+        #         var= current_node._next
+        #         element=current_node._next._element
+        #         current_node._next=current_node._next._next
+        #         var=None
+        #         return element
+        #     current_node=current_node._next
+        # return None
 
 
 
