@@ -4,18 +4,25 @@ def merge(list1,list2):
     current_first_list=list1.first()._node
     current_second_list=list2.first()._node
     e=i=0
+    new_list=MyList()
     while i<len(list1) and e<len(list2) :
         if current_first_list._element>current_second_list._element :
-            list1.add_before(list1._make_position(current_first_list),current_second_list._element)
+            new_list.add_last(current_second_list._element)
             current_second_list=current_second_list._next
             e+=1
         else:
+            new_list.add_last(current_first_list._element)
             current_first_list=current_first_list._next
             i+=1
+    while i<len(list1):
+        new_list.add_last(current_first_list._element)
+        current_first_list=current_first_list._next
+        i+=1
     while e<len(list2):
-        list1.add_last(current_second_list._element)
+        new_list.add_last(current_second_list._element)
         current_second_list=current_second_list._next
         e+=1
+    return  new_list
 
 if __name__=="__main__":
     list1 = MyList()
@@ -35,6 +42,6 @@ if __name__=="__main__":
         print(e)
 
     print("merge LIST ")
-    merge(list1,list2)
-    for e in list1:
+    new=merge(list1,list2)
+    for e in new:
         print(e)
