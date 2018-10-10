@@ -8,9 +8,6 @@ class MyList(PositionalList):
         self._trailer = None
         self._size = 0
 
-    def _make_position(self, node):
-        return self.Position(self, node)
-
     def first(self):
         """restituisce la Position dell’elemento che è identificato come il primo oppure
         None se la lista è vuota"""
@@ -62,7 +59,7 @@ class MyList(PositionalList):
         if self.is_empty():
             node = self._insert_first_node(e)
         else:
-            node = super(PositionalList,self)._insert_between(e,self._trailer,self._header)
+            node = self._insert_between(e,self._trailer,self._header)
             self._header = node
         return self._make_position(node)
 
@@ -70,7 +67,7 @@ class MyList(PositionalList):
         if self.is_empty():
             node = self._insert_first_node(e)
         else:
-            node = super(PositionalList,self)._insert_between(e,self._trailer,self._header)
+            node = self._insert_between(e,self._trailer,self._header)
             self._trailer = node
         return self._make_position(node)
 
@@ -202,17 +199,20 @@ class MyList(PositionalList):
     def __str__(self):
         raise NotImplementedError("Not implemented")
 
-if __name__=="__main__":
-    d = MyList()
-    d.append(5)
-    d.append(7)
-    d.append(8)
-    d.show()
-    # d.remove(7)
-    # d.show()
-    # d.append(6)
-    # d.show()
-    # d.reverse()
-    # d.show()
-    d.insert(1, 9)
-    d.show()
+    def bubblesorted(self):
+        raise NotImplementedError("Not implemented")
+
+# if __name__=="__main__":
+#     d = MyList()
+#     d.append(5)
+#     d.append(7)
+#     d.append(8)
+#     d.show()
+#     # d.remove(7)
+#     # d.show()
+#     # d.append(6)
+#     # d.show()
+#     # d.reverse()
+#     # d.show()
+#     d.insert(1, 9)
+#     d.show()
