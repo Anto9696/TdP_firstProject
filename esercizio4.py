@@ -50,4 +50,4 @@ class ScoreBoard:
         ordered_score = bubblesorted(self._best)
         for el in ordered_score:
             pass
-        raise NotImplementedError("Not implemented")
+        # raise NotImplementedError("Not implemented")
