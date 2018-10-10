@@ -195,6 +195,7 @@ class MyList(PositionalList):
         self.delete(p)
 
     def __iter__(self):
+        """Iterator della classe"""
         if not self.is_empty():
             cursor = self._header
             yield cursor._element
