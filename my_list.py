@@ -76,35 +76,32 @@ class MyList(PositionalList):
         return self._make_position(node)
 
     def add_before(self,p,e):
-        node = super().add_before(p,e)
+        node = self._validate(p)
+        new_node=super(PositionalList,self)._insert_between(e,node._prev,node)
         if self.first() == p:
-            self._header = node
-        return self._make_position(node)
+            self._header = new_node
+        return self._make_position(new_node)
 
     def add_after(self,p,e):
-        node = super().add_after(p, e)
+        node = self._validate(p)
+        new_node = super(PositionalList, self)._insert_between(e, node._prev, node)
         if self.last() == p:
-            self._trailer = node
-        return self._make_position(node)
+            self._trailer = new_node
+        return self._make_position(new_node)
 
     def find(self,e):
         """Restituisce una Position contenente la prima occorrenza dell’elemento e
         nella lista o None se e non è presente"""
-        current_node = self._header
-        while True:
-            if current_node == e:
-                return self._make_position(current_node)
-            elif current_node == self._trailer:
-                return None
-        # raise NotImplementedError("Not implemented")
+        if self.is_empty():
+            return None
+        else:
+            current_node = self._header
+            while current_node != self._trailer and current_node._element != e:
+                current_node = current_node._next
+            return self._make_position(current_node) if current_node._element == e else None
 
     def replace(self,p,e):
-        """Sostituisce l’elemento in Position p con e restituisce il vecchio elemento"""
-        #p = self._validate(p)
-        old_elem = p._node._element
-        p._node._element = e
-        return old_elem
-
+        raise NotImplementedError("Not implemented")
 
     def delete(self,p):
         """Rimuove e restituisce l’elemento in Position p dalla lista e invalida p"""
@@ -142,16 +139,7 @@ class MyList(PositionalList):
         # raise NotImplementedError("Not implemented")
 
     def reverse(self):
-        """Inverte l’ordine degli elementi nella lista"""
-        if len(self) <= 1:
-            return self
-        tmp = self._header
-        for i in range(len(self)):
-            old_prev = tmp._node._prev
-            tmp._node._prev = tmp._node._next
-            tmp._node._next = old_prev
-        return self
-
+        raise NotImplementedError("Not implemented")
 
     def copy(self):
         new=MyList()
@@ -202,7 +190,6 @@ class MyList(PositionalList):
         #raise NotImplementedError("Not implemented")
 
     def __setitem__(self, key, value):
-        """Sostituisce l’elemento nella position p con e"""
         raise NotImplementedError("Not implemented")
 
 
@@ -210,22 +197,18 @@ class MyList(PositionalList):
         self.delete(p)
 
     def __iter__(self):
-        cursor = self.first()
-        while cursor != self.last():
-            yield cursor.element()
-            cursor = self.after(cursor)
+        """Iterator della classe"""
+        if not self.is_empty():
+            cursor = self._header
+            yield cursor._element
+            while cursor != self._trailer:
+                cursor = cursor._next
+                yield cursor._element
+
 
     def __str__(self):
-        """Rappresenta il contenuto della lista come una sequenza di elementi"""
-        """separati da virgole, partendo da quello che è identificato come primo"""
-        str = ""
-        for elem in self:
-            str += str(elem) + ", "
-        return str[:-1]
-
-
-    def bubblesorted(self):
         raise NotImplementedError("Not implemented")
+
 
 # if __name__=="__main__":
 #     d = MyList()
