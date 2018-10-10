@@ -4,15 +4,15 @@ def merge(list1,list2):
     current_first_list=list1.first()._node
     current_second_list=list2.first()._node
     e=i=0
-    while(i<list1.__len__() and e<list2.__len__() ):
-        if(current_first_list._element>current_second_list._element):
+    while i<list1.len() and e<list2.len() :
+        if current_first_list._element>current_second_list._element :
             list1.add_before(list1._make_position(current_first_list),current_second_list._element)
             current_second_list=current_second_list._next
             e+=1
         else:
             current_first_list=current_first_list._next
             i+=1
-    while (e<list2.__len__()):
+    while e<list2.len():
         list1.add_last(current_second_list._element)
         current_second_list=current_second_list._next
         e+=1
