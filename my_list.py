@@ -76,16 +76,18 @@ class MyList(PositionalList):
         return self._make_position(node)
 
     def add_before(self,p,e):
-        node = super().add_before(p,e)
+        node = self._validate(p)
+        new_node=super(PositionalList,self)._insert_between(e,node._prev,node)
         if self.first() == p:
-            self._header = node
-        return self._make_position(node)
+            self._header = new_node
+        return self._make_position(new_node)
 
     def add_after(self,p,e):
-        node = super().add_after(p, e)
+        node = self._validate(p)
+        new_node = super(PositionalList, self)._insert_between(e, node._prev, node)
         if self.last() == p:
-            self._trailer = node
-        return self._make_position(node)
+            self._trailer = new_node
+        return self._make_position(new_node)
 
     def find(self,e):
         """Restituisce una Position contenente la prima occorrenza dell’elemento e
