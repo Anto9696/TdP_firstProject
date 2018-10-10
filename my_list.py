@@ -178,6 +178,7 @@ class MyList(PositionalList):
             return new_list
 
     def __contains__(self, item):
+        self._validate(item)
         current_position = self.first()
         last_position = self.last()
         while current_position != last_position:
@@ -188,15 +189,8 @@ class MyList(PositionalList):
         # raise NotImplementedError("Not implemented")
 
     def __getitem__(self, item):
-        if not isinstance(self,MyList):
-            raise TypeError("Not a MyList")
-        elif self.is_empty():
-            raise TypeError("MyList is empty")
-        elif self.find(item.element) is None:
-            raise TypeError("Non-existent position")
-        else:
-            return item.element()
-        #raise NotImplementedError("Not implemented")
+        self._validate(item)
+        return item.element()
 
     def __setitem__(self, key, value):
         raise NotImplementedError("Not implemented")
