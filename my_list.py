@@ -70,7 +70,7 @@ class MyList(PositionalList):
             node._next = node
             self._header = node
             self._trailer = node
-            self._size +=1
+            self._size = self._size + 1
             return node
         raise ValueError("The list is not empty")
 
@@ -92,13 +92,13 @@ class MyList(PositionalList):
 
     def add_before(self,p,e):
         node = super().add_before(p,e)
-        if self._header == p._node:
+        if self.first() == p:
             self._header = node
         return self._make_position(node)
 
     def add_after(self,p,e):
         node = super().add_after(p, e)
-        if self._trailer == p._node:
+        if self.last() == p:
             self._trailer = node
         return self._make_position(node)
 
@@ -205,10 +205,10 @@ class MyList(PositionalList):
         self.delete(p)
 
     def __iter__(self):
-        cursor = self._header
-        while cursor != self._trailer:
-            yield cursor._element
-            cursor = cursor._next
+        cursor = self.first()
+        while cursor != self.last():
+            yield cursor.element()
+            cursor = self.after(cursor)
 
     def __str__(self):
         raise NotImplementedError("Not implemented")
