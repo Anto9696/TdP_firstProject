@@ -59,7 +59,7 @@ class MyList(PositionalList):
         if self.is_empty():
             node = self._insert_first_node(e)
         else:
-            node = self._insert_between(e,self._trailer,self._header)
+            node = super(PositionalList,self)._insert_between(e,self._trailer,self._header)
             self._header = node
         return self._make_position(node)
 
@@ -67,7 +67,7 @@ class MyList(PositionalList):
         if self.is_empty():
             node = self._insert_first_node(e)
         else:
-            node = self._insert_between(e,self._trailer,self._header)
+            node = super(PositionalList,self)._insert_between(e,self._trailer,self._header)
             self._trailer = node
         return self._make_position(node)
 
