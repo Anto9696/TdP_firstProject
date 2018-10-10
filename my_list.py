@@ -18,33 +18,19 @@ class MyList(PositionalList):
         None se la lista è vuota"""
         return self._make_position(self._trailer)
 
-    def _before(self,p): #restituisce il nodo
-        node=self._validate(p)
-        current_node=self._front
-        i=0
-        pre=None
-        while (i<self.__len__())  and  (current_node._next!=node):
-            i+=1
-            current_node=current_node._next
-            pre=current_node
-        if(i==self.__len__()):
-            raise ValueError
-        else:
-            return pre
-
     def before(self,p): #restituisce l'elemento
-        var=self._before(p)
+        var=super().before(p)
         if(var is None):
             return None
         else:
-            return var._element
+            return var.element()
 
     def after(self,p):
-        if(p._node.next is None):
+        var=super().after(p)
+        if(var is None):
             return None
         else:
-            node=self._validate(p)
-            return node.next._element
+            return var.element()
 
     def is_empty(self):
         """restituisce True se la lista è vuota e False altrimenti"""
@@ -156,9 +142,9 @@ class MyList(PositionalList):
 
     def copy(self):
         new=MyList()
-        current_node=self._front
+        current_node=self._trailer
         i=0
-        while (i<self.__len__()):
+        while (i<self._size):
             i+=1
             new.add_last(current_node._element)
             current_node=current_node._next
@@ -198,8 +184,6 @@ class MyList(PositionalList):
     def __setitem__(self, key, value):
         raise NotImplementedError("Not implemented")
 
-    def __len__(self):
-        return self._size
 
     def __del__(self,p):
         self.delete(p)
