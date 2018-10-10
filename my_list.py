@@ -70,6 +70,7 @@ class MyList(PositionalList):
             node._next = node
             self._header = node
             self._trailer = node
+            self._size +=1
             return node
         raise ValueError("The list is not empty")
 
@@ -205,7 +206,7 @@ class MyList(PositionalList):
 
     def __iter__(self):
         cursor = self._header
-        while cursor is not self._trailer:
+        while cursor != self._trailer:
             yield cursor._element
             cursor = cursor._next
 
