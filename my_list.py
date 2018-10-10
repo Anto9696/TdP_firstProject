@@ -8,6 +8,10 @@ class MyList(PositionalList):
         self._trailer = None
         self._size = 0
 
+    def _make_position(self, node):
+        """Return Position instance for given node (or None if sentinel)."""
+        return self.Position(self, node)  # legitimate position
+
     def first(self):
         """restituisce la Position dell’elemento che è identificato come il primo oppure
         None se la lista è vuota"""
