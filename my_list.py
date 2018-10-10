@@ -138,13 +138,14 @@ class MyList(PositionalList):
 
     def count(self,e):
         """Resituisce il numero di occorrenze di e nella Lista"""
-        current_node = self._header
-        counter = 0
-        for i in range(len(self)-1):
-            if current_node._element == e:
-                counter += 1
-            current_node = current_node._next
-        return counter
+        if not self.is_empty():
+            current_node = self._header
+            counter = 0
+            while current_node != self._trailer:
+                if current_node._element == e:
+                    counter += 1
+                current_node = current_node._next
+            return counter
         # raise NotImplementedError("Not implemented")
 
     def reverse(self):
