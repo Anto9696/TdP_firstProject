@@ -62,17 +62,43 @@ class MyList(PositionalList):
         return True
         # raise NotImplementedError("Not implemented")
 
+    def _insert_first_node(self,e):
+        if self.is_empty():
+            node = self._Node(e,None,None)
+            node._prev = node
+            node._next = node
+            self._header = node
+            self._trailer = node
+            return node
+        raise ValueError("The list is not empty")
+
     def add_first(self,e):
-        raise NotImplementedError("Not implemented")
+        if self.is_empty():
+            node = self._insert_first_node(e)
+        else:
+            node = self._insert_between(e,self._trailer,self._header)
+            self._header = node
+        return self._make_position(node)
 
     def add_last(self,e):
-        raise NotImplementedError("Not implemented")
+        if self.is_empty():
+            node = self._insert_first_node(e)
+        else:
+            node = self._insert_between(e,self._trailer,self._header)
+            self._trailer = node
+        return self._make_position(node)
 
     def add_before(self,p,e):
-        raise NotImplementedError("Not implemented")
+        node = super().add_before(p,e)
+        if self._header == p._node:
+            self._header = node
+        return self._make_position(node)
 
     def add_after(self,p,e):
-        raise NotImplementedError("Not implemented")
+        node = super().add_after(p, e)
+        if self._trailer == p._node:
+            self._trailer = node
+        return self._make_position(node)
 
     def find(self,e):
         """Restituisce una Position contenente la prima occorrenza dell’elemento e
@@ -136,7 +162,19 @@ class MyList(PositionalList):
 
 
     def __add__(self, other):
-        raise NotImplementedError("Not implemented")
+        if not isinstance(other,MyList):
+            raise TypeError("Not a MyList")
+        elif other.is_empty():
+            return self.copy()
+        elif self.is_empty():
+            return other.copy()
+        else:
+            new_list = MyList()
+            for element in self:
+                new_list.add_last(element)
+            for element in other:
+                new_list.add_last(element)
+            return new_list
 
     def __contains__(self, item):
         current_position = self.first()
@@ -162,7 +200,10 @@ class MyList(PositionalList):
         self.delete(p)
 
     def __iter__(self):
-        raise NotImplementedError("Not implemented")
+        cursor = self._header
+        while cursor is not self._trailer:
+            yield cursor._element
+            cursor = cursor._next
 
     def __str__(self):
         raise NotImplementedError("Not implemented")
