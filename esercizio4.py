@@ -1,5 +1,6 @@
 from my_list import MyList
 from esercizio2 import bubblesorted
+from esercizio3 import merge
 
 class ScoreBoard:
     class Score:
@@ -33,15 +34,20 @@ class ScoreBoard:
 
     def merge(self,new):
         """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
-        raise NotImplementedError("Not implemented")
+        merge(self._best, new)
+        return self.top(10)
+        # raise NotImplementedError("Not implemented")
 
     def top(self,i):
         """Restituisce i migliori i score nello ScoreBoard"""
         ordered_score = bubblesorted(self._best)
         for el in ordered_score:
-
+            pass
         # raise NotImplementedError("Not implemented")
 
     def last(self,i):
         """Restituisce i peggiori i score nello ScoreBoard"""
+        ordered_score = bubblesorted(self._best)
+        for el in ordered_score:
+            pass
         raise NotImplementedError("Not implemented")
