@@ -55,7 +55,7 @@ class MyList(PositionalList):
         """restituisce True se la lista è ordinata e False altrimenti"""
         current_node = self._validate(self.first())
 
-        for i in range(self.__len__()):
+        for i in range(len(self)-1):
             if current_node._element < current_node._next._element:
                 current_node = current_node._next
             else:
@@ -117,7 +117,7 @@ class MyList(PositionalList):
 
     def delete(self,p):
         """Rimuove e restituisce l’elemento in Position p dalla lista e invalida p"""
-        remove_pos=self.find(p.element())
+        remove_pos = self.find(p.element())
         if self.first() == remove_pos:  # if the position is header
             self.first()._node = self.first()._node._next
             self._size -= 1
@@ -126,31 +126,15 @@ class MyList(PositionalList):
             print("Non-existent position")
             return None
         else:
-            prev = self._validate(remove_pos._node._prev)
-            next = self._validate(remove_pos._node._next)
-            elem = remove_pos.element()
-            prev._next = next
-            next._prev = prev
-            remove_pos._node._next = remove_pos._node._prev = remove_pos._node._element = None
-            self._size -= 1
-            return elem
-
-        # FIRST VER
-        # current_node=self._front
-        # i=0
-        # while (i<self.__len__() ):
-        #     i+=1
-        #     if( p==self._make_position(current_node._next)):
-        #         var= current_node._next
-        #         element=current_node._next._element
-        #         current_node._next=current_node._next._next
-        #         var=None
-        #         return element
-        #     current_node=current_node._next
-        # return None
-
-
-
+            return super().delete(p)
+            # prev = self._validate(remove_pos._node._prev)
+            # next = self._validate(remove_pos._node._next)
+            # elem = remove_pos.element()
+            # prev._next = next
+            # next._prev = prev
+            # remove_pos._node._next = remove_pos._node._prev = remove_pos._node._element = None
+            # self._size -= 1
+            # return elem
 
     def clear(self):
         raise NotImplementedError("Not implemented")
