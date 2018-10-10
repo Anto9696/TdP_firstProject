@@ -92,13 +92,13 @@ class MyList(PositionalList):
     def find(self,e):
         """Restituisce una Position contenente la prima occorrenza dell’elemento e
         nella lista o None se e non è presente"""
-        current_node = self._header
-        while True:
-            if current_node == e:
-                return self._make_position(current_node)
-            elif current_node == self._trailer:
-                return None
-        # raise NotImplementedError("Not implemented")
+        if self.is_empty():
+            return None
+        else:
+            current_node = self._header
+            while current_node != self._trailer and current_node._element != e:
+                current_node = current_node._next
+            return self._make_position(current_node) if current_node._element == e else None
 
     def replace(self,p,e):
         raise NotImplementedError("Not implemented")
