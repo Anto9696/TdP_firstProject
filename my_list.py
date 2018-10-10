@@ -186,7 +186,6 @@ class MyList(PositionalList):
                 return True
             current_position = self._make_position(current_position._node._next)
         return False
-        # raise NotImplementedError("Not implemented")
 
     def __getitem__(self, item):
         self._validate(item)
