@@ -23,14 +23,14 @@ class MyList(PositionalList):
         return self._make_position(self._trailer)
 
     def before(self,p): #restituisce l'elemento
-        var=super().before(p)
+        var=super().before(self,p)
         if(var is None):
             return None
         else:
             return var.element()
 
     def after(self,p):
-        var=super().after(p)
+        var=super().after(self,p)
         if(var is None):
             return None
         else:
