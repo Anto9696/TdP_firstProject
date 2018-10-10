@@ -45,6 +45,7 @@ class ScoreBoard:
         for el in bubblesorted(self._best):
             if counter > imp:
                 yield el
+            counter += 1
         # raise NotImplementedError("Not implemented")
 
     def last(self,i):
@@ -52,6 +53,7 @@ class ScoreBoard:
         counter = 0
         for el in bubblesorted(self._best):
             if counter < i:
+                counter += 1
                 yield el
             else:
                 break
