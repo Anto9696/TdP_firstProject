@@ -84,7 +84,7 @@ class MyList(PositionalList):
 
     def add_after(self,p,e):
         node = self._validate(p)
-        new_node = super(PositionalList, self)._insert_between(e, node._prev, node)
+        new_node = super(PositionalList, self)._insert_between(e, node, node._next)
         if self.last() == p:
             self._trailer = new_node
         return self._make_position(new_node)
