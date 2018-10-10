@@ -32,11 +32,6 @@ class MyList(PositionalList):
         else:
             return var.element()
 
-    def is_empty(self):
-        """restituisce True se la lista è vuota e False altrimenti"""
-        return self._size == 0
-        # raise NotImplementedError("Not implemented")
-
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
         current_node = self._validate(self.first())
@@ -178,7 +173,14 @@ class MyList(PositionalList):
         # raise NotImplementedError("Not implemented")
 
     def __getitem__(self, item):
-        return item.element()
+        if not isinstance(self,MyList):
+            raise TypeError("Not a MyList")
+        elif self.is_empty():
+            raise TypeError("MyList is empty")
+        elif self.find(item.element) is None:
+            raise TypeError("Non-existent position")
+        else:
+            return item.element()
         #raise NotImplementedError("Not implemented")
 
     def __setitem__(self, key, value):
