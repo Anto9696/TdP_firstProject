@@ -1,35 +1,12 @@
 from TdP_collections.list.positional_list import PositionalList
 
-class MyList:
-    class _Node:
-        __slots__ = '_element', '_next'  # streamline memory
+class MyList(PositionalList):
 
-        def __init__(self, element, next):  # initialize node's fields
-            self._element = element  # user's element
-            self._next = next  # next node reference
-
-    class Position(PositionalList.Position):
-        pass
-
-    __slots__ = '_size', '_front', '_back'
     def __init__(self):
         """Create an empty list."""
-        self._front = None
-        self._back = None
+        self._header = None
+        self._trailer = None
         self._size = 0
-
-    def _validate(self,p):
-        if not isinstance(p, self.Position):
-            raise TypeError('p must be proper Position type')
-        if p._container is not self:
-            raise ValueError('p does not belong to this container')
-        if p._node._next is None:  # convention for deprecated nodes
-            raise ValueError('p is no longer valid')
-        return p._node
-
-    def _make_position(self, node):
-        """Return Position instance for given node (or None if sentinel)."""
-        return self.Position(self, node)  # legitimate position
 
     def first(self):
         return self._make_position(self._front)
