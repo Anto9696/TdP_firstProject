@@ -195,16 +195,15 @@ class MyList(PositionalList):
         self.delete(p)
 
     def __iter__(self):
-        cursor = self.first()
-        while cursor != self.last():
-            yield cursor.element()
-            cursor = self.after(cursor)
+        if cursor
+        cursor = self._header
+        while cursor != self._trailer:
+            yield cursor._element
+            cursor = cursor._next
 
     def __str__(self):
         raise NotImplementedError("Not implemented")
 
-    def bubblesorted(self):
-        raise NotImplementedError("Not implemented")
 
 # if __name__=="__main__":
 #     d = MyList()
