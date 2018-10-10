@@ -2,6 +2,7 @@ from my_list import MyList
 from esercizio2 import bubblesorted
 from esercizio3 import merge
 
+
 class ScoreBoard:
     class Score:
         def __init__(self):
