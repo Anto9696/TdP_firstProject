@@ -1,7 +1,6 @@
 from my_list import MyList
 
 
-
 class ScoreBoard:
     class Score:
         def __init__(self):
@@ -33,10 +32,13 @@ class ScoreBoard:
         # raise NotImplementedError("Not implemented")
 
     def merge(self,new):
+        """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
         raise NotImplementedError("Not implemented")
 
     def top(self,i):
+        """Restituisce i migliori i score nello ScoreBoard"""
         raise NotImplementedError("Not implemented")
 
     def last(self,i):
+        """Restituisce i peggiori i score nello ScoreBoard"""
         raise NotImplementedError("Not implemented")
