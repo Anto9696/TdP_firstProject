@@ -125,7 +125,16 @@ class MyList(PositionalList):
             # return elem
 
     def clear(self):
-        raise NotImplementedError("Not implemented")
+        """Rimuove tutti gli elementi della lista invalidando le corrispondenti Position"""
+        if not self.is_empty():
+            cursor = self._header
+            while cursor != self._trailer:
+                next = cursor._next
+                cursor._next = None         #invalidation of a node
+                cursor = next
+            self._header = None
+            self._trailer = None
+            self._size = 0
 
     def count(self,e):
         """Resituisce il numero di occorrenze di e nella Lista"""
