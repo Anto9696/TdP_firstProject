@@ -1,5 +1,5 @@
 from my_list import MyList
-
+from esercizio2 import bubblesorted
 
 class ScoreBoard:
     class Score:
@@ -37,7 +37,10 @@ class ScoreBoard:
 
     def top(self,i):
         """Restituisce i migliori i score nello ScoreBoard"""
-        raise NotImplementedError("Not implemented")
+        ordered_score = bubblesorted(self._best)
+        for el in ordered_score:
+
+        # raise NotImplementedError("Not implemented")
 
     def last(self,i):
         """Restituisce i peggiori i score nello ScoreBoard"""
