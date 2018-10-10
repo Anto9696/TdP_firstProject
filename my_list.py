@@ -195,11 +195,13 @@ class MyList(PositionalList):
         self.delete(p)
 
     def __iter__(self):
-        if cursor
-        cursor = self._header
-        while cursor != self._trailer:
+        if not self.is_empty():
+            cursor = self._header
             yield cursor._element
-            cursor = cursor._next
+            while cursor != self._trailer:
+                cursor = cursor._next
+                yield cursor._element
+
 
     def __str__(self):
         raise NotImplementedError("Not implemented")
