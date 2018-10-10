@@ -38,7 +38,7 @@ class MyList(PositionalList):
 
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
-        current_node = self._validate(self.first())
+        current_node = self.first()._node
 
         for i in range(len(self)-1):
             if current_node._element < current_node._next._element:
