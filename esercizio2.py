@@ -44,3 +44,7 @@ if __name__=="__main__":
     print("ORDERED LIST 3")
     for e in bubblesorted(list3):
         print(e)
+
+    print("LIST 3")
+    for e in list3:
+        print(e)
