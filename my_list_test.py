@@ -21,7 +21,6 @@ for i in range(10):
     print("ADDED ",i+11," at the end of LIST2 ")
 
 print("LIST 1 - len ",len(list1))
-cursor=list1._header
 for e in list1:
     print("Value "+str(e))
 
@@ -49,3 +48,8 @@ for e in list3:
 
 print(list3.find(-100).element())
 print(list3.find(-101010))
+
+list1.clear()
+print("List 1 cleared")
+for e in list1:
+    print("Value "+str(e))
