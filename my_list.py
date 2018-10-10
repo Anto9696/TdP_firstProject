@@ -196,7 +196,7 @@ class MyList(PositionalList):
         raise NotImplementedError("Not implemented")
 
 
-    def __del__(self,p):
+    def __delitem__(self,p):
         self.delete(p)
 
     def __iter__(self):

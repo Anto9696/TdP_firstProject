@@ -53,3 +53,7 @@ list1.clear()
 print("List 1 cleared")
 for e in list1:
     print("Value "+str(e))
+
+print(list3[list3.find(1)])
+print(list3.find(1) in list3)
+del list3[list3.find(1)]
