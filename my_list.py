@@ -40,7 +40,7 @@ class MyList(PositionalList):
         """restituisce True se la lista è ordinata e False altrimenti"""
         current_node = self._header
 
-        for i in range(len(self)-1):
+        while current_node != self._trailer:
             if current_node._element < current_node._next._element:
                 current_node = current_node._next
             else:
