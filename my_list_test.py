@@ -56,4 +56,47 @@ del list3[list3.find(1)]
 print("LIST 3: ", str(list3))
 
 list3.delete(list3.find(9))
+print("DELETE 9 IN LIST 3")
 print("LIST 3: ", str(list3))
+
+list4 = MyList()
+print("LIST 4: ", str(list4))
+print("REVERSE OF LIST 4: ", str(list4.reverse()))
+list4.add_first(-2)
+print("ADDED -2 to LIST4")
+print("REVERSE OF LIST 4: ", str(list4.reverse()))
+list4.add_first(10)
+print("ADDED 10 to LIST4")
+print("LIST 4: ", str(list4))
+print("REVERSE OF LIST 4: ", str(list4.reverse()))
+print("LIST 3: ", str(list3))
+print("REVERSE OF LIST 3: ", list3.reverse())
+
+print("REPLACE -100 WITH -500")
+old_element = list3.replace(list3.find(-100), -500)
+print("LIST 3: ", str(list3))
+print("OLD ELEMENT: ", str(old_element))
+print("REPLACE 27 (not exist) WITH -27")
+try:
+    old_element = list3.replace(list3.find(27), -27)
+    print("LIST 3: ", str(list3))
+    print("OLD ELEMENT: ", str(old_element))
+except TypeError:
+    print("ELEMENT DOES NOT EXSIST")
+
+print("LIST 2: ", str(list2))
+print("REPLACE 12 WITH -1000")
+list2[list2.find(12)]= -1000
+print("LIST 2: ", str(list2))
+
+
+
+
+
+
+
+
+
+
+
+
