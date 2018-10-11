@@ -137,11 +137,14 @@ class MyList(PositionalList):
         if len(self) <= 1:
             return self
         tmp = self._header
+        old_header = self._header
         for i in range(len(self)):
             old_prev = tmp._prev
             tmp._prev = tmp._next
             tmp._next = old_prev
             tmp = tmp._prev
+        self._header = self._trailer
+        self._trailer = old_header
         return self
 
 
