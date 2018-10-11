@@ -95,7 +95,13 @@ class MyList(PositionalList):
             return self._make_position(current_node) if current_node._element == e else None
 
     def replace(self,p,e):
-        raise NotImplementedError("Not implemented")
+
+        """Sostituisce l’elemento in Position p con e restituisce il vecchio elemento"""
+        p = self._validate(p)
+        old_elem = p._node._element
+        p._node._element = e
+        return old_elem
+
 
     def delete(self,p):
         """Rimuove e restituisce l’elemento in Position p dalla lista e invalida p"""
@@ -143,9 +149,18 @@ class MyList(PositionalList):
         # raise NotImplementedError("Not implemented")
 
     def reverse(self):
-        raise NotImplementedError("Not implemented")
+        """Inverte l’ordine degli elementi nella lista"""
+        if len(self) <= 1:
+            return self
+        tmp = self._header
+        for i in range(len(self)):
+            old_prev = tmp._node._prev
+            tmp._node._prev = tmp._node._next
+            tmp._node._next = old_prev
+        return self
 
-    def copy(self):
+
+def copy(self):
         new=MyList()
         current_node=self._trailer
         i=0
@@ -187,7 +202,8 @@ class MyList(PositionalList):
         return item.element()
 
     def __setitem__(self, key, value):
-        raise NotImplementedError("Not implemented")
+        """Sostituisce l’elemento nella position p con e"""
+        self.replace(p, e)
 
     def __delitem__(self,p):
         self.delete(p)
@@ -203,7 +219,12 @@ class MyList(PositionalList):
 
 
     def __str__(self):
-        raise NotImplementedError("Not implemented")
+        """Rappresenta il contenuto della lista come una sequenza di elementi,
+        separati da virgole, partendo da quello che è identificato come primo"""
+        str = ""
+        for elem in self:
+            str += str(elem) + ", "
+        return str[:-2]
 
 
 # if __name__=="__main__":
