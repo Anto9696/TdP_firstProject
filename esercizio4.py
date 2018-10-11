@@ -86,5 +86,5 @@ if __name__ == "__main__":
     print(SB.is_empty()) # verifico is_empty
     print(len(SB))
     print(SB._max)
-
+    print("A")
 
