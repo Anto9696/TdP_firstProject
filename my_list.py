@@ -94,13 +94,6 @@ class MyList(PositionalList):
                 current_node = current_node._next
             return self._make_position(current_node) if current_node._element == e else None
 
-    def replace(self,p,e):
-
-        """Sostituisce l’elemento in Position p con e restituisce il vecchio elemento"""
-        p = self._validate(p)
-        old_elem = p._node._element
-        p._node._element = e
-        return old_elem
 
 
     def delete(self,p):
@@ -154,9 +147,10 @@ class MyList(PositionalList):
             return self
         tmp = self._header
         for i in range(len(self)):
-            old_prev = tmp._node._prev
-            tmp._node._prev = tmp._node._next
-            tmp._node._next = old_prev
+            old_prev = tmp._prev
+            tmp._prev = tmp._next
+            tmp._next = old_prev
+            tmp = tmp._prev
         return self
 
 
