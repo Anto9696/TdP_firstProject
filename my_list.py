@@ -40,7 +40,6 @@ class MyList(PositionalList):
             else:
                 return False
         return True
-        # raise NotImplementedError("Not implemented")
 
     def _insert_first_node(self,e):
         if self.is_empty():
@@ -115,14 +114,7 @@ class MyList(PositionalList):
             return None
         else:
             return super().delete(p)
-            # prev = self._validate(remove_pos._node._prev)
-            # next = self._validate(remove_pos._node._next)
-            # elem = remove_pos.element()
-            # prev._next = next
-            # next._prev = prev
-            # remove_pos._node._next = remove_pos._node._prev = remove_pos._node._element = None
-            # self._size -= 1
-            # return elem
+
 
     def clear(self):
         """Rimuove tutti gli elementi della lista invalidando le corrispondenti Position"""
@@ -146,7 +138,6 @@ class MyList(PositionalList):
                     counter += 1
                 current_node = current_node._next
             return counter
-        # raise NotImplementedError("Not implemented")
 
     def reverse(self):
         """Inverte l’ordine degli elementi nella lista"""
@@ -226,18 +217,3 @@ class MyList(PositionalList):
             string += str(el) + ", "
         return string[ :-2]
 
-
-# if __name__=="__main__":
-#     d = MyList()
-#     d.append(5)
-#     d.append(7)
-#     d.append(8)
-#     d.show()
-#     # d.remove(7)
-#     # d.show()
-#     # d.append(6)
-#     # d.show()
-#     # d.reverse()
-#     # d.show()
-#     d.insert(1, 9)
-#     d.show()
