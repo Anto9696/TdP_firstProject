@@ -67,12 +67,11 @@ class ScoreBoard:
             if counter >= imp:
                 yield el
             counter += 1
-        # raise NotImplementedError("Not implemented")
 
     def last(self, i):
         """Restituisce i peggiori i score nello ScoreBoard"""
         cur = self._best._header
-        lis = MyList()
+        lis = CircularPositionalList()
         for p in range(len(self._best)):
             lis.add_last(cur._element._score)
             cur = cur._next
@@ -83,7 +82,6 @@ class ScoreBoard:
             else:
                 break
             counter += 1
-        # raise NotImplementedError("Not implemented")
 
 
 if __name__ == "__main__":
