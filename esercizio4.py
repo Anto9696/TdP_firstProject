@@ -78,7 +78,7 @@ class ScoreBoard:
             cur = cur._next
         counter = 0
         for el in bubblesorted(lis):
-            if counter <= i:
+            if counter < i:
                 yield el
             else:
                 break
@@ -108,5 +108,8 @@ if __name__ == "__main__":
     SB2.insert(score3)
     #print(SB2._best._header._element._score)
 
-    for e in SB.top(2):
+    for e in SB.top(1):
+        print(e)
+
+    for e in SB.last(1):
         print(e)
