@@ -88,10 +88,10 @@ class MyList(PositionalList):
         if self.is_empty():
             return None
         else:
-            current_node = self._header
-            while current_node != self._trailer and current_node._element != e:
-                current_node = current_node._next
-            return self._make_position(current_node) if current_node._element == e else None
+            current_position = self.first()
+            while current_position != self.last() and current_position.element() != e:
+                current_position = super().after(current_position)
+            return current_position if current_position.element() == e else None
 
 
 
