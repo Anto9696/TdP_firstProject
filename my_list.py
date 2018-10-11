@@ -160,7 +160,7 @@ class MyList(PositionalList):
         return self
 
 
-def copy(self):
+    def copy(self):
         new=MyList()
         current_node=self._trailer
         i=0
