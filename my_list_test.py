@@ -21,17 +21,14 @@ for i in range(10):
     print("ADDED ",i+11," at the end of LIST2 ")
 
 print("LIST 1 - len ",len(list1))
-for e in list1:
-    print("Value "+str(e))
+print("LIST 1: ", str(list1))
 
 print("LIST 2 - len ",len(list2))
-for e in list2:
-    print("Value "+str(e))
+print("LIST 2: ", str(list2))
 
 list3 = list1 + list2
 print("LIST 3 - len ",len(list3))
-for e in list3:
-    print("Value "+str(e))
+print("LIST 3: ", str(list3))
 
 value=list3.add_before(list3.first(),-1)
 print("ADDED  ",value.element()," before first of list3")
@@ -43,17 +40,17 @@ value=list3.add_after(list3.find(15),-100)
 print("ADDED  ",value.element()," after 15 of list3")
 
 print("AFTER INSERT LIST 3 - len ",len(list3))
-for e in list3:
-    print("Value "+str(e))
+print("LIST 3: ", str(list3))
 
 print(list3.find(-100).element())
 print(list3.find(-101010))
 
 list1.clear()
 print("List 1 cleared")
-for e in list1:
-    print("Value "+str(e))
+print("LIST 1: ", str(list1))
 
+print("LIST 3: ", str(list3))
 print(list3[list3.find(1)])
 print(list3.find(1) in list3)
 del list3[list3.find(1)]
+print("LIST 3: ", str(list3))

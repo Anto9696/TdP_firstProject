@@ -221,10 +221,10 @@ class MyList(PositionalList):
     def __str__(self):
         """Rappresenta il contenuto della lista come una sequenza di elementi,
         separati da virgole, partendo da quello che è identificato come primo"""
-        str = ""
-        for elem in self:
-            str += str(elem) + ", "
-        return str[:-2]
+        string = ""
+        for el in self:
+            string += str(el) + ", "
+        return string[ :-2]
 
 
 # if __name__=="__main__":
