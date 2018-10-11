@@ -201,9 +201,9 @@ class MyList(PositionalList):
         self._validate(item)
         return item.element()
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, p, e):
         """Sostituisce l’elemento nella position p con e"""
-        self.replace(p, e)
+        self.replace(p, e)    #in replace viene validata già la position
 
     def __delitem__(self,p):
         self.delete(p)
