@@ -1,7 +1,7 @@
-from my_list import MyList
+from my_list import CircularPositionalList
 
-list1 = MyList()
-list2 = MyList()
+list1 = CircularPositionalList()
+list2 = CircularPositionalList()
 
 
 
@@ -59,7 +59,7 @@ list3.delete(list3.find(9))
 print("DELETE 9 IN LIST 3")
 print("LIST 3: ", str(list3))
 
-list4 = MyList()
+list4 = CircularPositionalList()
 print("LIST 4: ", str(list4))
 print("REVERSE OF LIST 4: ", str(list4.reverse()))
 list4.add_first(-2)

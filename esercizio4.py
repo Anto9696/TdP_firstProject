@@ -1,4 +1,4 @@
-from my_list import MyList
+from my_list import CircularPositionalList
 from esercizio2 import bubblesorted
 from esercizio3 import merge
 
@@ -18,7 +18,7 @@ class Score:
 class ScoreBoard:
 
     def __init__(self, x):
-        self._best = MyList()
+        self._best = CircularPositionalList()
         self._max = x
         self._size = 0
 
@@ -58,7 +58,7 @@ class ScoreBoard:
         """Restituisce i migliori i score nello ScoreBoard"""
         imp = len(self._best) - i
         cur = self._best._header
-        lis = MyList()
+        lis = CircularPositionalList()
         for p in range(len(self._best)):
             lis.add_last(cur._element._score)
             cur = cur._next
