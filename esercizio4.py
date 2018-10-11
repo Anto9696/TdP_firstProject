@@ -33,11 +33,15 @@ class ScoreBoard:
         correntemente salvati. Non incrementa la dimensione dello scoreboard"""
         if len(self) < self._max:
             score = self._best._header
-            for i in range(len(self) - 1):
-                if s._score < score:
-                    raise TypeError("Too bad score")
+            if score is None:
                 self._best.add_last(s)
                 self._size += 1
+            else:
+                for i in range(len(self) - 1):
+                    if s._score < score:
+                        raise TypeError("Too bad score")
+                    self._best.add_last(s)
+                    self._size += 1
         # raise NotImplementedError("Not implemented")
 
     def merge(self, new):
@@ -77,4 +81,9 @@ if __name__ == "__main__":
 
     SB = ScoreBoard(4)
     print(SB.is_empty()) # verifico is_empty
+    print(len(SB))
+    SB.insert(score1)
+    print(SB.is_empty()) # verifico is_empty
+    print(len(SB))
+    print(SB._max)
 
