@@ -54,3 +54,6 @@ print(list3[list3.find(1)])
 print(list3.find(1) in list3)
 del list3[list3.find(1)]
 print("LIST 3: ", str(list3))
+
+list3.delete(list3.find(9))
+print("LIST 3: ", str(list3))
