@@ -71,7 +71,19 @@ class ScoreBoard:
 
     def last(self, i):
         """Restituisce i peggiori i score nello ScoreBoard"""
-        raise NotImplementedError("Not implemented")
+        cur = self._best._header
+        lis = MyList()
+        for p in range(len(self._best)):
+            lis.add_last(cur._element._score)
+            cur = cur._next
+        counter = 0
+        for el in bubblesorted(lis):
+            if counter < i:
+                yield el
+            else:
+                break
+            counter += 1
+        # raise NotImplementedError("Not implemented")
 
 
 if __name__ == "__main__":
@@ -96,5 +108,8 @@ if __name__ == "__main__":
     SB2.insert(score3)
     #print(SB2._best._header._element._score)
 
-    for e in SB.top(2):
+    for e in SB.top(1):
+        print(e)
+
+    for e in SB.last(1):
         print(e)
