@@ -37,11 +37,15 @@ class ScoreBoard:
                 self._best.add_last(s)
                 self._size += 1
             else:
-                for i in range(len(self) - 1):
-                    if s._score < score:
+                i = 0
+                for i in range(len(self._best)):
+                    # print(s._score, score._element._score)
+                    i +=1
+                    if s._score < score._element._score:
                         raise TypeError("Too bad score")
-                    self._best.add_last(s)
-                    self._size += 1
+                    score = score._next
+                self._best.add_last(s)
+                self._size += 1
         # raise NotImplementedError("Not implemented")
 
     def merge(self, new):
@@ -73,7 +77,9 @@ class ScoreBoard:
 
 
 if __name__ == "__main__":
-    score1 = score2 = score3 = Score()
+    score1 = Score()
+    score2 = Score()
+    score3 = Score()
     score1.add_element("Gino", 10, "15/10/2017")
     # print(score1._player, " ", score1._score, " ", score1._date)
     score2.add_element("AAA", 5, "15/10/2017")
@@ -85,6 +91,11 @@ if __name__ == "__main__":
     SB.insert(score1)
     print(SB.is_empty()) # verifico is_empty
     print(len(SB))
-    print(SB._max)
-    print("A")
+    SB.insert(score3)
+    print(len(SB))
+    # print(SB._max)
+    SB2 = ScoreBoard(1)
+    SB2.insert(score3)
+    #print(SB2._best._header._element._score)
 
+    print(SB.top(1))
