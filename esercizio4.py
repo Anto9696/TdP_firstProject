@@ -50,31 +50,28 @@ class ScoreBoard:
 
     def merge(self, new):
         """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
-        l = MyList()
-        l = merge(self._best, new)
-        return l.top(10)
+        lis = merge(self._best, new)
+        return lis.top(10)
         # raise NotImplementedError("Not implemented")
 
     def top(self, i):
         """Restituisce i migliori i score nello ScoreBoard"""
         imp = len(self._best) - i
+        cur = self._best._header
+        lis = MyList()
+        for p in range(len(self._best)):
+            lis.add_last(cur._element._score)
+            cur = cur._next
         counter = 0
-        for el in bubblesorted(self._best):
-            if counter > imp:
+        for el in bubblesorted(lis):
+            if counter >= imp:
                 yield el
             counter += 1
         # raise NotImplementedError("Not implemented")
 
     def last(self, i):
         """Restituisce i peggiori i score nello ScoreBoard"""
-        counter = 0
-        for el in bubblesorted(self._best):
-            if counter < i:
-                counter += 1
-                yield el
-            else:
-                break
-        # raise NotImplementedError("Not implemented")
+        raise NotImplementedError("Not implemented")
 
 
 if __name__ == "__main__":
@@ -99,4 +96,5 @@ if __name__ == "__main__":
     SB2.insert(score3)
     #print(SB2._best._header._element._score)
 
-    print(SB.top(1))
+    for e in SB.top(2):
+        print(e)
