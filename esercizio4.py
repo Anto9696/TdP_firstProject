@@ -50,8 +50,9 @@ class ScoreBoard:
 
     def merge(self, new):
         """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
-        merge(self._best, new)
-        return self.top(10)
+        l = MyList()
+        l = merge(self._best, new)
+        return l.top(10)
         # raise NotImplementedError("Not implemented")
 
     def top(self, i):
