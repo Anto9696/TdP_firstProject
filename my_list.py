@@ -100,9 +100,9 @@ class CircularPositionalList(PositionalList):
             raise ValueError("Non-existent position")
         else:
             if self.first() == remove_pos:  # if the position is header
-                self._header = super().after(self.first())._node            # Non so come non usare _node
+                self._header = self._validate(super().after(self.first()))         # Non so come non usare _node
             elif self.last() == remove_pos:
-                self._trailer = super().before(self.last())._node           # Non so come non usare _node
+                self._trailer = self._validate(super().before(self.last()))           # Non so come non usare _node
             return super().delete(p)
 
     def clear(self):
@@ -111,7 +111,7 @@ class CircularPositionalList(PositionalList):
             cursor = self.first()
             while not self.is_empty():
                 next_cur = super().after(cursor)
-                self._delete_node(cursor._node)                             # Non so come non usare _node
+                self.delete(cursor)                             # Non so come non usare _node
                 cursor = next_cur
             self._header = None
             self._trailer = None
