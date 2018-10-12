@@ -140,6 +140,7 @@ class CircularPositionalList(PositionalList):
         self._trailer = old_header
         return self
 
+
     def copy(self):
         new = CircularPositionalList()
         for element in self:

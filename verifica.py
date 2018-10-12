@@ -47,25 +47,25 @@ for i in range(10):
     list2.add_first(i)
     print("ADDED ", i, " at the beginning of LIST2 ")
     list1.add_last(i + 11)
-    print("ADDED ",i+11," at the end of LIS1 ")
+    print("ADDED ",i+11," at the end of LIST1 ")
     list2.add_last(i + 11)
     print("ADDED ", i + 11, " at the end of LIST2 ")
 
-print("LIST 1 - len ",len(list1))
+print("LIST 1 - len: ",len(list1))
 print("LIST 1: ", str(list1))
 
-print("LIST 2 - len ",len(list2))
+print("LIST 2 - len: ",len(list2))
 print("LIST 2: ", str(list2))
 
 print("-----------------------------------------------------------")
 
 list3 = list1 + list2
-print("LIST 3 - len ",len(list3))
+print("LIST 3 - len: ",len(list3))
 print("LIST 3: ", str(list3))
 print("REVERSE OF LIST 3: ", str(list3.reverse()))
 print("CLEAR LIST 3")
 list3.clear()
-print("LIST 3 - len ",len(list3))
+print("LIST 3 - len: ",len(list3))
 print("LIST 3: ", str(list3))
 
 
