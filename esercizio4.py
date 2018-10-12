@@ -107,7 +107,7 @@ class ScoreBoard:
         if not isinstance(new, ScoreBoard):
             raise TypeError("The operand is not a ScoreBoard")
 
-        score_merge = merge(self._best.reverse(), new._best.reverse()).reverse()
+        score_merge = merge(self._best.reverse(), new._best.reverse()).reverse() #Potrei aver invertito tutto....
         counter = 0
         for score in score_merge:
             yield score
