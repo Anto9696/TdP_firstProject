@@ -67,7 +67,7 @@ class ScoreBoard:
 
     def merge(self, new):
         """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
-        lis = merge(self._best, new)    # NON VA PERCHè NON SONO CURRENTPOSITIONAL LIST
+        lis = merge(self._best, new)    # NON VA PERCHè NON SONO CircularPositionalList
         return lis.top(10)
 
     def top(self, i):
