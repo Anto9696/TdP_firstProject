@@ -128,18 +128,16 @@ class CircularPositionalList(PositionalList):
         """Inverte l’ordine degli elementi nella lista"""
         if len(self) <= 1:
             return self
-        tmp = self.last()
+        tmp = self._header
         old_header = self._header
+        self._header = self._trailer
         for i in range(len(self)):
-            self.add_last(tmp.element())
-            tmp = super().before(tmp)
-            self.delete(super().after(tmp))
-            #self.delete(old_position)        #vecchio codice senza information hiding
-            #tmp._prev = tmp._next
-            #tmp._next = old_prev
-            #tmp = tmp._prev
-        #self._header = self._trailer
-        #self._trailer = old_header
+            old_prev = tmp._prev
+            tmp._prev = tmp._next
+            tmp._next = old_prev
+            tmp = tmp._next
+        self._header = self._trailer
+        self._trailer = old_header
         return self
 
     def copy(self):
