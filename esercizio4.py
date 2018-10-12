@@ -54,7 +54,6 @@ class ScoreBoard:
         """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
         lis = merge(self._best, new)
         return lis.top(10)
-        # raise NotImplementedError("Not implemented")
 
     def top(self, i):
         """Restituisce i migliori i score nello ScoreBoard"""
