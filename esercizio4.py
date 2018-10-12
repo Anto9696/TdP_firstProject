@@ -59,10 +59,10 @@ class ScoreBoard:
             for i in range(len(self._best)):
                 if s.give_score() < scores.element().give_score():
                         raise TypeError("Too bad score")
-                scores = super(CircularPositionalList, scores).after(scores) #  NON RIESCO A FARLO AVANZARE
-            first_score = self._best.first()
-            del first_score
+                scores = super(CircularPositionalList, self._best).after(scores)
             self._best.add_first(s)
+            first_score = super(CircularPositionalList, self._best).after(self._best.first())
+            del first_score
         # raise NotImplementedError("Not implemented")
 
     def merge(self, new):
