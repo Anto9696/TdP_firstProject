@@ -35,24 +35,39 @@ class ScoreBoard:
         """Inserisce un nuovo score nello scoreboard se e solo se non è peggiore dei risultati
         correntemente salvati. Non incrementa la dimensione dello scoreboard"""
         if len(self) < self._max:
-            score = self._best._header
-            if score is None:
-                self._best.add_last(s)
-                self._size += 1
-            else:
-                for i in range(len(self._best)):
-                    # print(s.give_score(), score._element.give_score())
-                    i += 1
-                    if s.give_score() < score._element.give_score():
+            #   QUA AGGIUNGO SOLO SE è MIGLIORE DEGLI ALTRI E SE NON HA RAGGIUNTO IL LIMITE MASSIMO
+
+            #   E CI SONO ANCORA I PRIVATI
+            # score = self._best._header
+            # if score is None:
+            #     self._best.add_last(s)
+            #     self._size += 1
+            # else:
+            #     for i in range(len(self._best)):
+            #         # print(s.give_score(), score._element.give_score())
+            #         if s.give_score() < score._element.give_score():
+            #             raise TypeError("Too bad score")
+            #         score = score._next
+            #     self._best.add_last(s)
+            #     self._size += 1
+
+            #   QUA AGGIUNGE FINCHè NON RAGGIUNGE IL LIMITE MASSIMO, POI AGGIUNGE SE MIGLIORE DEI PRESENTI IN TESTA ELIMINADO IL PRIMO
+            self._best.add_last(s)
+            self._size += 1
+        else:
+            scores = self._best.first()
+            for i in range(len(self._best)):
+                if s.give_score() < scores.element().give_score():
                         raise TypeError("Too bad score")
-                    score = score._next
-                self._best.add_last(s)
-                self._size += 1
+                scores = super(CircularPositionalList, scores).after(scores) #  NON RIESCO A FARLO AVANZARE
+            first_score = self._best.first()
+            del first_score
+            self._best.add_first(s)
         # raise NotImplementedError("Not implemented")
 
     def merge(self, new):
         """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
-        lis = merge(self._best, new)
+        lis = merge(self._best, new)    # NON VA PERCHè NON SONO CURRENTPOSITIONAL LIST
         return lis.top(10)
 
     def top(self, i):
@@ -96,7 +111,7 @@ if __name__ == "__main__":
     # print(score1._player, " ", score1._score, " ", score1._date)
     score2.add_element("AAA", 5, "15/10/2017")
     score3.add_element("BBB", 15, "15/10/2017")
-    score4.add_element("CCC", 7, "15/10/2017")
+    score4.add_element("CCC", 1, "15/10/2017")
     score5.add_element("DDD", 21, "15/10/2017")
 
     SB1 = ScoreBoard(4)
@@ -112,7 +127,7 @@ if __name__ == "__main__":
     print("LENGTH OF SCOREBOARD 1: ", len(SB1))
 
     print("INSERT SCORE IN SCOREBOARD 2")
-    SB2 = ScoreBoard(1)
+    SB2 = ScoreBoard(4)
     SB2.insert(score3)
     SB2.insert(score4)
     SB2.insert(score5)
@@ -126,6 +141,14 @@ if __name__ == "__main__":
     print("LASTs 1")
     for e in SB1.last(1):
         print(e)
+
+    print("LENGTH OF SCOREBOARD 1: ", len(SB1))
+    print("ADD ELEMENTS: ", len(SB1))
+    SB1.insert(score2)
+    SB1.insert(score4)
+    print("NEW LENGTH OF SCOREBOARD 1: ", len(SB1))
+    print("ADD ONE MORE ELEMENT: ", len(SB1))
+    SB1.insert(score5)
 
     # print("MERGE SB1 & SB2")
     # for e in merge(SB1, SB2):
