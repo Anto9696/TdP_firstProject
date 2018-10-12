@@ -4,6 +4,8 @@ from my_list import CircularPositionalList
 def merge(list1, list2):
     if not isinstance(list1,CircularPositionalList) or not isinstance(list2,CircularPositionalList):
         raise TypeError("The operands are not CircularPositionalList")
+    if not(list1.is_sorted() and list2.is_sorted()):
+        raise ValueError("The lists are not sorted")
     current_first_list = list1.first()
     current_second_list = list2.first()
     i = e = 0
