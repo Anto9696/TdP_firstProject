@@ -100,9 +100,9 @@ class CircularPositionalList(PositionalList):
             raise ValueError("Non-existent position")
         else:
             if self.first() == remove_pos:  # if the position is header
-                self._header = self._validate(super().after(self.first()))         # Non so come non usare _node
+                self._header = self._validate(super().after(self.first()))
             elif self.last() == remove_pos:
-                self._trailer = self._validate(super().before(self.last()))           # Non so come non usare _node
+                self._trailer = self._validate(super().before(self.last()))
             return super().delete(p)
 
     def clear(self):
@@ -111,7 +111,7 @@ class CircularPositionalList(PositionalList):
             cursor = self.first()
             while not self.is_empty():
                 next_cur = super().after(cursor)
-                self.delete(cursor)                             # Non so come non usare _node
+                self.delete(cursor)
                 cursor = next_cur
             self._header = None
             self._trailer = None
@@ -176,7 +176,7 @@ class CircularPositionalList(PositionalList):
 
     def __setitem__(self, p, e):
         """Sostituisce l’elemento nella position p con e"""
-        self.replace(p, e)    #in replace viene validata già la position
+        self.replace(p, e)    # in replace viene validata già la position
 
     def __delitem__(self,p):
         self.delete(p)
@@ -196,5 +196,5 @@ class CircularPositionalList(PositionalList):
         string = ""
         for el in self:
             string += str(el) + ", "
-        return string[ :-2]
+        return string[:-2]
 
