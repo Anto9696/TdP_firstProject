@@ -14,6 +14,9 @@ class Score:
         self._score = sc
         self._date = da
 
+    def is_score(self):
+        return self._score
+
 
 class ScoreBoard:
 
@@ -41,7 +44,7 @@ class ScoreBoard:
                 for i in range(len(self._best)):
                     # print(s._score, score._element._score)
                     i +=1
-                    if s._score < score._element._score:
+                    if s.is_score() < score._element.is_score():
                         raise TypeError("Too bad score")
                     score = score._next
                 self._best.add_last(s)
@@ -60,7 +63,7 @@ class ScoreBoard:
         cur = self._best._header
         lis = CircularPositionalList()
         for p in range(len(self._best)):
-            lis.add_last(cur._element._score)
+            lis.add_last(cur._element.is_score())
             cur = cur._next
         counter = 0
         for el in bubblesorted(lis):
@@ -73,7 +76,7 @@ class ScoreBoard:
         cur = self._best._header
         lis = CircularPositionalList()
         for p in range(len(self._best)):
-            lis.add_last(cur._element._score)
+            lis.add_last(cur._element.is_score())
             cur = cur._next
         counter = 0
         for el in bubblesorted(lis):
