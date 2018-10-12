@@ -40,9 +40,8 @@ class ScoreBoard:
                 self._best.add_last(s)
                 self._size += 1
             else:
-                i = 0
                 for i in range(len(self._best)):
-                    # print(s._score, score._element._score)
+                    # print(s.give_score(), score._element.give_score())
                     i += 1
                     if s.give_score() < score._element.give_score():
                         raise TypeError("Too bad score")
@@ -118,6 +117,7 @@ if __name__ == "__main__":
     SB2.insert(score3)
     SB2.insert(score4)
     SB2.insert(score5)
+    # print(SB2._best._header._next._element.give_score())
     print("LENGTH OF SCOREBOARD 2: ", len(SB2))
 
     print("TOPs 1")
@@ -127,3 +127,7 @@ if __name__ == "__main__":
     print("LASTs 1")
     for e in SB1.last(1):
         print(e)
+
+    # print("MERGE SB1 & SB2")
+    # for e in merge(SB1, SB2):
+    #     print(e)
