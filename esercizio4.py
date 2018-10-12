@@ -1,6 +1,6 @@
 from my_list import CircularPositionalList
 from esercizio2 import bubblesorted
-from esercizio3 import merge
+# from esercizio3 import merge
 
 
 class Score:
@@ -56,19 +56,32 @@ class ScoreBoard:
             self._size += 1
         else:
             scores = self._best.first()
+            min = scores.element().give_score()
             for i in range(len(self._best)):
-                if s.give_score() < scores.element().give_score():
-                        raise TypeError("Too bad score")
+                if min > scores.element().give_score(): # ricerco il minimo da confrontare
+                    min = scores.element().give_score()
                 scores = super(CircularPositionalList, self._best).after(scores)
+            if s.give_score() < min: # se il nuovo score è minore del minimo non va aggiunto
+                raise TypeError("Too bad score")
             self._best.add_first(s)
-            first_score = super(CircularPositionalList, self._best).after(self._best.first())
-            del first_score
-        # raise NotImplementedError("Not implemented")
+            self._best.delete(super(CircularPositionalList, self._best).after(self._best.first()))
 
     def merge(self, new):
         """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
-        lis = merge(self._best, new)    # NON VA PERCHè NON SONO CircularPositionalList
-        return lis.top(10)
+        # lis = merge(self._best, new)    # NON VA PERCHè NON SONO CircularPositionalList
+        if not isinstance(self, ScoreBoard) or not isinstance(new, ScoreBoard):
+            raise TypeError("The operands are not CircularPositionalList")
+        second_board = new._best.first()
+        lis = self._best.copy()
+        new_board = ScoreBoard(1)
+        i = 0
+        while i < len(new._best):
+            lis.add_last(second_board.element())
+            second_board = super(CircularPositionalList, new._best).after(second_board)
+            i+=1
+        new_board._best = lis
+        new_board._size = new_board._max = len(lis)
+        return new_board.top(10)
 
     def top(self, i):
         """Restituisce i migliori i score nello ScoreBoard"""
@@ -111,7 +124,7 @@ if __name__ == "__main__":
     # print(score1._player, " ", score1._score, " ", score1._date)
     score2.add_element("AAA", 5, "15/10/2017")
     score3.add_element("BBB", 15, "15/10/2017")
-    score4.add_element("CCC", 1, "15/10/2017")
+    score4.add_element("CCC", 7, "15/10/2017")
     score5.add_element("DDD", 21, "15/10/2017")
 
     SB1 = ScoreBoard(4)
@@ -122,9 +135,13 @@ if __name__ == "__main__":
     SB1.insert(score1)
     print("EMPTY SCOREBOARD 1: ", SB1.is_empty())
     print("LENGTH OF SCOREBOARD 1: ", len(SB1))
+    for e in SB1._best:
+        print(e.give_score())
     print("INSERT SCORE IN SCOREBOARD 1")
     SB1.insert(score3)
     print("LENGTH OF SCOREBOARD 1: ", len(SB1))
+    for e in SB1._best:
+        print(e.give_score())
 
     print("INSERT SCORE IN SCOREBOARD 2")
     SB2 = ScoreBoard(4)
@@ -133,6 +150,8 @@ if __name__ == "__main__":
     SB2.insert(score5)
     # print(SB2._best._header._next._element.give_score())
     print("LENGTH OF SCOREBOARD 2: ", len(SB2))
+    for e in SB2._best:
+        print(e.give_score())
 
     print("TOPs 1")
     for e in SB1.top(1):
@@ -143,13 +162,15 @@ if __name__ == "__main__":
         print(e)
 
     print("LENGTH OF SCOREBOARD 1: ", len(SB1))
-    print("ADD ELEMENTS: ", len(SB1))
+    print("ADD ELEMENTS")
     SB1.insert(score2)
     SB1.insert(score4)
     print("NEW LENGTH OF SCOREBOARD 1: ", len(SB1))
     print("ADD ONE MORE ELEMENT: ", len(SB1))
     SB1.insert(score5)
+    for e in SB1._best:
+        print(e.give_score())
 
-    # print("MERGE SB1 & SB2")
-    # for e in merge(SB1, SB2):
-    #     print(e)
+    print("MERGE SB1 & SB2")
+    for e in SB1.merge(SB2):
+        print(e)
