@@ -14,7 +14,7 @@ class Score:
         self._score = sc
         self._date = da
 
-    def is_score(self):
+    def give_score(self):
         return self._score
 
 
@@ -43,8 +43,8 @@ class ScoreBoard:
                 i = 0
                 for i in range(len(self._best)):
                     # print(s._score, score._element._score)
-                    i +=1
-                    if s.is_score() < score._element.is_score():
+                    i += 1
+                    if s.give_score() < score._element.give_score():
                         raise TypeError("Too bad score")
                     score = score._next
                 self._best.add_last(s)
@@ -63,7 +63,7 @@ class ScoreBoard:
         cur = self._best._header
         lis = CircularPositionalList()
         for p in range(len(self._best)):
-            lis.add_last(cur._element.is_score())
+            lis.add_last(cur._element.give_score())
             cur = cur._next
         counter = 0
         for el in bubblesorted(lis):
@@ -76,7 +76,7 @@ class ScoreBoard:
         cur = self._best._header
         lis = CircularPositionalList()
         for p in range(len(self._best)):
-            lis.add_last(cur._element.is_score())
+            lis.add_last(cur._element.give_score())
             cur = cur._next
         counter = 0
         for el in bubblesorted(lis):
@@ -91,26 +91,39 @@ if __name__ == "__main__":
     score1 = Score()
     score2 = Score()
     score3 = Score()
+    score4 = Score()
+    score5 = Score()
+
     score1.add_element("Gino", 10, "15/10/2017")
     # print(score1._player, " ", score1._score, " ", score1._date)
     score2.add_element("AAA", 5, "15/10/2017")
     score3.add_element("BBB", 15, "15/10/2017")
+    score4.add_element("CCC", 7, "15/10/2017")
+    score5.add_element("DDD", 21, "15/10/2017")
 
-    SB = ScoreBoard(4)
-    print(SB.is_empty()) # verifico is_empty
-    print(len(SB))
-    SB.insert(score1)
-    print(SB.is_empty()) # verifico is_empty
-    print(len(SB))
-    SB.insert(score3)
-    print(len(SB))
-    # print(SB._max)
+    SB1 = ScoreBoard(4)
+    # print("SCOREBOARD DIMENSION: ", SB._max)
+    print("EMPTY SCOREBOARD 1: ", SB1.is_empty())
+    print("LENGTH OF SCOREBOARD 1: ", len(SB1))
+    print("INSERT SCORE")
+    SB1.insert(score1)
+    print("EMPTY SCOREBOARD 1: ", SB1.is_empty())
+    print("LENGTH OF SCOREBOARD 1: ", len(SB1))
+    print("INSERT SCORE IN SCOREBOARD 1")
+    SB1.insert(score3)
+    print("LENGTH OF SCOREBOARD 1: ", len(SB1))
+
+    print("INSERT SCORE IN SCOREBOARD 2")
     SB2 = ScoreBoard(1)
     SB2.insert(score3)
-    #print(SB2._best._header._element._score)
+    SB2.insert(score4)
+    SB2.insert(score5)
+    print("LENGTH OF SCOREBOARD 2: ", len(SB2))
 
-    for e in SB.top(1):
+    print("TOPs 1")
+    for e in SB1.top(1):
         print(e)
 
-    for e in SB.last(1):
+    print("LASTs 1")
+    for e in SB1.last(1):
         print(e)
