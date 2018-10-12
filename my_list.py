@@ -23,19 +23,25 @@ class CircularPositionalList(PositionalList):
         None se la lista è vuota"""
         return self._make_position(self._trailer) if self._trailer is not None else None
 
+    def _prev_position(self,p):     #pubblici sarebbero più utili
+        return super().before(p)
+
+    def _next_position(self,p):     #pubblici sarebbero più utili
+        return super().after(p)
+
     def before(self, p):
-        var = super().before(p)
+        var = self._prev_position(p)
         return var.element() if var is not None else None
 
     def after(self, p):
-        var = super().after(p)
+        var = self._next_position(p)
         return var.element() if var is not None else None
 
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
         current_node = self.first()
-        while current_node != self.last() and current_node.element() < super().after(current_node).element():
-            current_node = super().after(current_node)
+        while current_node != self.last() and current_node.element() < self._next_position(current_node).element():
+            current_node = self._next_position(current_node)
         return True if current_node == self.last() else False
 
     def _insert_first_node(self, e):
@@ -87,12 +93,12 @@ class CircularPositionalList(PositionalList):
         else:
             current_position = self.first()
             while current_position != self.last() and current_position.element() != e:
-                current_position = super().after(current_position)
+                current_position = self._next_position(current_position)
             return current_position if current_position.element() == e else None
 
 
 
-    def delete(self, p):
+    def delete(self, p): #forse si può non cercare
         """Rimuove e restituisce l’elemento in Position p dalla lista e invalida p"""
         self._validate(p)
         remove_pos = self.find(p.element())
@@ -100,9 +106,9 @@ class CircularPositionalList(PositionalList):
             raise ValueError("Non-existent position")
         else:
             if self.first() == remove_pos:  # if the position is header
-                self._header = self._validate(super().after(self.first()))
+                self._header = self._validate(self._next_position(self.first()))
             elif self.last() == remove_pos:
-                self._trailer = self._validate(super().before(self.last()))
+                self._trailer = self._validate(self._prev_position(self.last()))
             return super().delete(p)
 
     def clear(self):
@@ -110,7 +116,7 @@ class CircularPositionalList(PositionalList):
         if not self.is_empty():
             cursor = self.first()
             while not self.is_empty():
-                next_cur = super().after(cursor)
+                next_cur = self._next_position(cursor)
                 self.delete(cursor)
                 cursor = next_cur
             self._header = None
@@ -162,17 +168,17 @@ class CircularPositionalList(PositionalList):
                 new_list.add_last(element)
             return new_list
 
-    def __contains__(self, item):
+    def __contains__(self, item): #Se c'è solo 1 elemento??
         self._validate(item)
         current_position = self.first()
         last_position = self.last()
         while current_position != last_position:
             if current_position == item:
                 return True
-            current_position = super().after(current_position)
+            current_position = self._next_position(current_position)
         return False
 
-    def __getitem__(self, item):
+    def __getitem__(self, item): #controllare se validare == ci sta
         self._validate(item)
         return item.element()
 
@@ -189,7 +195,7 @@ class CircularPositionalList(PositionalList):
             cursor = self.first()
             yield cursor.element()
             while cursor != self.last():
-                cursor = super().after(cursor)
+                cursor = self._next_position(cursor)
                 yield cursor.element()
 
     def __str__(self):
