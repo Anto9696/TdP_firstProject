@@ -107,11 +107,11 @@ class ScoreBoard:
         if not isinstance(new, ScoreBoard):
             raise TypeError("The operand is not a ScoreBoard")
 
-        score_merge = merge(self._best.reverse(), new._best.reverse()).reverse() #Potrei aver invertito tutto....
+        score_merge = merge(self._best.reverse(), new._best.reverse()).reverse()
         counter = 0
         for score in score_merge:
             yield score
-            counter +=1
+            counter += 1
             if counter == 10:
                 break
         """if self.size() > 10:            #Rivedere traccia
@@ -218,6 +218,7 @@ if __name__ == "__main__":
     for e in SB2._best:
         print(e)
 
+    print()
     print("TOPs 2")
     for e in SB1.top(2):
         print(e)
@@ -226,6 +227,7 @@ if __name__ == "__main__":
     for e in SB1.last():
         print(e)
 
+    print()
     print("ADD ELEMENTS TO SCOREBOARD 1")
     SB1.insert(score7)
     SB1.insert(score9)
