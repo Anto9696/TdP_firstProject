@@ -89,6 +89,13 @@ print("REPLACE 12 WITH -1000")
 list2[list2.find(12)]= -1000
 print("LIST 2: ", str(list2))
 
+listaaa = CircularPositionalList()
+listaaa.add_last(8)
+listaaa.add_last(6)
+listaaa.add_last(7)
+listaaa.add_last(5)
+print(str(listaaa))
+print(listaaa.__contains__(listaaa.find(7)))
 
 
 

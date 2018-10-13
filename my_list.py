@@ -172,11 +172,14 @@ class CircularPositionalList(PositionalList):
         self._validate(item)
         current_position = self.first()
         last_position = self.last()
-        while current_position != last_position:
-            if current_position == item:
-                return True
-            current_position = self._next_position(current_position)
-        return False
+        if current_position == item or last_position == item:
+            return True
+        else:
+            while current_position != last_position:
+                if current_position == item:
+                    return True
+                current_position = self._next_position(current_position)
+            return False
 
     def __getitem__(self, item): #controllare se validare == ci sta
         self._validate(item)
