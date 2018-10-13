@@ -171,15 +171,17 @@ class CircularPositionalList(PositionalList):
     def __contains__(self, item): #Se c'è solo 1 elemento??
         self._validate(item)
         current_position = self.first()
-        last_position = self.last()
-        if current_position == item or last_position == item:
-            return True
-        else:
-            while current_position != last_position:
-                if current_position == item:
-                    return True
-                current_position = self._next_position(current_position)
-            return False
+        # last_position = self.last()
+        for i in range(len(self)):
+            if current_position == item:
+                return True
+            current_position = self._next_position(current_position)
+        return False
+        # while current_position != last_position:
+        #     if current_position == item:
+        #         return True
+        #     current_position = self._next_position(current_position)
+        # return False
 
     def __getitem__(self, item): #controllare se validare == ci sta
         self._validate(item)
