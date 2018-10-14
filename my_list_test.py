@@ -95,7 +95,7 @@ listaaa.add_last(6)
 listaaa.add_last(7)
 listaaa.add_last(5)
 print(str(listaaa))
-print(listaaa.__contains__(listaaa.find(8)))
+print(listaaa.__contains__(listaaa.find(5)))
 
 
 
