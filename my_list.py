@@ -24,16 +24,20 @@ class CircularPositionalList(PositionalList):
         return self._make_position(self._trailer) if self._trailer is not None else None
 
     def _prev_position(self, p):  # pubblici sarebbero più utili
+        """punta alla position precedente a p"""
         return super().before(p)
 
     def _next_position(self, p):  # pubblici sarebbero più utili
+        """punta alla position successiva a p"""
         return super().after(p)
 
     def before(self, p):
+        """punta all'elemento precedente alla position p altrimenti restituisce None"""
         var = self._prev_position(p)
         return var.element() if var is not None else None
 
     def after(self, p):
+        """punta all'elemento successivo alla position p altrimenti restituisce None"""
         var = self._next_position(p)
         return var.element() if var is not None else None
 
@@ -45,6 +49,7 @@ class CircularPositionalList(PositionalList):
         return True if current_node == self.last() else False
 
     def _insert_first_node(self, e):
+        """inserisce il primo nodo con elemento e"""
         if self.is_empty():
             node = self._Node(e, None, None)
             node._prev = node
@@ -161,6 +166,8 @@ class CircularPositionalList(PositionalList):
         return new
 
     def __add__(self, other):
+        """Crea una lista con tutti gli elementi di self e tutti gli elementi di other inseriti dopo
+        l’ultimo elemento di self"""
         if not isinstance(other, CircularPositionalList):
             raise TypeError("Operand is not a CircularPositionalList")
         elif other.is_empty():
@@ -175,7 +182,8 @@ class CircularPositionalList(PositionalList):
                 new_list.add_last(element)
             return new_list
 
-    def __contains__(self, item):  # Se c'è solo 1 elemento??
+    def __contains__(self, item):
+        """restituisce True se item è presente nella lista e False altrimenti"""
         self._validate(item)
         current_position = self.first()
         for i in range(len(self)):
@@ -184,7 +192,8 @@ class CircularPositionalList(PositionalList):
             current_position = self._next_position(current_position)
         return False
 
-    def __getitem__(self, item):  # controllare se validare == ci sta
+    def __getitem__(self, item):
+        """Restituisce l’elemento contenuto nella position item"""
         self._validate(item)
         return item.element()
 
@@ -193,7 +202,8 @@ class CircularPositionalList(PositionalList):
         self.replace(p, e)  # in replace viene validata già la position
 
     def __delitem__(self, p):
-        self.delete(p)
+        """Rimuove l’elemento nella position p invalidando la position"""
+        self.delete(p) # il validate è in delete
 
     def __iter__(self):
         """Iterator della classe"""

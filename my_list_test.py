@@ -96,14 +96,3 @@ listaaa.add_last(7)
 listaaa.add_last(5)
 print(str(listaaa))
 print(listaaa.__contains__(listaaa.find(5)))
-
-
-
-
-
-
-
-
-
-
-

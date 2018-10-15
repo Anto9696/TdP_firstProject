@@ -2,6 +2,8 @@ from my_list import CircularPositionalList
 
 
 def merge(list1, list2):
+    """prende in input due CircularPositionalList ordinate e le
+    fonde in una nuova CircularPositionalList ordinata"""
     if not isinstance(list1,CircularPositionalList) or not isinstance(list2,CircularPositionalList):
         raise TypeError("The operands are not CircularPositionalList")
     if not(list1.is_sorted() and list2.is_sorted()):

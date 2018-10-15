@@ -1,6 +1,8 @@
 from my_list import CircularPositionalList
 
 def bubblesorted(list):
+    """ordina gli elementi della CircularPositionalList e
+    li restituisce nell’ordine risultante."""
     list_ordered=list.copy()
     sup = len(list_ordered) - 1
     while sup != 0:
