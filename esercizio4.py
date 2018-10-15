@@ -1,5 +1,4 @@
 from my_list import CircularPositionalList
-from esercizio2 import bubblesorted
 from esercizio3 import merge
 
 
@@ -69,15 +68,15 @@ class ScoreBoard:
         """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
         if not isinstance(new, ScoreBoard):
             raise TypeError("The operand is not a ScoreBoard")
-
-        score_merge = merge(self._best, new._best)
-        counter = 0
-        cursor = score_merge.last()
-        yield cursor.element()
-        while cursor != score_merge.first() and counter != 10:
-            cursor = super(CircularPositionalList, score_merge).before(cursor)      #better the public method
+        if not(new.is_empty() and self.is_empty()):
+            score_merge = merge(self._best, new._best)
+            counter = 0
+            cursor = score_merge.last()
             yield cursor.element()
-            counter += 1
+            while cursor != score_merge.first() and counter != 10:
+                cursor = super(CircularPositionalList, score_merge).before(cursor)      #better the public method
+                yield cursor.element()
+                counter += 1
         """if self.size() > 10:            #Rivedere traccia
             #seleziona i primi 10
             tmp_list = CircularPositionalList()
@@ -89,10 +88,16 @@ class ScoreBoard:
 
     def top(self, i=1):
         """Restituisce i migliori i score nello ScoreBoard"""
-        cur = self._best.last()
-        for k in range(i):
-            yield cur.element()
-            cur = super(CircularPositionalList, self._best).before(cur)     #better a public method
+        if not self.is_empty():
+            cur = self._best.last()
+            counter = 0
+            if i >= 1:
+                yield cur.element()
+                counter += 1
+            while cur != self._best.first() and counter < i:
+                cur = super(CircularPositionalList, self._best).before(cur)  # better a public method
+                yield cur.element()
+                counter += 1
 
     def last(self, i=1):
         """Restituisce i peggiori i score nello ScoreBoard"""
@@ -174,4 +179,25 @@ if __name__ == "__main__":
     print("MERGE SB1 & SB2")
 
     for e in SB1.merge(SB2):
+        print(e)
+
+    print("TEST TOP/LAST")
+    for e in SB1.top(10):
+        print(e)
+
+    print("VOID TEST")
+    a = ScoreBoard(10)
+    b = ScoreBoard(10)
+    print("SIZE ",a.size(),"---- EMPTY ",a.is_empty()," ---- LEN ",len(a))
+    for e in a.top(10):
+        print(e)
+    for e in a.last(10):
+        print(e)
+    for e in a:
+        print(e)
+    for e in a.merge(SB1):
+        print(e)
+    for e in SB1.merge(a):
+        print(e)
+    for e in a.merge(b):
         print(e)
