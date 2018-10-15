@@ -33,8 +33,6 @@ class Score:
     def __str__(self):
         return str(self._player)+" "+str(self._date)+" "+str(self._score)
 
-    def give_score(self):
-        return self._score
 
 class ScoreBoard:
 
@@ -56,64 +54,30 @@ class ScoreBoard:
                 correntemente salvati. Non incrementa la dimensione dello scoreboard"""
         if self.size() == 0:
             self._best.add_first(s)
-        elif self._best.last().element().give_score() <= s.give_score():
+        elif self._best.first().element() <= s:
             cursor = self._best.first()
-            while cursor != self._best.last() and cursor.element().give_score() > s.give_score():
-                cursor = super(CircularPositionalList,self._best).after(cursor)
-            if cursor.element().give_score() > s.give_score():
+            while cursor != self._best.last() and cursor.element() < s:
+                cursor = super(CircularPositionalList,self._best).after(cursor)     # a public methods need
+            if cursor.element() < s:
                 self._best.add_after(cursor, s)
             else:
                 self._best.add_before(cursor, s)
             if self.size() > len(self):
                 self._best.delete(self._best.last())
-     # Mantengo tutto ordinato
-
-
-
-    """def insert(self, s):
-        
-        if len(self) < self._max:
-            #   QUA AGGIUNGE FINCHè NON RAGGIUNGE IL LIMITE MASSIMO, POI AGGIUNGE SE MIGLIORE DEI PRESENTI, IN TESTA, ELIMINADO IL PRIMO
-            self._best.add_last(s)
-        else:
-            scores = self._best.first()
-            min = scores.element().give_score()
-            for i in range(len(self._best)):
-                if min > scores.element().give_score(): # ricerco il minimo da confrontare
-                    min = scores.element().give_score()
-                scores = super(CircularPositionalList, self._best).after(scores)
-            if s.give_score() < min: # se il nuovo score è minore del minimo non va aggiunto
-                raise TypeError("Too bad score")
-            self._best.add_first(s)
-            self._best.delete(self._best.last())  # delete(super(CircularPositionalList, self._best).after(self._best.first()))
-            #   QUA AGGIUNGO SOLO SE è MIGLIORE DEGLI ALTRI E SE NON HA RAGGIUNTO IL LIMITE MASSIMO
-            #   E CI SONO ANCORA I PRIVATI
-            # if len(self) < self._max:
-            #   score = self._best._header
-            #   if score is None:
-            #       self._best.add_last(s)
-            #       self._size += 1
-            #   else:
-            #       for i in range(len(self._best)):
-            #           # print(s.give_score(), score._element.give_score())
-            #           if s.give_score() < score._element.give_score():
-            #               raise TypeError("Too bad score")
-            #           score = score._next
-            #       self._best.add_last(s)
-            #       self._size += 1"""
 
     def merge(self, new):
         """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
         if not isinstance(new, ScoreBoard):
             raise TypeError("The operand is not a ScoreBoard")
 
-        score_merge = merge(self._best.reverse(), new._best.reverse()).reverse()
+        score_merge = merge(self._best, new._best)
         counter = 0
-        for score in score_merge:
-            yield score
+        cursor = score_merge.last()
+        yield cursor.element()
+        while cursor != score_merge.first() and counter != 10:
+            cursor = super(CircularPositionalList, score_merge).before(cursor)      #better the public method
+            yield cursor.element()
             counter += 1
-            if counter == 10:
-                break
         """if self.size() > 10:            #Rivedere traccia
             #seleziona i primi 10
             tmp_list = CircularPositionalList()
@@ -123,53 +87,21 @@ class ScoreBoard:
                     break
             self._best = tmp_list"""
 
-        '''
-        second_board = new._best.first()
-        lis = self._best.copy()
-        new_board = ScoreBoard(1)
-        i = 0
-        while i < len(new._best):
-            lis.add_last(second_board.element())
-            second_board = super(CircularPositionalList, new._best).after(second_board)
-            i += 1
-        new_board._best = lis
-        new_board._size = new_board._max = len(lis)
-        return new_board.top(10)'''
-
     def top(self, i=1):
         """Restituisce i migliori i score nello ScoreBoard"""
+        cur = self._best.last()
+        for k in range(i):
+            yield cur.element()
+            cur = super(CircularPositionalList, self._best).before(cur)     #better a public method
+
+    def last(self, i=1):
+        """Restituisce i peggiori i score nello ScoreBoard"""
         counter = 0
         for element in self._best:
             yield element
             counter += 1
             if counter == i:
                 break
-        """
-        imp = len(self) - i
-        cur = self._best.first()
-        lis = CircularPositionalList()
-        for p in range(len(self._best)):
-            lis.add_last(cur.element().give_score())
-            cur = super(CircularPositionalList, self._best).after(cur)
-        counter = 0
-        for el in bubblesorted(lis):
-            if counter >= imp:
-                yield el
-            counter += 1"""
-
-    def last(self, i=1):
-        """Restituisce i peggiori i score nello ScoreBoard"""
-        cur = self._best.last()
-        for k in range(i):
-            yield cur.element()
-            cur = super(CircularPositionalList, self._best).before(cur)
-        """counter = 0
-        for el in bubblesorted(lis):
-            if counter < i:
-                yield el
-            else:
-                break
-            counter += 1"""
 
     def __iter__(self):
         for score in self._best:

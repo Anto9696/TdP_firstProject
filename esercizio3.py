@@ -15,19 +15,19 @@ def merge(list1, list2):
     while i < len(list1) and e < len(list2):
         if current_first_list.element() > current_second_list.element():
             new_list.add_last(current_second_list.element())
-            current_second_list = super(CircularPositionalList, list2).after(current_second_list)
+            current_second_list = super(CircularPositionalList, list2).after(current_second_list)  #better a public method
             e += 1
         else:
             new_list.add_last(current_first_list.element())
-            current_first_list = super(CircularPositionalList, list1).after(current_first_list)
+            current_first_list = super(CircularPositionalList, list1).after(current_first_list) #better a public method
             i += 1
     while i<len(list1):
         new_list.add_last(current_first_list.element())
-        current_first_list = super(CircularPositionalList, list1).after(current_first_list)
+        current_first_list = super(CircularPositionalList, list1).after(current_first_list)   #better a public methpd
         i += 1
     while e<len(list2):
         new_list.add_last(current_second_list.element())
-        current_second_list = super(CircularPositionalList, list2).after(current_second_list)
+        current_second_list = super(CircularPositionalList, list2).after(current_second_list)   #better a public methpd
         e += 1
     return new_list
 
