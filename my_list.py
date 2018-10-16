@@ -125,10 +125,10 @@ class CircularPositionalList(PositionalList):
     def clear(self):
         """Rimuove tutti gli elementi della lista invalidando le corrispondenti Position"""
         if not self.is_empty():
-            cursor = self.first()
+            cursor = self._header
             while not self.is_empty():
-                next_cur = self._next_position(cursor)
-                self.delete(cursor)             #avoid this
+                next_cur = cursor._next #self._next_position(cursor)
+                self._delete_node(cursor)            #avoid this
                 cursor = next_cur
             self._header = None
             self._trailer = None

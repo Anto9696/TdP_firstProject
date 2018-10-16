@@ -53,7 +53,7 @@ class ScoreBoard:
                 correntemente salvati. Non incrementa la dimensione dello scoreboard"""
         if self.size() == 0:
             self._best.add_first(s)
-        elif self._best.first().element() <= s:
+        elif self._best.first().element() <= s or self.size() < len(self):
             cursor = self._best.first()
             while cursor != self._best.last() and cursor.element() < s:
                 cursor = super(CircularPositionalList,self._best).after(cursor)     # a public methods need
@@ -62,51 +62,53 @@ class ScoreBoard:
             else:
                 self._best.add_before(cursor, s)
             if self.size() > len(self):
-                self._best.delete(self._best.last())
+                self._best.delete(self._best.first())
 
     def merge(self, new):
         """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
         if not isinstance(new, ScoreBoard):
             raise TypeError("The operand is not a ScoreBoard")
         if not(new.is_empty() and self.is_empty()):
-            score_merge = merge(self._best, new._best)
-            counter = 0
+            self._best = merge(self._best, new._best)
+            """counter = 0
             cursor = score_merge.last()
             yield cursor.element()
             while cursor != score_merge.first() and counter != 10:
                 cursor = super(CircularPositionalList, score_merge).before(cursor)      #better the public method
                 yield cursor.element()
-                counter += 1
-        """if self.size() > 10:            #Rivedere traccia
-            #seleziona i primi 10
-            tmp_list = CircularPositionalList()
-            for element in self._best:
-                tmp_list.add_last(element)
-                if len(tmp_list) == 10:
-                    break
-            self._best = tmp_list"""
+                counter += 1"""
+            while self.size() > len(self):
+                #seleziona i primi 10
+                self._best.delete(self._best.first())
 
     def top(self, i=1):
         """Restituisce i migliori i score nello ScoreBoard"""
+        score_list = []
         if not self.is_empty():
             cur = self._best.last()
             counter = 0
             if i >= 1:
-                yield cur.element()
+                score_list.append(cur.element())
+                #yield cur.element()
                 counter += 1
             while cur != self._best.first() and counter < i:
                 cur = super(CircularPositionalList, self._best).before(cur)  # better a public method
-                yield cur.element()
+                score_list.append(cur.element())
+                #yield cur.element()
                 counter += 1
+        return score_list
 
     def last(self, i=1):
         """Restituisce i peggiori i score nello ScoreBoard"""
         counter = 0
+        score_list = []
         for element in self._best:
-            yield element
+            score_list.append(element)
+            #yield element
             counter += 1
             if counter == i:
                 break
+        return score_list
 
     def __iter__(self):
         for score in self._best:
@@ -177,8 +179,16 @@ if __name__ == "__main__":
         print(e)
 
     print("MERGE SB1 & SB2")
+    for e in SB1:
+        print(e)
+    print("---------")
+    for e in SB2:
+        print(e)
+    print("---------")
 
-    for e in SB1.merge(SB2):
+    SB1.merge(SB2)
+
+    for e in SB1:
         print(e)
 
     print("TEST TOP/LAST")
@@ -195,9 +205,12 @@ if __name__ == "__main__":
         print(e)
     for e in a:
         print(e)
-    for e in a.merge(SB1):
+    a.merge(SB1)
+    for e in a:
         print(e)
-    for e in SB1.merge(a):
+    SB1.merge(a)
+    for e in SB1:
         print(e)
-    for e in a.merge(b):
+    a.merge(b)
+    for e in a:
         print(e)
