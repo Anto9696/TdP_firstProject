@@ -25,9 +25,11 @@ if scelta.upper() == "I":
     elif scelta == "3":
         exit(0)
 
+    print("-------------------------------------")
     scelta = ""
     while scelta != "Q":
-        print("SCEGLI L'AZIONE DA SVOLGERE:")
+        print("LISTA: ", str(list1))
+        print("SCEGLI L'AZIONE DA SVOLGERE:\n")
         print("1. Aggiungi in coda alla lista altri X elementi")
         print("2. Add After")
         print("3. Add Before")
@@ -56,14 +58,20 @@ if scelta.upper() == "I":
         elif scelta == "2":
             element = int(input("Valore da inserire: "))
             pos = int(input("Dopo quale valore già presente lo vuoi inserire? "))
-            list1.add_after(list1.find(pos), element)
-            print("LIST 1 aggiornata: ", str(list1))
-            print("-----------------------------------------------------------")
+            try:
+                list1.add_after(list1.find(pos), element)
+                print("LIST 1 aggiornata: ", str(list1))
+            except TypeError:
+                print("Il valore selezionato non è presente!")
+                print("-----------------------------------------------------------")
         elif scelta == "3":
             element = int(input("Valore da inserire: "))
             pos = int(input("Prima di quale valore già presente lo vuoi inserire? "))
-            list1.add_before(list1.find(pos), element)
-            print("LIST 1 aggiornata: ", str(list1))
+            try:
+                list1.add_before(list1.find(pos), element)
+                print("LIST 1 aggiornata: ", str(list1))
+            except TypeError:
+                print("Il valore selezionato non è presente!")
             print("-----------------------------------------------------------")
         elif scelta == "4":
             element = int(input("Valore da inserire all'inizio: "))
@@ -86,26 +94,41 @@ if scelta.upper() == "I":
             print("-----------------------------------------------------------")
         elif scelta == "8":
             element = int(input("Quale elemento vuoi eliminare? "))
-            list1.delete(list1.find(element))
-            print("LIST 1: ", str(list1))
+            try:
+                list1.delete(list1.find(element))
+                print("LIST 1: ", str(list1))
+            except TypeError:
+                print("Il valore selezionato non è presente!")
+
             print("-----------------------------------------------------------")
         elif scelta == "9":
             element = int(input("Trova elemento: "))
-            print("FIND in LIST 1 AND USE get_item:")
-            print(list1[list1.find(1)])
+            try:
+                print(list1[list1.find(element)], "è stato trovato")
+            except TypeError:
+                print("Il valore selezionato non è presente!")
+
             print("-----------------------------------------------------------")
         elif scelta == "10":
             element = int(input("Elemento contenuto: "))
-            print("IS ", element, " CONTAINED IN LIST 1?")
-            print(list1.find(element) in list1)
+            print(element, " è contenuto nella lista?")
+            try:
+                print(list1.find(element) in list1)
+            except TypeError:
+                print("Il valore selezionato non è presente!")
+
             print("-----------------------------------------------------------")
         elif scelta == "11":
             element = int(input("Inserire nuovo elemento: "))
             pos = int(input("Inserire vecchio elemento: "))
             print("REPLACE ", pos, " CON ", element, " nella LIST 1")
-            old_element = list1.replace(list1.find(pos), element)
-            print("LIST 1: ", str(list1))
-            print("OLD ELEMENT: ", str(old_element))
+            try:
+                old_element = list1.replace(list1.find(pos), element)
+                print("LIST 1: ", str(list1))
+                print("OLD ELEMENT: ", str(old_element))
+            except TypeError:
+                print("Il valore selezionato non è presente!")
+
             print("-----------------------------------------------------------")
         elif scelta == "12":
             print("REVERSE DELLA LIST 1: ", str(list1.reverse()))
