@@ -11,7 +11,7 @@ if scelta.upper() == "I":
     print("\n\t\t<<<<<<<<<< INTERACTIVE TEST >>>>>>>>>>>\n")
     print("[1] PARTI DA UNA LISTA VUOTA\n[2] PARTI DA UNA LISTA CASUALE\n[3] QUIT\n")
     scelta = ""
-    while(scelta != "1" and scelta !="2" and scelta !="3"):
+    while scelta != "1" and scelta != "2" and scelta != "3":
         scelta = input("Digita la tua scelta: ")
 
     if scelta == "1":
@@ -26,13 +26,98 @@ if scelta.upper() == "I":
         exit(0)
 
     scelta = ""
-    while(scelta != "Q"):
+    while scelta != "Q":
         print("SCEGLI L'AZIONE DA SVOLGERE:")
-        print("... ALL OPERATION ...")
-        scelta = input("Digita la tua scelta:")
+        print("ALL OPERATION: ")
+        print("1. Aggiungi in coda alla lista altri X elementi")
+        print("2. Add After")
+        print("3. Add Before")
+        print("4. Add First")
+        print("5. Add Last")
+        print("6. length")
+        print("7. Clear")
+        print("8. Delete")
+        print("9. Find")
+        print("10. Contain")
+        print("11. Replace")
+        print("12. Reverse")
+        print("13. Stampa albero di natale con gli *")
+        print("Scrivere Q per terminare il programma")
+        scelta = input("Digita la tua scelta: ")
 
-
-
+        if scelta == "1":
+            list2 = CircularPositionalList()
+            length = int(input("how many items do you want in your list? ")) # gli input sono sempre stringhe
+            for i in range(length):
+                el = int(input("Insert element: "))
+                list2.add_first(el)
+            list1 = list1 + list2
+            print("LIST 1: ", str(list1))
+            print("-----------------------------------------------------------")
+        elif scelta == "2":
+            element = int(input("Valore da inserire: "))
+            pos = int(input("Dopo quale valore già presente lo vuoi inserire? "))
+            list1.add_after(list1.find(pos), element)
+            print("LIST 1 aggiornata: ", str(list1))
+            print("-----------------------------------------------------------")
+        elif scelta == "3":
+            element = int(input("Valore da inserire: "))
+            pos = int(input("Prima di quale valore già presente lo vuoi inserire? "))
+            list1.add_before(list1.find(pos), element)
+            print("LIST 1 aggiornata: ", str(list1))
+            print("-----------------------------------------------------------")
+        elif scelta == "4":
+            element = int(input("Valore da inserire all'inizio: "))
+            list1.add_first(element)
+            print("LIST 1 aggiornata: ", str(list1))
+            print("-----------------------------------------------------------")
+        elif scelta == "5":
+            element = int(input("Valore da inserire alla fine: "))
+            list1.add_last(element)
+            print("LIST 1 aggiornata: ", str(list1))
+            print()
+        elif scelta == "6":
+            print("La lunghezza della lista è: ", len(list1))
+            print("-----------------------------------------------------------")
+        elif scelta == "7":
+            print("La lista1 è stata cancellata")
+            list1.clear()
+            print("LIST 1 - len: ",len(list1))
+            print("LIST 1: ", str(list1))
+            print("-----------------------------------------------------------")
+        elif scelta == "8":
+            element = int(input("Quale elemento vuoi eliminare? "))
+            list1.delete(list1.find(element))
+            print("LIST 1: ", str(list1))
+            print("-----------------------------------------------------------")
+        elif scelta == "9":
+            element = int(input("Find element: "))
+            print("FIND in LIST 1 AND USE get_item:")
+            print(list1[list1.find(1)])
+            print("-----------------------------------------------------------")
+        elif scelta == "10":
+            element = int(input("Contained element: "))
+            print("IS ", element, " CONTAINED IN LIST 1?")
+            print(list1.find(element) in list1)
+            print("-----------------------------------------------------------")
+        elif scelta == "11":
+            element = int(input("Inserire nuovo elemento: "))
+            pos = int(input("Inserire vecchio elemento: "))
+            print("REPLACE ", pos, " WITH ", element, " in LIST 1")
+            old_element = list1.replace(list1.find(pos), element)
+            print("LIST 1: ", str(list1))
+            print("OLD ELEMENT: ", str(old_element))
+            print("-----------------------------------------------------------")
+        elif scelta == "12":
+            print("REVERSE OF LIST 1: ", str(list1.reverse()))
+            print("-----------------------------------------------------------")
+        elif scelta == "13":
+            n = int(input("Inserire altezza albero: "))
+            for i in range(n):
+                print(("*" * (i * 2 + 1)).center(n * 2 - 1))
+            print("-----------------------------------------------------------")
+        elif scelta == "Q" or scelta == "q":
+            exit(0)
 
 elif scelta.upper() == "S":
     print("\n\t\t<<<<<<<<<< STANDARD TEST >>>>>>>>>>>\n")
