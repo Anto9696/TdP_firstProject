@@ -1,4 +1,5 @@
 from my_list import CircularPositionalList
+import random
 
 print("\nBenvenuto nella sezione di test, diamoci da fare!\nChe tipo di test desideri effettuare?\n")
 print("\t\tI = interattivo\n\t\tS = Standard (Esercizio 5)\n")
@@ -8,6 +9,30 @@ while(scelta.upper() != "I" and scelta.upper() !="S"):
 
 if scelta.upper() == "I":
     print("\n\t\t<<<<<<<<<< INTERACTIVE TEST >>>>>>>>>>>\n")
+    print("[1] PARTI DA UNA LISTA VUOTA\n[2] PARTI DA UNA LISTA CASUALE\n[3] QUIT\n")
+    scelta = ""
+    while(scelta != "1" and scelta !="2" and scelta !="3"):
+        scelta = input("Digita la tua scelta: ")
+
+    if scelta == "1":
+        list1 = CircularPositionalList()
+        print("\nEcco la tua lista di partenza: [vuota]")
+    elif scelta == "2":
+        list1 = CircularPositionalList()
+        for i in range(10):
+            list1.add_first(random.randint(0,100))
+        print("\nEcco la tua lista di partenza: ", str(list1))
+    elif scelta == "3":
+        exit(0)
+
+    scelta = ""
+    while(scelta != "Q"):
+        print("SCEGLI L'AZIONE DA SVOLGERE:")
+        print("... ALL OPERATION ...")
+        scelta = input("Digita la tua scelta:")
+
+
+
 
 elif scelta.upper() == "S":
     print("\n\t\t<<<<<<<<<< STANDARD TEST >>>>>>>>>>>\n")
