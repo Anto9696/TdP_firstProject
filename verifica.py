@@ -28,7 +28,6 @@ if scelta.upper() == "I":
     scelta = ""
     while scelta != "Q":
         print("SCEGLI L'AZIONE DA SVOLGERE:")
-        print("ALL OPERATION: ")
         print("1. Aggiungi in coda alla lista altri X elementi")
         print("2. Add After")
         print("3. Add Before")
