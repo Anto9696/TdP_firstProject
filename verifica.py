@@ -46,9 +46,9 @@ if scelta.upper() == "I":
 
         if scelta == "1":
             list2 = CircularPositionalList()
-            length = int(input("how many items do you want in your list? ")) # gli input sono sempre stringhe
+            length = int(input("Quanti elementi vuoi nella lista? ")) # gli input sono sempre stringhe
             for i in range(length):
-                el = int(input("Insert element: "))
+                el = int(input("Inserisci elemento: "))
                 list2.add_first(el)
             list1 = list1 + list2
             print("LIST 1: ", str(list1))
@@ -90,25 +90,25 @@ if scelta.upper() == "I":
             print("LIST 1: ", str(list1))
             print("-----------------------------------------------------------")
         elif scelta == "9":
-            element = int(input("Find element: "))
+            element = int(input("Trova elemento: "))
             print("FIND in LIST 1 AND USE get_item:")
             print(list1[list1.find(1)])
             print("-----------------------------------------------------------")
         elif scelta == "10":
-            element = int(input("Contained element: "))
+            element = int(input("Elemento contenuto: "))
             print("IS ", element, " CONTAINED IN LIST 1?")
             print(list1.find(element) in list1)
             print("-----------------------------------------------------------")
         elif scelta == "11":
             element = int(input("Inserire nuovo elemento: "))
             pos = int(input("Inserire vecchio elemento: "))
-            print("REPLACE ", pos, " WITH ", element, " in LIST 1")
+            print("REPLACE ", pos, " CON ", element, " nella LIST 1")
             old_element = list1.replace(list1.find(pos), element)
             print("LIST 1: ", str(list1))
             print("OLD ELEMENT: ", str(old_element))
             print("-----------------------------------------------------------")
         elif scelta == "12":
-            print("REVERSE OF LIST 1: ", str(list1.reverse()))
+            print("REVERSE DELLA LIST 1: ", str(list1.reverse()))
             print("-----------------------------------------------------------")
         elif scelta == "13":
             n = int(input("Inserire altezza albero: "))
