@@ -157,7 +157,6 @@ class CircularPositionalList(PositionalList):
         tmp = self._header
         self._header = self._trailer
         self._trailer = tmp
-        return self
 
     def copy(self):
         """Restituisce una nuova CircularPositionalList che contiene gli stessi elementi

@@ -134,7 +134,8 @@ if scelta.upper() == "I":
 
             print("-----------------------------------------------------------")
         elif scelta == "12":
-            print("REVERSE DELLA LIST 1: ", str(list1.reverse()))
+            list1.reverse()
+            print("REVERSE DELLA LIST 1: ", str(list1))
             print("-----------------------------------------------------------")
         elif scelta == "13":
             print("Il primo elemento è ", str(list1[list1.first()]))
@@ -220,7 +221,8 @@ elif scelta.upper() == "S":
     list3 = list1 + list2
     print("LIST 3 - len: ",len(list3))
     print("LIST 3: ", str(list3))
-    print("REVERSE OF LIST 3: ", str(list3.reverse()))
+    list3.reverse()
+    print("REVERSE OF LIST 3: ", str(list3))
     print("CLEAR LIST 3")
     list3.clear()
     print("LIST 3 - len: ",len(list3))
@@ -368,8 +370,10 @@ elif scelta.upper() == "S":
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
 
-    print("REVERSE OF LIST 1: ", str(list1.reverse()))              #reverse of an empty list
-    print("REVERSE OF LIST 2: ", str(list2.reverse()))              #reverse of an empty list
+    list1.reverse()         #reverse of an empty list
+    list2.reverse()         #reverse of an empty list
+    print("REVERSE OF LIST 1: ", str(list1))
+    print("REVERSE OF LIST 2: ", str(list2))
 
 
     list1.add_first(-2)
@@ -378,8 +382,10 @@ elif scelta.upper() == "S":
     print("ADDED -2 to LIST2")
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
-    print("REVERSE OF LIST 1: ", str(list1.reverse()))              #reverse of a list with one node
-    print("REVERSE OF LIST 2: ", str(list2.reverse()))              #reverse of a list with one node
+    list1.reverse()                         #reverse of a list with one node
+    list2.reverse()                         #reverse of a list with one node
+    print("REVERSE OF LIST 1: ", str(list1))
+    print("REVERSE OF LIST 2: ", str(list2))
 
     list1.add_first(10)                                             #reverse of a list with 2 elements
     print("ADDED 10 to LIST1")
@@ -387,5 +393,7 @@ elif scelta.upper() == "S":
     print("ADDED 10 to LIST2")
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
-    print("REVERSE OF LIST 1: ", str(list1.reverse()))
-    print("REVERSE OF LIST 2: ", str(list2.reverse()))
+    list1.reverse()
+    list2.reverse()
+    print("REVERSE OF LIST 1: ", str(list1))
+    print("REVERSE OF LIST 2: ", str(list2))
