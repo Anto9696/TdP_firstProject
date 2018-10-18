@@ -119,11 +119,11 @@ class CircularPositionalList(PositionalList):
             self._header = None
             self._trailer = None
         else:
-            element = super()._delete_node(node)
             if self.first() == p:
                 self._header = self._header._next
             elif self.last() == p:
                 self._trailer = self._trailer._prev
+            element = super()._delete_node(node)
         return element
 
     def clear(self):

@@ -1,39 +1,39 @@
-from my_list import CircularPositionalList
+from my_list_test import CircularPositionalList
 from esercizio3 import merge
 
 
-class Score:
-    def __init__(self,pl, sc, da):
-        self._player = pl
-        self._score = sc
-        self._date = da
-
-    def __gt__(self, other):
-        if not isinstance(other,Score):
-            raise TypeError("operand is not a Score")
-        else:
-            return self._score > other._score
-
-    def __eq__(self, other):
-        if not isinstance(other,Score):
-            raise TypeError("operand is not a Score")
-        else:
-            return self._score == other._score
-
-    def __ge__(self, other):
-        return self == other or self > other
-
-    def __lt__(self, other):
-        return not self >= other
-
-    def __le__(self, other):
-        return not self > other
-
-    def __str__(self):
-        return str(self._player)+" "+str(self._date)+" "+str(self._score)
-
-
 class ScoreBoard:
+
+    class Score:
+
+        def __init__(self, pl, sc, da):
+            self._player = pl
+            self._score = sc
+            self._date = da
+
+        def __gt__(self, other):
+            if not isinstance(other, ScoreBoard.Score):
+                raise TypeError("operand is not a Score")
+            else:
+                return self._score > other._score
+
+        def __eq__(self, other):
+            if not isinstance(other, ScoreBoard.Score):
+                raise TypeError("operand is not a Score")
+            else:
+                return self._score == other._score
+
+        def __ge__(self, other):
+            return self == other or self > other
+
+        def __lt__(self, other):
+            return not self >= other
+
+        def __le__(self, other):
+            return not self > other
+
+        def __str__(self):
+            return str(self._player) + " " + str(self._date) + " " + str(self._score)
 
     def __init__(self, x=10):
         self._best = CircularPositionalList()
@@ -56,7 +56,7 @@ class ScoreBoard:
         elif self._best.first().element() <= s or self.size() < len(self):
             cursor = self._best.first()
             while cursor != self._best.last() and cursor.element() < s:
-                cursor = super(CircularPositionalList,self._best).after(cursor)     # self._best._next_position(cursor)
+                cursor = self._best._next_position(cursor) # super(CircularPositionalList,self._best).after(cursor)
             if cursor.element() < s:
                 self._best.add_after(cursor, s)
             else:
@@ -69,9 +69,12 @@ class ScoreBoard:
         if not isinstance(new, ScoreBoard):
             raise TypeError("The operand is not a ScoreBoard")
         if not(new.is_empty() and self.is_empty()):
-            self._best = merge(self._best, new._best)
-            while self.size() > len(self):
-                #seleziona i primi x
+            print(self._best.is_sorted())
+            print(self._best)
+            print(new._best.is_sorted())
+            print(new._best)
+            self._best = merge(self._best, new._best)   # Merging
+            while self.size() > len(self):              # seleziona i primi X
                 self._best.delete(self._best.first())
 
     def top(self, i=1):
@@ -84,7 +87,7 @@ class ScoreBoard:
                 score_list.append(cur.element())
                 counter += 1
             while cur != self._best.first() and counter < i:
-                cur = super(CircularPositionalList, self._best).before(cur)  # self._best._prev_position(cur)
+                cur = self._best._prev_position(cur) # super(CircularPositionalList, self._best).before(cur)
                 score_list.append(cur.element())
                 counter += 1
         return score_list
@@ -106,16 +109,16 @@ class ScoreBoard:
 
 
 if __name__ == "__main__":
-    score1 = Score("AAA",10, "15/10/2017")
-    score2 = Score("BBB",5,"15/10/2017")
-    score3 = Score("CCC",15,"15/10/2017")
-    score4 = Score("DDD",7,"15/10/2017")
-    score5 = Score("EEE",21,"15/10/2017")
-    score6 = Score("EEE",1,"15/10/2017")
-    score7 = Score("EEE",56,"15/10/2017")
-    score8 = Score("EEE",-4,"15/10/2017")
-    score9 = Score("EEE",18,"15/10/2017")
-    score10 = Score("EEE",8,"15/10/2017")
+    score1 = ScoreBoard.Score("AAA",10, "15/10/2017")
+    score2 = ScoreBoard.Score("BBB",5,"15/10/2017")
+    score3 = ScoreBoard.Score("CCC",15,"15/10/2017")
+    score4 = ScoreBoard.Score("DDD",7,"15/10/2017")
+    score5 = ScoreBoard.Score("EEE",21,"15/10/2017")
+    score6 = ScoreBoard.Score("EEE",1,"15/10/2017")
+    score7 = ScoreBoard.Score("EEE",56,"15/10/2017")
+    score8 = ScoreBoard.Score("EEE",-4,"15/10/2017")
+    score9 = ScoreBoard.Score("EEE",18,"15/10/2017")
+    score10 = ScoreBoard.Score("EEE",8,"15/10/2017")
 
     # print(score1._player, " ", score1._score, " ", score1._date)
 
@@ -188,7 +191,7 @@ if __name__ == "__main__":
     print("VOID TEST")
     a = ScoreBoard(10)
     b = ScoreBoard(10)
-    print("SIZE ",a.size(),"---- EMPTY ",a.is_empty()," ---- LEN ",len(a))
+    print("SIZE ", a.size(), "---- EMPTY ", a.is_empty(), " ---- LEN ", len(a))
     for e in a.top(10):
         print(e)
     for e in a.last(10):
