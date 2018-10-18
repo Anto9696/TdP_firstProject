@@ -23,23 +23,23 @@ class CircularPositionalList(PositionalList):
         None se la lista è vuota"""
         return self._make_position(self._trailer) if self._trailer is not None else None
 
-    def _prev_position(self, p):  # pubblici sarebbero più utili
+    def _prev_position(self, p):
         """punta alla position precedente a p"""
         return super().before(p)
 
-    def _next_position(self, p):  # pubblici sarebbero più utili
+    def _next_position(self, p):
         """punta alla position successiva a p"""
         return super().after(p)
 
     def before(self, p):
         """punta all'elemento precedente alla position p altrimenti restituisce None"""
         var = self._prev_position(p)
-        return var.element() if var is not None else None
+        return var.element() if len(self) > 1 else None
 
     def after(self, p):
         """punta all'elemento successivo alla position p altrimenti restituisce None"""
         var = self._next_position(p)
-        return var.element() if var is not None else None
+        return var.element() if len(self) > 1 else None
 
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
@@ -66,7 +66,7 @@ class CircularPositionalList(PositionalList):
         if self.is_empty():
             node = self._insert_first_node(e)
         else:
-            node = super(PositionalList, self)._insert_between(e, self._trailer, self._header) #super call brutta
+            node = super()._insert_between(e, self._trailer, self._header)._node #super(PositionalList, self)._insert_between(e, self._trailer, self._header) #super call brutta
             self._header = node
         return self._make_position(node)
 
@@ -76,7 +76,7 @@ class CircularPositionalList(PositionalList):
         if self.is_empty():
             node = self._insert_first_node(e)
         else:
-            node = super(PositionalList, self)._insert_between(e, self._trailer, self._header) #super call brutta
+            node = super()._insert_between(e, self._trailer, self._header)._node #super(PositionalList, self)._insert_between(e, self._trailer, self._header) #super call brutta
             self._trailer = node
         return self._make_position(node)
 
@@ -84,19 +84,19 @@ class CircularPositionalList(PositionalList):
         """Inserisce un nuovo elemento e prima del nodo nella Position p e restituisce la
         Position del nuovo elemento"""
         node = self._validate(p)
-        new_node = super(PositionalList, self)._insert_between(e, node._prev, node)  # Non so come sostituire, super call brutta
+        new_position = super()._insert_between(e, node._prev, node)#super(PositionalList, self)._insert_between(e, node._prev, node)  # Non so come sostituire, super call brutta
         if self.first() == p:
-            self._header = new_node
-        return self._make_position(new_node)
+            self._header = new_position._node
+        return new_position
 
     def add_after(self, p, e):
         """Inserisce un nuovo elemento e dopo il nodo nella Position p e restituisce la
         Position del nuovo elemento"""
         node = self._validate(p)
-        new_node = super(PositionalList, self)._insert_between(e, node, node._next)  # Non so come sostituire, super call brutta
+        new_position = super()._insert_between(e, node, node._next)  # Uguale e sopra
         if self.last() == p:
-            self._trailer = new_node
-        return self._make_position(new_node)
+            self._trailer = new_position._node
+        return new_position
 
     def find(self, e):
         """Restituisce una Position contenente la prima occorrenza dell’elemento e
@@ -109,32 +109,34 @@ class CircularPositionalList(PositionalList):
                 current_position = self._next_position(current_position)
             return current_position if current_position.element() == e else None
 
-    def delete(self, p):  # forse si può non cercare
+    def delete(self, p):
         """Rimuove e restituisce l’elemento in Position p dalla lista e invalida p"""
-        self._validate(p)
-        remove_pos = self.find(p.element())
-        if remove_pos is None:
-            raise ValueError("Non-existent position")
+        node = self._validate(p)
+        if len(self) == 1:
+            element = node._element
+            node._element = node._prev = node._next = None      #Nodo Invalidato
+            self._size = 0
+            self._header = None
+            self._trailer = None
         else:
-            if self.first() == remove_pos:  # if the position is header
-                self._header = self._validate(self._next_position(self.first()))  #can i get node?
-            elif self.last() == remove_pos:
-                self._trailer = self._validate(self._prev_position(self.last()))
-            return super().delete(p)
+            element = super()._delete_node(node)
+            if self.first() == p:
+                self._header = self._header._next
+            elif self.last() == p:
+                self._trailer = self._trailer._prev
+        return element
 
     def clear(self):
         """Rimuove tutti gli elementi della lista invalidando le corrispondenti Position"""
         if not self.is_empty():
-            cursor = self._header
+            cursor = self.first()
             while not self.is_empty():
-                next_cur = cursor._next #self._next_position(cursor)
-                self._delete_node(cursor)            #avoid this
+                next_cur = self._next_position(cursor)
+                self.delete(cursor)
                 cursor = next_cur
-            self._header = None
-            self._trailer = None
 
     def count(self, e):
-        """Resituisce il numero di occorrenze di e nella Lista"""
+        """Restituisce il numero di occorrenze di e nella Lista"""
         counter = 0
         for element in self:
             if element == e:
@@ -155,7 +157,6 @@ class CircularPositionalList(PositionalList):
             tmp = tmp._next
         self._header = self._trailer
         self._trailer = old_header
-        return self
 
     def copy(self):
         """Restituisce una nuova CircularPositionalList che contiene gli stessi elementi
@@ -184,7 +185,7 @@ class CircularPositionalList(PositionalList):
 
     def __contains__(self, item):
         """restituisce True se item è presente nella lista e False altrimenti"""
-        self._validate(item)
+        self._validate(item)  #Se è una posizione validata..c'è nella lista
         current_position = self.first()
         for i in range(len(self)):
             if current_position == item:
@@ -194,16 +195,16 @@ class CircularPositionalList(PositionalList):
 
     def __getitem__(self, item):
         """Restituisce l’elemento contenuto nella position item"""
-        self._validate(item)            #may search ?
+        self._validate(item)
         return item.element()
 
     def __setitem__(self, p, e):
         """Sostituisce l’elemento nella position p con e"""
-        self.replace(p, e)  # in replace viene validata già la position
+        self.replace(p, e)          # in replace viene validata già la position
 
     def __delitem__(self, p):
         """Rimuove l’elemento nella position p invalidando la position"""
-        self.delete(p) # il validate è in delete
+        self.delete(p)              # il validate è in delete
 
     def __iter__(self):
         """Iterator della classe"""

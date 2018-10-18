@@ -56,7 +56,7 @@ class ScoreBoard:
         elif self._best.first().element() <= s or self.size() < len(self):
             cursor = self._best.first()
             while cursor != self._best.last() and cursor.element() < s:
-                cursor = super(CircularPositionalList,self._best).after(cursor)     # a public methods need
+                cursor = super(CircularPositionalList,self._best).after(cursor)     # self._best._next_position(cursor)
             if cursor.element() < s:
                 self._best.add_after(cursor, s)
             else:
@@ -70,15 +70,8 @@ class ScoreBoard:
             raise TypeError("The operand is not a ScoreBoard")
         if not(new.is_empty() and self.is_empty()):
             self._best = merge(self._best, new._best)
-            """counter = 0
-            cursor = score_merge.last()
-            yield cursor.element()
-            while cursor != score_merge.first() and counter != 10:
-                cursor = super(CircularPositionalList, score_merge).before(cursor)      #better the public method
-                yield cursor.element()
-                counter += 1"""
             while self.size() > len(self):
-                #seleziona i primi 10
+                #seleziona i primi x
                 self._best.delete(self._best.first())
 
     def top(self, i=1):
@@ -89,12 +82,10 @@ class ScoreBoard:
             counter = 0
             if i >= 1:
                 score_list.append(cur.element())
-                #yield cur.element()
                 counter += 1
             while cur != self._best.first() and counter < i:
-                cur = super(CircularPositionalList, self._best).before(cur)  # better a public method
+                cur = super(CircularPositionalList, self._best).before(cur)  # self._best._prev_position(cur)
                 score_list.append(cur.element())
-                #yield cur.element()
                 counter += 1
         return score_list
 
@@ -104,7 +95,6 @@ class ScoreBoard:
         score_list = []
         for element in self._best:
             score_list.append(element)
-            #yield element
             counter += 1
             if counter == i:
                 break

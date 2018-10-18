@@ -1,4 +1,4 @@
-from my_list import CircularPositionalList
+from my_list_test import CircularPositionalList
 import random
 
 print("\nBenvenuto nella sezione di test, diamoci da fare!\nChe tipo di test desideri effettuare?\n")
@@ -42,7 +42,12 @@ if scelta.upper() == "I":
         print("10. Contain")
         print("11. Replace")
         print("12. Reverse")
-        print("13. Stampa albero di natale con gli *")
+        print("13. First")
+        print("14. Last")
+        print("15. Is sorted")
+        print("16. After")
+        print("17. Before")
+        print("18. Stampa albero di natale con gli *")
         print("Scrivere Q per terminare il programma")
         scelta = input("Digita la tua scelta: ")
 
@@ -131,11 +136,39 @@ if scelta.upper() == "I":
 
             print("-----------------------------------------------------------")
         elif scelta == "12":
-            print("REVERSE DELLA LIST 1: ", str(list1.reverse()))
+            list1.reverse()
+            print("REVERSE DELLA LIST 1: ", str(list1))
             print("-----------------------------------------------------------")
         elif scelta == "13":
+            print("Il primo elemento è ", str(list1[list1.first()]))
+            print("-----------------------------------------------------------")
+        elif scelta == "14":
+            print("L'ultimo elemento è ", str(list1[list1.last()]))
+            print("-----------------------------------------------------------")
+        elif scelta == "15":
+            if list1.is_sorted():
+                print("La lista è ordinata")
+            else:
+                print("La lista non è ordinata")
+            print("-----------------------------------------------------------")
+        elif scelta == "16":
+            try:
+                element = int(input("Inserisci elemento: "))
+                print("Il valore successivo è ", list1.after(list1.find(element)))
+            except TypeError:
+                print("Il valore inserito non è presente nella lista")
+            print("-----------------------------------------------------------")
+        elif scelta == "17":
+            try:
+                element = int(input("Inserisci elemento: "))
+                print("Il valore precedente è ", list1.before(list1.find(element)))
+            except TypeError:
+                print("Il valore inserito non è presente nella lista")
+            print("-----------------------------------------------------------")
+        elif scelta == "18":
             n = int(input("Inserire altezza albero: "))
-            for i in range(n):
+            print("☆".center(n * 2 - 1))
+            for i in range(1,n):
                 print(("*" * (i * 2 + 1)).center(n * 2 - 1))
             print("-----------------------------------------------------------")
         elif scelta == "Q" or scelta == "q":
@@ -205,7 +238,8 @@ elif scelta.upper() == "S":
     list3 = list1 + list2
     print("LIST 3 - len: ",len(list3))
     print("LIST 3: ", str(list3))
-    print("REVERSE OF LIST 3: ", str(list3.reverse()))
+    list3.reverse()
+    print("REVERSE OF LIST 3: ", str(list3))
     print("CLEAR LIST 3")
     list3.clear()
     print("LIST 3 - len: ",len(list3))
@@ -353,8 +387,10 @@ elif scelta.upper() == "S":
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
 
-    print("REVERSE OF LIST 1: ", str(list1.reverse()))              #reverse of an empty list
-    print("REVERSE OF LIST 2: ", str(list2.reverse()))              #reverse of an empty list
+    list1.reverse()         #reverse of an empty list
+    list2.reverse()         #reverse of an empty list
+    print("REVERSE OF LIST 1: ", str(list1))
+    print("REVERSE OF LIST 2: ", str(list2))
 
 
     list1.add_first(-2)
@@ -363,8 +399,10 @@ elif scelta.upper() == "S":
     print("ADDED -2 to LIST2")
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
-    print("REVERSE OF LIST 1: ", str(list1.reverse()))              #reverse of a list with one node
-    print("REVERSE OF LIST 2: ", str(list2.reverse()))              #reverse of a list with one node
+    list1.reverse()                         #reverse of a list with one node
+    list2.reverse()                         #reverse of a list with one node
+    print("REVERSE OF LIST 1: ", str(list1))
+    print("REVERSE OF LIST 2: ", str(list2))
 
     list1.add_first(10)                                             #reverse of a list with 2 elements
     print("ADDED 10 to LIST1")
@@ -372,5 +410,7 @@ elif scelta.upper() == "S":
     print("ADDED 10 to LIST2")
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
-    print("REVERSE OF LIST 1: ", str(list1.reverse()))
-    print("REVERSE OF LIST 2: ", str(list2.reverse()))
+    list1.reverse()
+    list2.reverse()
+    print("REVERSE OF LIST 1: ", str(list1))
+    print("REVERSE OF LIST 2: ", str(list2))
