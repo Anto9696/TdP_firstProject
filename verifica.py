@@ -45,7 +45,9 @@ if scelta.upper() == "I":
         print("13. First")
         print("14. Last")
         print("15. Is sorted")
-        print("16. Stampa albero di natale con gli *")
+        print("16. After")
+        print("17. Before")
+        print("18. Stampa albero di natale con gli *")
         print("Scrivere Q per terminare il programma")
         scelta = input("Digita la tua scelta: ")
 
@@ -150,8 +152,23 @@ if scelta.upper() == "I":
                 print("La lista non è ordinata")
             print("-----------------------------------------------------------")
         elif scelta == "16":
+            try:
+                element = int(input("Inserisci elemento: "))
+                print("Il valore successivo è ", list1.after(list1.find(element)))
+            except TypeError:
+                print("Il valore inserito non è presente nella lista")
+            print("-----------------------------------------------------------")
+        elif scelta == "17":
+            try:
+                element = int(input("Inserisci elemento: "))
+                print("Il valore precedente è ", list1.before(list1.find(element)))
+            except TypeError:
+                print("Il valore inserito non è presente nella lista")
+            print("-----------------------------------------------------------")
+        elif scelta == "18":
             n = int(input("Inserire altezza albero: "))
-            for i in range(n):
+            print("☆".center(n * 2 - 1))
+            for i in range(1,n):
                 print(("*" * (i * 2 + 1)).center(n * 2 - 1))
             print("-----------------------------------------------------------")
         elif scelta == "Q" or scelta == "q":
