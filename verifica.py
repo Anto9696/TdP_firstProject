@@ -140,10 +140,16 @@ if scelta.upper() == "I":
             print("REVERSE DELLA LIST 1: ", str(list1))
             print("-----------------------------------------------------------")
         elif scelta == "13":
-            print("Il primo elemento è ", str(list1[list1.first()]))
+            try:
+                print("Il primo elemento è ", str(list1[list1.first()]))
+            except TypeError:
+                print("La lista è vuota!")
             print("-----------------------------------------------------------")
         elif scelta == "14":
-            print("L'ultimo elemento è ", str(list1[list1.last()]))
+            try:
+                print("L'ultimo elemento è ", str(list1[list1.last()]))
+            except TypeError:
+                print("La lista è vuota!")
             print("-----------------------------------------------------------")
         elif scelta == "15":
             if list1.is_sorted():
