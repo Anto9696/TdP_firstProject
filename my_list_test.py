@@ -81,29 +81,35 @@ class CircularPositionalList(PositionalList):
             self._trailer = node
         return self._make_position(node)
 
+    def __add_before(self, p, e):
+        node = self._validate(p)
+        new_position = super()._insert_between(e, node._prev, node)
+        if self.first() == p:
+            self._header = new_position._node
+        return new_position
+
+    def __add_after(self, p, e):
+        node = self._validate(p)
+        new_position = super()._insert_between(e, node, node._next)
+        if self.last() == p:
+            self._trailer = new_position._node
+        return new_position
+
     def add_before(self, p, e):
         """Inserisce un nuovo elemento e prima del nodo nella Position p e restituisce la
         Position del nuovo elemento"""
         if not self._reverse:
-            node = self._validate(p)
-            new_position = super()._insert_between(e, node._prev, node)
-            if self.first() == p:
-                self._header = new_position._node
-            return new_position
+            return self.__add_before(p, e)
         else:
-            return self.add_after(p,e)
+            return self.__add_after(p, e)
 
     def add_after(self, p, e):
         """Inserisce un nuovo elemento e dopo il nodo nella Position p e restituisce la
         Position del nuovo elemento"""
         if not self._reverse:
-            node = self._validate(p)
-            new_position = super()._insert_between(e, node, node._next)
-            if self.last() == p:
-                self._trailer = new_position._node
-            return new_position
+            return self.__add_after(p, e)
         else:
-            return self.add_before(p,e)
+            return self.__add_before(p, e)
 
     def find(self, e):
         """Restituisce una Position contenente la prima occorrenza dell’elemento e
