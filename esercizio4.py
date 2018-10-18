@@ -59,7 +59,7 @@ class ScoreBoard:
                 cursor = self._best._next_position(cursor) # super(CircularPositionalList,self._best).after(cursor)
             if cursor.element() < s:
                 self._best.add_after(cursor, s)
-            else:
+            elif str(s) != str(cursor.element()):                   #Se sono completamente uguali su nome-data-punteggio non lo inserisco
                 self._best.add_before(cursor, s)
             if self.size() > len(self):
                 self._best.delete(self._best.first())
@@ -69,11 +69,7 @@ class ScoreBoard:
         if not isinstance(new, ScoreBoard):
             raise TypeError("The operand is not a ScoreBoard")
         if not(new.is_empty() and self.is_empty()):
-            print(self._best.is_sorted())
-            print(self._best)
-            print(new._best.is_sorted())
-            print(new._best)
-            self._best = merge(self._best, new._best)   # Merging
+            self._best = merge(self._best, new._best)   # Merging ---> RIVEDERE LA RIUTILIZZABILITà ---> PER VIA DELLA DUPLICAZIONE
             while self.size() > len(self):              # seleziona i primi X
                 self._best.delete(self._best.first())
 
@@ -120,10 +116,8 @@ if __name__ == "__main__":
     score9 = ScoreBoard.Score("EEE",18,"15/10/2017")
     score10 = ScoreBoard.Score("EEE",8,"15/10/2017")
 
-    # print(score1._player, " ", score1._score, " ", score1._date)
-
     SB1 = ScoreBoard(4)
-    # print("SCOREBOARD DIMENSION: ", SB._max)
+
     print("EMPTY SCOREBOARD 1: ", SB1.is_empty())
     print("LENGTH OF SCOREBOARD 1: ", SB1.size(),"/",len(SB1))
     print("INSERT SCORE")
@@ -188,22 +182,28 @@ if __name__ == "__main__":
     for e in SB1.top(10):
         print(e)
 
-    print("VOID TEST")
+    print("--------------------------VOID TEST----------------------------------")
     a = ScoreBoard(10)
     b = ScoreBoard(10)
     print("SIZE ", a.size(), "---- EMPTY ", a.is_empty(), " ---- LEN ", len(a))
+    print("----TOP-----")
     for e in a.top(10):
         print(e)
+    print("----LAST-----")
     for e in a.last(10):
         print(e)
-    for e in a:
-        print(e)
-    a.merge(SB1)
+    print("----ALL-----")
     for e in a:
         print(e)
     SB1.merge(a)
+    print("----SB1 MERGING with a-----")
     for e in SB1:
         print(e)
     a.merge(b)
+    print("----a MERGING with b-----")
+    for e in a:
+        print(e)
+    a.merge(SB1)
+    print("----a MERGING with SB1-----")
     for e in a:
         print(e)

@@ -47,5 +47,5 @@ if __name__=="__main__":
     print(list_2)
 
     print("merge LIST ")
-    new = merge(list_1,list_2)
+    new = merge(list_1, list_2)
     print(new)

@@ -98,7 +98,7 @@ class CircularPositionalList(PositionalList):
         Position del nuovo elemento"""
         if not self._reverse:
             node = self._validate(p)
-            new_position = super()._insert_between(e, node, node._next)  # Uguale e sopra
+            new_position = super()._insert_between(e, node, node._next)
             if self.last() == p:
                 self._trailer = new_position._node
             return new_position

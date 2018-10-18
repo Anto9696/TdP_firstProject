@@ -43,6 +43,5 @@ if __name__=="__main__":
         out += str(e)+", "
     print(out[:-2])
 
-
     print("LIST 3")
     print(list3)
