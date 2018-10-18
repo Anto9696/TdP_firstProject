@@ -42,7 +42,10 @@ if scelta.upper() == "I":
         print("10. Contain")
         print("11. Replace")
         print("12. Reverse")
-        print("13. Stampa albero di natale con gli *")
+        print("13. First")
+        print("14. Last")
+        print("15. Is sorted")
+        print("16. Stampa albero di natale con gli *")
         print("Scrivere Q per terminare il programma")
         scelta = input("Digita la tua scelta: ")
 
@@ -134,6 +137,18 @@ if scelta.upper() == "I":
             print("REVERSE DELLA LIST 1: ", str(list1.reverse()))
             print("-----------------------------------------------------------")
         elif scelta == "13":
+            print("Il primo elemento è ", str(list1[list1.first()]))
+            print("-----------------------------------------------------------")
+        elif scelta == "14":
+            print("L'ultimo elemento è ", str(list1[list1.last()]))
+            print("-----------------------------------------------------------")
+        elif scelta == "15":
+            if list1.is_sorted():
+                print("La lista è ordinata")
+            else:
+                print("La lista non è ordinata")
+            print("-----------------------------------------------------------")
+        elif scelta == "16":
             n = int(input("Inserire altezza albero: "))
             for i in range(n):
                 print(("*" * (i * 2 + 1)).center(n * 2 - 1))
