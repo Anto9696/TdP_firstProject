@@ -1,4 +1,4 @@
-from my_list import CircularPositionalList
+from my_list_test import CircularPositionalList
 import random
 
 print("\nBenvenuto nella sezione di test, diamoci da fare!\nChe tipo di test desideri effettuare?\n")

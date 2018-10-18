@@ -1,98 +1,225 @@
-from my_list import CircularPositionalList
-
-list1 = CircularPositionalList()
-list2 = CircularPositionalList()
+from TdP_collections.list.positional_list import PositionalList
 
 
+class CircularPositionalList(PositionalList):
 
-list1.add_last(-2)
-print("ADDED -2 to LIST1 ")
-list2.add_first(-2)
-print("ADDED -2 to LIST2 ")
+    def __init__(self):
+        """Create an empty list."""
+        self._header = None
+        self._trailer = None
+        self._reverse = False
+        self._size = 0
 
+    def _make_position(self, node):
+        """Return Position instance for given node (or None if sentinel)."""
+        return self.Position(self, node)  # legitimate position
 
-print("FOUND -2 - ", list1.find(-2).element() == -2)
-print("FOUND -3 - ", list1.find(-3) == -3)
+    def first(self):
+        """restituisce la Position dell’elemento che è identificato come il primo oppure
+        None se la lista è vuota"""
+        return self._make_position(self._header) if self._header is not None else None
 
-for i in range(10):
-    list1.add_first(i)
-    print("ADDED ",i," at the beginning of LIST1 ")
-    list2.add_last(i + 11)
-    print("ADDED ",i+11," at the end of LIST2 ")
+    def last(self):
+        """restituisce la Position dell’elemento che è identificato come l’ultimo oppure
+        None se la lista è vuota"""
+        return self._make_position(self._trailer) if self._trailer is not None else None
 
-print("LIST 1 - len ",len(list1))
-print("LIST 1: ", str(list1))
+    def _prev_position(self, p):
+        """punta alla position precedente a p"""
+        return super().before(p) if not self._reverse else super().after(p)
 
-print("LIST 2 - len ",len(list2))
-print("LIST 2: ", str(list2))
+    def _next_position(self, p):
+        """punta alla position successiva a p"""
+        return super().after(p) if not self._reverse else super().before(p)
 
-list3 = list1 + list2
-print("LIST 3 - len ",len(list3))
-print("LIST 3: ", str(list3))
+    def before(self, p):
+        """punta all'elemento precedente alla position p altrimenti restituisce None"""
+        var = self._prev_position(p)
+        return var.element() if len(self) > 1 else None
 
-value=list3.add_before(list3.first(),-1)
-print("ADDED  ",value.element()," before first of list3")
-value=list3.add_before(list3.find(5),-100)
-print("ADDED  ",value.element()," before 5 of list3")
-value=list3.add_after(list3.last(),100)
-print("ADDED  ",value.element()," after last of list3")
-value=list3.add_after(list3.find(15),-100)
-print("ADDED  ",value.element()," after 15 of list3")
+    def after(self, p):
+        """punta all'elemento successivo alla position p altrimenti restituisce None"""
+        var = self._next_position(p)
+        return var.element() if len(self) > 1 else None
 
-print("AFTER INSERT LIST 3 - len ",len(list3))
-print("LIST 3: ", str(list3))
+    def is_sorted(self):
+        """restituisce True se la lista è ordinata e False altrimenti"""
+        current_node = self.first()
+        while current_node != self.last() and current_node.element() < self._next_position(current_node).element():
+            current_node = self._next_position(current_node)
+        return True if current_node == self.last() else False
 
-print(list3.find(-100).element())
-print(list3.find(-101010))
+    def _insert_first_node(self, e):
+        """inserisce il primo nodo con elemento e"""
+        if self.is_empty():
+            node = self._Node(e, None, None)
+            node._prev = node
+            node._next = node
+            self._header = node
+            self._trailer = node
+            self._size = self._size + 1
+            return self._make_position(node)
+        raise ValueError("The list is not empty")
 
-list1.clear()
-print("List 1 cleared")
-print("LIST 1: ", str(list1))
+    def add_first(self, e):
+        """Inserisce l’elemento e in testa alla lista e restituisce la Position del nuovo
+        elemento"""
+        if self.is_empty():
+            node = self._insert_first_node(e)
+        else:
+            node = super()._insert_between(e, self._trailer, self._header)._node #super(PositionalList, self)._insert_between(e, self._trailer, self._header) #super call brutta
+            self._header = node
+        return self._make_position(node)
 
-print("LIST 3: ", str(list3))
-print(list3[list3.find(1)])
-print(list3.find(1) in list3)
-del list3[list3.find(1)]
-print("LIST 3: ", str(list3))
+    def add_last(self, e):
+        """Inserisce l’elemento e in coda alla lista e restituisce la Position del nuovo
+        elemento"""
+        if self.is_empty():
+            node = self._insert_first_node(e)
+        else:
+            node = super()._insert_between(e, self._trailer, self._header)._node #super(PositionalList, self)._insert_between(e, self._trailer, self._header) #super call brutta
+            self._trailer = node
+        return self._make_position(node)
 
-list3.delete(list3.find(9))
-print("DELETE 9 IN LIST 3")
-print("LIST 3: ", str(list3))
+    def add_before(self, p, e):
+        """Inserisce un nuovo elemento e prima del nodo nella Position p e restituisce la
+        Position del nuovo elemento"""
+        if not self._reverse:
+            node = self._validate(p)
+            new_position = super()._insert_between(e, node._prev, node)#super(PositionalList, self)._insert_between(e, node._prev, node)  # Non so come sostituire, super call brutta
+            if self.first() == p:
+                self._header = new_position._node
+            return new_position
+        else:
+            return self.add_after(p,e)
 
-list4 = CircularPositionalList()
-print("LIST 4: ", str(list4))
-print("REVERSE OF LIST 4: ", str(list4.reverse()))
-list4.add_first(-2)
-print("ADDED -2 to LIST4")
-print("REVERSE OF LIST 4: ", str(list4.reverse()))
-list4.add_first(10)
-print("ADDED 10 to LIST4")
-print("LIST 4: ", str(list4))
-print("REVERSE OF LIST 4: ", str(list4.reverse()))
-print("LIST 3: ", str(list3))
-print("REVERSE OF LIST 3: ", list3.reverse())
+    def add_after(self, p, e):
+        """Inserisce un nuovo elemento e dopo il nodo nella Position p e restituisce la
+        Position del nuovo elemento"""
+        if not self._reverse:
+            node = self._validate(p)
+            new_position = super()._insert_between(e, node, node._next)  # Uguale e sopra
+            if self.last() == p:
+                self._trailer = new_position._node
+            return new_position
+        else:
+            return self.add_before(p,e)
 
-print("REPLACE -100 WITH -500")
-old_element = list3.replace(list3.find(-100), -500)
-print("LIST 3: ", str(list3))
-print("OLD ELEMENT: ", str(old_element))
-print("REPLACE 27 (not exist) WITH -27")
-try:
-    old_element = list3.replace(list3.find(27), -27)
-    print("LIST 3: ", str(list3))
-    print("OLD ELEMENT: ", str(old_element))
-except TypeError:
-    print("ELEMENT DOES NOT EXSIST")
+    def find(self, e):
+        """Restituisce una Position contenente la prima occorrenza dell’elemento e
+        nella lista o None se e non è presente"""
+        if self.is_empty():
+            return None
+        else:
+            current_position = self.first()
+            while current_position != self.last() and current_position.element() != e:
+                current_position = self._next_position(current_position)
+            return current_position if current_position.element() == e else None
 
-print("LIST 2: ", str(list2))
-print("REPLACE 12 WITH -1000")
-list2[list2.find(12)]= -1000
-print("LIST 2: ", str(list2))
+    def delete(self, p):
+        """Rimuove e restituisce l’elemento in Position p dalla lista e invalida p"""
+        node = self._validate(p)
+        if len(self) == 1:
+            element = node._element
+            node._element = node._prev = node._next = None      #Nodo Invalidato
+            self._size = 0
+            self._header = None
+            self._trailer = None
+            self._reverse = False
+        else:
+            element = super()._delete_node(node)
+            if self.first() == p:
+                self._header = self._header._next if not self._reverse else self._header._prev
+            elif self.last() == p:
+                self._trailer = self._trailer._prev if not self._reverse else self._trailer._next
+        return element
 
-listaaa = CircularPositionalList()
-listaaa.add_last(8)
-listaaa.add_last(6)
-listaaa.add_last(7)
-listaaa.add_last(5)
-print(str(listaaa))
-print(listaaa[(listaaa.find(5))])
+    def clear(self):
+        """Rimuove tutti gli elementi della lista invalidando le corrispondenti Position"""
+        if not self.is_empty():
+            cursor = self.first()
+            while not self.is_empty():
+                next_cur = self._next_position(cursor)
+                self.delete(cursor)
+                cursor = next_cur
+
+    def count(self, e):
+        """Restituisce il numero di occorrenze di e nella Lista"""
+        counter = 0
+        for element in self:
+            if element == e:
+                counter += 1
+        return counter
+
+    def reverse(self):
+        """Inverte l’ordine degli elementi nella lista"""
+        self._reverse = not self._reverse
+        tmp = self._header
+        self._header = self._trailer
+        self._trailer = tmp
+        return self
+
+    def copy(self):
+        """Restituisce una nuova CircularPositionalList che contiene gli stessi elementi
+        della lista corrente memorizzati nello stesso ordine"""
+        new = CircularPositionalList()
+        for element in self:
+            new.add_last(element)
+        return new
+
+    def __add__(self, other):
+        """Crea una lista con tutti gli elementi di self e tutti gli elementi di other inseriti dopo
+        l’ultimo elemento di self"""
+        if not isinstance(other, CircularPositionalList):
+            raise TypeError("Operand is not a CircularPositionalList")
+        elif other.is_empty():
+            return self.copy()
+        elif self.is_empty():
+            return other.copy()
+        else:
+            new_list = CircularPositionalList()
+            for element in self:
+                new_list.add_last(element)
+            for element in other:
+                new_list.add_last(element)
+            return new_list
+
+    def __contains__(self, item):
+        """restituisce True se item è presente nella lista e False altrimenti"""
+        self._validate(item)  #Se è una posizione validata..c'è nella lista
+        current_position = self.first()
+        for i in range(len(self)):
+            if current_position == item:
+                return True
+            current_position = self._next_position(current_position)
+        return False
+
+    def __getitem__(self, item):
+        """Restituisce l’elemento contenuto nella position item"""
+        self._validate(item)
+        return item.element()
+
+    def __setitem__(self, p, e):
+        """Sostituisce l’elemento nella position p con e"""
+        self.replace(p, e)          # in replace viene validata già la position
+
+    def __delitem__(self, p):
+        """Rimuove l’elemento nella position p invalidando la position"""
+        self.delete(p)              # il validate è in delete
+
+    def __iter__(self):
+        """Iterator della classe"""
+        if not self.is_empty():
+            cursor = self.first()
+            yield cursor.element()
+            while cursor != self.last():
+                cursor = self._next_position(cursor)
+                yield cursor.element()
+
+    def __str__(self):
+        """Rappresenta il contenuto della lista come una sequenza di elementi,
+        separati da virgole, partendo da quello che è identificato come primo"""
+        string = ""
+        for el in self:
+            string += str(el) + ", "
+        return string[:-2]
