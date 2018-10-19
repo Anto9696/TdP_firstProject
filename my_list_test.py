@@ -196,13 +196,13 @@ class CircularPositionalList(PositionalList):
             return True
         except:
             return False
-        """self._validate(item)  #Se è una posizione validata..c'è nella lista
-        current_position = self.first()
-        for i in range(len(self)):
-            if current_position == item:
-                return True
-            current_position = self._next_position(current_position)
-        return False"""
+        # self._validate(item)  #Se è una posizione validata..c'è nella lista
+        # current_position = self.first()
+        # for i in range(len(self)):
+        #     if current_position == item:
+        #         return True
+        #     current_position = self._next_position(current_position)
+        # return False
 
     def __getitem__(self, item):
         """Restituisce l’elemento contenuto nella position item"""
