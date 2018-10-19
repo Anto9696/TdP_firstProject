@@ -190,7 +190,7 @@ class CircularPositionalList(PositionalList):
             return new_list
 
     def __contains__(self, item):
-        """restituisce True se item è presente nella lista e False altrimenti"""
+        """restituisce True se item è una position presente nella lista e False altrimenti"""
         try:
             self._validate(item)
             return True

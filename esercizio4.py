@@ -75,7 +75,11 @@ class ScoreBoard:
 
     def top(self, i=1):
         """Restituisce i migliori i score nello ScoreBoard"""
-        score_list = []
+        self._best.reverse()
+        score_list = self.last(i)
+        self._best.reverse()
+        return score_list
+        """score_list = []
         if not self.is_empty():
             cur = self._best.last()
             counter = 0
@@ -86,7 +90,7 @@ class ScoreBoard:
                 cur = self._best._prev_position(cur) # super(CircularPositionalList, self._best).before(cur)
                 score_list.append(cur.element())
                 counter += 1
-        return score_list
+        return score_list"""
 
     def last(self, i=1):
         """Restituisce i peggiori i score nello ScoreBoard"""
