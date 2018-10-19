@@ -7,7 +7,7 @@ class CircularPositionalList(PositionalList):
         """Create an empty list."""
         self._header = None
         self._trailer = None
-        self._reverse = False
+        self._reverse = False       # quando è a False la lista scorre normalmente, altrimenti viene letta al contrario
         self._size = 0
 
     def _make_position(self, node):
@@ -82,6 +82,8 @@ class CircularPositionalList(PositionalList):
         return self._make_position(node)
 
     def __add_before(self, p, e):
+        """Inserisce un nuovo elemento e prima del nodo nella Position p e restituisce la
+        Position del nuovo elemento"""
         node = self._validate(p)
         new_position = super()._insert_between(e, node._prev, node)
         if self.first() == p:
@@ -89,6 +91,8 @@ class CircularPositionalList(PositionalList):
         return new_position
 
     def __add_after(self, p, e):
+        """Inserisce un nuovo elemento e dopo il nodo nella Position p e restituisce la
+        Position del nuovo elemento"""
         node = self._validate(p)
         new_position = super()._insert_between(e, node, node._next)
         if self.last() == p:
@@ -96,16 +100,14 @@ class CircularPositionalList(PositionalList):
         return new_position
 
     def add_before(self, p, e):
-        """Inserisce un nuovo elemento e prima del nodo nella Position p e restituisce la
-        Position del nuovo elemento"""
+        """richiama _add_before se il flag di reverse non è attivo"""
         if not self._reverse:
             return self.__add_before(p, e)
         else:
             return self.__add_after(p, e)
 
     def add_after(self, p, e):
-        """Inserisce un nuovo elemento e dopo il nodo nella Position p e restituisce la
-        Position del nuovo elemento"""
+        """richiama _add_after se il flag di reverse non è attivo"""
         if not self._reverse:
             return self.__add_after(p, e)
         else:
