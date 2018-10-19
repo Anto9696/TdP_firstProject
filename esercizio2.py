@@ -8,13 +8,13 @@ def bubblesorted(list):
     while sup != 0:
         last_swap = 0
         cursor = list_ordered.first()
-        succ_cursor = list_ordered._next_position(cursor)         # super(CircularPositionalList,list_ordered).after(cursor)
+        succ_cursor = list_ordered._next_position(cursor)
         for i in range(sup):
             if cursor.element() > succ_cursor.element():
                 list_ordered.replace(succ_cursor, list_ordered.replace(cursor, succ_cursor.element()))
                 last_swap = i
             cursor = succ_cursor
-            succ_cursor = list_ordered._next_position(cursor)     # super(CircularPositionalList,list_ordered).after(cursor)
+            succ_cursor = list_ordered._next_position(cursor)
         sup=last_swap
 
     for element in list_ordered:
