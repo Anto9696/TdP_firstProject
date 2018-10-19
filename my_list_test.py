@@ -26,11 +26,11 @@ class CircularPositionalList(PositionalList):
 
     def _prev_position(self, p):
         """punta alla position precedente a p"""
-        return super().before(p) if not self._reverse else super().after(p)
+        return super().before(p) if not self._reverse else super().after(p)  # se il flag della reverse è attivo allora il before sarà un after
 
     def _next_position(self, p):
         """punta alla position successiva a p"""
-        return super().after(p) if not self._reverse else super().before(p)
+        return super().after(p) if not self._reverse else super().before(p)  # se il flag della reverse è attivo allora l'after sarà un before
 
     def before(self, p):
         """punta all'elemento precedente alla position p altrimenti restituisce None"""
@@ -159,8 +159,8 @@ class CircularPositionalList(PositionalList):
 
     def reverse(self):
         """Inverte l’ordine degli elementi nella lista"""
-        self._reverse = not self._reverse
-        tmp = self._header
+        self._reverse = not self._reverse   # impostiamo il flag per far invertire il funzionamento di _prev_position e _next_position
+        tmp = self._header                  # e invertiamo header e trailer
         self._header = self._trailer
         self._trailer = tmp
 
@@ -211,7 +211,7 @@ class CircularPositionalList(PositionalList):
 
     def __setitem__(self, p, e):
         """Sostituisce l’elemento nella position p con e"""
-        self.replace(p, e)          # in replace viene validata già la position
+        self.replace(p, e)          # La position viene valtata in replace
 
     def __delitem__(self, p):
         """Rimuove l’elemento nella position p invalidando la position"""
