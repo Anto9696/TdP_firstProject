@@ -1,4 +1,4 @@
-from my_list_test import CircularPositionalList
+from CircularPositionalList import CircularPositionalList
 from esercizio3 import merge
 
 

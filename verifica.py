@@ -1,10 +1,10 @@
-from my_list_test import CircularPositionalList
+from CircularPositionalList import CircularPositionalList
 import random
 
 print("\nBenvenuto nella sezione di test, diamoci da fare!\nChe tipo di test desideri effettuare?\n")
 print("\t\tI = interattivo\n\t\tS = Standard (Esercizio 5)\n")
 scelta = ""
-while(scelta.upper() != "I" and scelta.upper() !="S"):
+while scelta.upper() != "I" and scelta.upper() != "S":
     scelta = input("Digita la tua scelta [I/S]: ")
 
 if scelta.upper() == "I":
@@ -20,7 +20,7 @@ if scelta.upper() == "I":
     elif scelta == "2":
         list1 = CircularPositionalList()
         for i in range(10):
-            list1.add_first(random.randint(0,100))
+            list1.add_first(random.randint(0, 100))
         print("\nEcco la tua lista di partenza: ", str(list1))
     elif scelta == "3":
         exit(0)
@@ -53,7 +53,7 @@ if scelta.upper() == "I":
 
         if scelta == "1":
             list2 = CircularPositionalList()
-            length = int(input("Quanti elementi vuoi nella lista? ")) # gli input sono sempre stringhe
+            length = int(input("Quanti elementi vuoi nella lista? "))  # gli input sono sempre stringhe
             for i in range(length):
                 el = int(input("Inserisci elemento: "))
                 list2.add_first(el)
@@ -94,7 +94,7 @@ if scelta.upper() == "I":
         elif scelta == "7":
             print("La lista1 è stata cancellata")
             list1.clear()
-            print("LIST 1 - len: ",len(list1))
+            print("LIST 1 - len: ", len(list1))
             print("LIST 1: ", str(list1))
             print("-----------------------------------------------------------")
         elif scelta == "8":
@@ -174,7 +174,7 @@ if scelta.upper() == "I":
         elif scelta == "18":
             n = int(input("Inserire altezza albero: "))
             print("☆".center(n * 2 - 1))
-            for i in range(1,n):
+            for i in range(1, n):
                 print(("*" * (i * 2 + 1)).center(n * 2 - 1))
             print("-----------------------------------------------------------")
         elif scelta == "Q" or scelta == "q":
@@ -194,7 +194,6 @@ elif scelta.upper() == "S":
 
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
-
 
     print("-----------------------------------------------------------")
 
@@ -225,57 +224,56 @@ elif scelta.upper() == "S":
 
     for i in range(10):
         list1.add_first(i)
-        print("ADDED ",i," at the beginning of LIST1 ")
+        print("ADDED ", i, " at the beginning of LIST1 ")
         list2.add_first(i)
         print("ADDED ", i, " at the beginning of LIST2 ")
         list1.add_last(i + 11)
-        print("ADDED ",i+11," at the end of LIST1 ")
+        print("ADDED ", i + 11, " at the end of LIST1 ")
         list2.add_last(i + 11)
         print("ADDED ", i + 11, " at the end of LIST2 ")
 
-    print("LIST 1 - len: ",len(list1))
+    print("LIST 1 - len: ", len(list1))
     print("LIST 1: ", str(list1))
 
-    print("LIST 2 - len: ",len(list2))
+    print("LIST 2 - len: ", len(list2))
     print("LIST 2: ", str(list2))
 
     print("-----------------------------------------------------------")
 
     list3 = list1 + list2
-    print("LIST 3 - len: ",len(list3))
+    print("LIST 3 - len: ", len(list3))
     print("LIST 3: ", str(list3))
     list3.reverse()
     print("REVERSE OF LIST 3: ", str(list3))
     print("CLEAR LIST 3")
     list3.clear()
-    print("LIST 3 - len: ",len(list3))
+    print("LIST 3 - len: ", len(list3))
     print("LIST 3: ", str(list3))
-
 
     print("-----------------------------------------------------------")
 
-    value=list1.add_before(list1.first(),-1)
-    print("ADDED  ",value.element()," before first of list1")
-    value=list2.add_before(list2.first(),-1)
-    print("ADDED  ",value.element()," before first of list1")
+    value = list1.add_before(list1.first(), -1)
+    print("ADDED  ", value.element(), " before first of list1")
+    value = list2.add_before(list2.first(), -1)
+    print("ADDED  ", value.element(), " before first of list1")
 
-    value=list1.add_before(list1.find(5),-100)
-    print("ADDED  ",value.element()," before 5 of list1")
-    value=list2.add_before(list2.find(5),-100)
-    print("ADDED  ",value.element()," before 5 of list2")
+    value = list1.add_before(list1.find(5), -100)
+    print("ADDED  ", value.element(), " before 5 of list1")
+    value = list2.add_before(list2.find(5), -100)
+    print("ADDED  ", value.element(), " before 5 of list2")
 
-    value=list1.add_after(list1.last(),100)
-    print("ADDED  ",value.element()," after last of list1")
-    value=list2.add_after(list2.last(),100)
-    print("ADDED  ",value.element()," after last of list2")
+    value = list1.add_after(list1.last(), 100)
+    print("ADDED  ", value.element(), " after last of list1")
+    value = list2.add_after(list2.last(), 100)
+    print("ADDED  ", value.element(), " after last of list2")
 
-    value=list1.add_after(list1.find(15),-100)
-    print("ADDED  ",value.element()," after 15 of list1")
-    value=list2.add_after(list2.find(15),-100)
-    print("ADDED  ",value.element()," after 15 of list2")
+    value = list1.add_after(list1.find(15), -100)
+    print("ADDED  ", value.element(), " after 15 of list1")
+    value = list2.add_after(list2.find(15), -100)
+    print("ADDED  ", value.element(), " after 15 of list2")
 
-    print("AFTER INSERT LIST 1 - len ",len(list1))
-    print("AFTER INSERT LIST 2 - len ",len(list2))
+    print("AFTER INSERT LIST 1 - len ", len(list1))
+    print("AFTER INSERT LIST 2 - len ", len(list2))
 
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
@@ -308,7 +306,7 @@ elif scelta.upper() == "S":
         pos = list3.first()
         print(pos in list1)
         print("27 is contained in LIST 1")
-    except ValueError or TypeError :
+    except ValueError or TypeError:
         print("p does not belong to this container, so it isn't contained")
 
     print("IS 27 CONTAINED IN LIST 2?")
@@ -317,7 +315,7 @@ elif scelta.upper() == "S":
         pos = list3.first()
         print(pos in list2)
         print("27 is contained in LIST 2")
-    except ValueError or TypeError :
+    except ValueError or TypeError:
         print("p does not belong to this container, so it isn't contained")
 
     print("-----------------------------------------------------------")
@@ -341,7 +339,6 @@ elif scelta.upper() == "S":
     print("LIST 2: ", str(list2))
 
     print("-----------------------------------------------------------")
-
 
     print("REPLACE -100 WITH -500 in LIST 1")
     old_element = list1.replace(list1.find(-100), -500)
@@ -375,12 +372,12 @@ elif scelta.upper() == "S":
 
     print("LIST 1: ", str(list1))
     print("REPLACE 12 WITH -1000 in LIST 1")
-    list1[list1.find(12)]= -1000
+    list1[list1.find(12)] = -1000
     print("LIST 1: ", str(list1))
 
     print("LIST 2: ", str(list2))
     print("REPLACE 12 WITH -1000 in LIST 2")
-    list2[list2.find(12)]= -1000
+    list2[list2.find(12)] = -1000
     print("LIST 2: ", str(list2))
 
     print("-----------------------------------------------------------")
@@ -393,11 +390,10 @@ elif scelta.upper() == "S":
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
 
-    list1.reverse()         #reverse of an empty list
-    list2.reverse()         #reverse of an empty list
+    list1.reverse()  # reverse of an empty list
+    list2.reverse()  # reverse of an empty list
     print("REVERSE OF LIST 1: ", str(list1))
     print("REVERSE OF LIST 2: ", str(list2))
-
 
     list1.add_first(-2)
     print("ADDED -2 to LIST1")
@@ -405,14 +401,14 @@ elif scelta.upper() == "S":
     print("ADDED -2 to LIST2")
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
-    list1.reverse()                         #reverse of a list with one node
-    list2.reverse()                         #reverse of a list with one node
+    list1.reverse()  # reverse of a list with one node
+    list2.reverse()  # reverse of a list with one node
     print("REVERSE OF LIST 1: ", str(list1))
     print("REVERSE OF LIST 2: ", str(list2))
 
-    list1.add_first(10)                                             #reverse of a list with 2 elements
+    list1.add_first(10)  # reverse of a list with 2 elements
     print("ADDED 10 to LIST1")
-    list2.add_first(10)                                             #reverse of a list with 2 elements
+    list2.add_first(10)  # reverse of a list with 2 elements
     print("ADDED 10 to LIST2")
     print("LIST 1: ", str(list1))
     print("LIST 2: ", str(list2))
