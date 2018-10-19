@@ -26,13 +26,11 @@ class CircularPositionalList(PositionalList):
 
     def _prev_position(self, p):
         """punta alla position precedente a p"""
-        return super().before(p) if not self._reverse else super().after(
-            p)  # se il flag della reverse è attivo allora il before sarà un after
+        return super().before(p) if not self._reverse else super().after(p)  # se il flag della reverse è attivo allora il before sarà un after
 
     def _next_position(self, p):
         """punta alla position successiva a p"""
-        return super().after(p) if not self._reverse else super().before(
-            p)  # se il flag della reverse è attivo allora l'after sarà un before
+        return super().after(p) if not self._reverse else super().before(p)  # se il flag della reverse è attivo allora l'after sarà un before
 
     def before(self, p):
         """punta all'elemento precedente alla position p altrimenti restituisce None"""
