@@ -1,9 +1,10 @@
 from my_list_test import CircularPositionalList
 
+
 def bubblesorted(list):
     """ordina gli elementi della CircularPositionalList e
     li restituisce nell’ordine risultante."""
-    list_ordered=list.copy()
+    list_ordered = list.copy()
     sup = len(list_ordered) - 1
     while sup != 0:
         last_swap = 0
@@ -15,18 +16,18 @@ def bubblesorted(list):
                 last_swap = i
             cursor = succ_cursor
             succ_cursor = list_ordered._next_position(cursor)
-        sup=last_swap
+        sup = last_swap
 
     for element in list_ordered:
         yield element
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     list1 = CircularPositionalList()
     list2 = CircularPositionalList()
     for i in range(10):
         list1.add_first(i)
-        list2.add_last(i+11)
+        list2.add_last(i + 11)
 
     print("LIST 1")
     print(list1)
@@ -40,7 +41,7 @@ if __name__=="__main__":
     print("ORDERED LIST 3")
     out = ""
     for e in bubblesorted(list3):
-        out += str(e)+", "
+        out += str(e) + ", "
     print(out[:-2])
 
     print("LIST 3")
