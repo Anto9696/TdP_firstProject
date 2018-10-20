@@ -6,7 +6,7 @@ def bubblesorted(list):
     li restituisce nell’ordine risultante."""
     list_ordered = list.copy()
     sup = len(list_ordered) - 1
-    while sup > 0:
+    while sup > 0:                  # perchè se la lista è vuota allora sup è < di 0
         last_swap = 0
         cursor = list_ordered.first()
         succ_cursor = list_ordered._next_position(cursor)
