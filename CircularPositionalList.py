@@ -94,9 +94,9 @@ class CircularPositionalList(PositionalList):
         Position del nuovo elemento"""
         node = self._validate(p)
         new_position = super()._insert_between(e, node._prev, node)
-        if self.first() == p:
+        if (not self._reverse and self.first() == p):     #se la lista non è invertita e aggiungo prima del primo aggiorno header
             self._header = new_position._node
-        elif self.last() == p:
+        elif (self._reverse and self.last() == p):        #se la lista è invertita e aggiungo prima dell'ultimo, in realtà sto inserendo il nuovo primo leggendo al contrario quindi aggiorno
             self._trailer = new_position._node
         return new_position
 
@@ -105,21 +105,21 @@ class CircularPositionalList(PositionalList):
         Position del nuovo elemento"""
         node = self._validate(p)
         new_position = super()._insert_between(e, node, node._next)
-        if self.last() == p:
+        if (not self._reverse and self.last() == p):
             self._trailer = new_position._node
-        elif self.first() == p:
+        elif (self._reverse and self.first() == p):
             self._header = new_position._node
         return new_position
 
     def add_before(self, p, e):
-        """richiama _add_before se il flag di reverse non è attivo"""
+        """richiama _add_before se il flag di reverse non è attivo, altrimenti _add_after"""
         if not self._reverse:
             return self.__add_before(p, e)
         else:
             return self.__add_after(p, e)
 
     def add_after(self, p, e):
-        """richiama _add_after se il flag di reverse non è attivo"""
+        """richiama __add_after se il flag di reverse non è attivo, altrimenti __add_after"""
         if not self._reverse:
             return self.__add_after(p, e)
         else:
