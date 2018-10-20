@@ -94,10 +94,10 @@ class CircularPositionalList(PositionalList):
         Position del nuovo elemento"""
         node = self._validate(p)
         new_position = super()._insert_between(e, node._prev, node)
-        if (not self._reverse and self.first() == p):     #se la lista non è invertita e aggiungo prima del primo aggiorno header
+        if not self._reverse and self.first() == p:     #se la lista non è invertita e aggiungo prima del primo aggiorno header
             self._header = new_position._node
-        elif (self._reverse and self.last() == p):        #se la lista è invertita e aggiungo prima dell'ultimo, in realtà sto inserendo il nuovo primo leggendo al contrario quindi aggiorno
-            self._trailer = new_position._node
+        elif self._reverse and self.last() == p:        #se la lista è invertita la add before viene chiamata da add after pubblica per inserire dopo, se inserisce dopo l'ultimo quindi
+            self._trailer = new_position._node          #questo sarà il nuovo ultimo
         return new_position
 
     def __add_after(self, p, e):
@@ -105,14 +105,14 @@ class CircularPositionalList(PositionalList):
         Position del nuovo elemento"""
         node = self._validate(p)
         new_position = super()._insert_between(e, node, node._next)
-        if (not self._reverse and self.last() == p):
+        if not self._reverse and self.last() == p:     #se la lista non è invertita e aggiungo dopo l'ultimo aggiorno trailer
             self._trailer = new_position._node
-        elif (self._reverse and self.first() == p):
-            self._header = new_position._node
+        elif self._reverse and self.first() == p:      #se la lista è invertita la add after viene richiamata dalla add bedore pubblica per inserire prima, se inserisce prima del
+            self._header = new_position._node          #primo quindi aggiorno header
         return new_position
 
     def add_before(self, p, e):
-        """richiama _add_before se il flag di reverse non è attivo, altrimenti _add_after"""
+        """richiama _add_before se il flag di reverse non è attivo, altrimenti __add_after"""
         if not self._reverse:
             return self.__add_before(p, e)
         else:
