@@ -7,11 +7,11 @@ class CircularPositionalList(PositionalList):
         """Create an empty list."""
         self._header = None
         self._trailer = None
-        self._reverse = False       # quando è a False la lista scorre normalmente, altrimenti viene letta al contrario
+        self._reverse = False       # quando è a False la lista scorre normalmente, altrimenti viene letta al contrario -> REVERSE in O(1)
         self._size = 0
 
     def _make_position(self, node):
-        """Return Position instance for given node (or None if sentinel)."""
+        """Return Position instance for given node"""
         return self.Position(self, node)  # legitimate position
 
     def first(self):
