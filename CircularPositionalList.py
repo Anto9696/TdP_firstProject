@@ -7,11 +7,11 @@ class CircularPositionalList(PositionalList):
         """Create an empty list."""
         self._header = None
         self._trailer = None
-        self._reverse = False
+        self._reverse = False       # quando è a False la lista scorre normalmente, altrimenti viene letta al contrario -> REVERSE in O(1)
         self._size = 0
 
     def _make_position(self, node):
-        """Return Position instance for given node (or None if sentinel)."""
+        """Return Position instance for given node"""
         return self.Position(self, node)  # legitimate position
 
     def first(self):
@@ -26,11 +26,11 @@ class CircularPositionalList(PositionalList):
 
     def _prev_position(self, p):
         """punta alla position precedente a p"""
-        return super().before(p) if not self._reverse else super().after(p)
+        return super().before(p) if not self._reverse else super().after(p)  # se il flag della reverse è attivo allora il before sarà un after
 
     def _next_position(self, p):
         """punta alla position successiva a p"""
-        return super().after(p) if not self._reverse else super().before(p)
+        return super().after(p) if not self._reverse else super().before(p)  # se il flag della reverse è attivo allora l'after sarà un before
 
     def before(self, p):
         """punta all'elemento precedente alla position p altrimenti restituisce None"""
@@ -45,7 +45,7 @@ class CircularPositionalList(PositionalList):
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
         current_node = self.first()
-        while current_node != self.last() and current_node.element() < self._next_position(current_node).element():
+        while current_node != self.last() and current_node.element() <= self._next_position(current_node).element():
             current_node = self._next_position(current_node)
         return True if current_node == self.last() else False
 
@@ -67,7 +67,7 @@ class CircularPositionalList(PositionalList):
         if self.is_empty():
             node = self._insert_first_node(e)
         else:
-            node = super()._insert_between(e, self._trailer, self._header)._node #super(PositionalList, self)._insert_between(e, self._trailer, self._header) #super call brutta
+            node = super()._insert_between(e, self._trailer, self._header)._node
             self._header = node
         return self._make_position(node)
 
@@ -77,33 +77,41 @@ class CircularPositionalList(PositionalList):
         if self.is_empty():
             node = self._insert_first_node(e)
         else:
-            node = super()._insert_between(e, self._trailer, self._header)._node #super(PositionalList, self)._insert_between(e, self._trailer, self._header) #super call brutta
+            node = super()._insert_between(e, self._trailer, self._header)._node
             self._trailer = node
         return self._make_position(node)
 
-    def add_before(self, p, e):
+    def __add_before(self, p, e):
         """Inserisce un nuovo elemento e prima del nodo nella Position p e restituisce la
         Position del nuovo elemento"""
-        if not self._reverse:
-            node = self._validate(p)
-            new_position = super()._insert_between(e, node._prev, node)#super(PositionalList, self)._insert_between(e, node._prev, node)  # Non so come sostituire, super call brutta
-            if self.first() == p:
-                self._header = new_position._node
-            return new_position
-        else:
-            return self.add_after(p,e)
+        node = self._validate(p)
+        new_position = super()._insert_between(e, node._prev, node)
+        if self.first() == p:
+            self._header = new_position._node
+        return new_position
 
-    def add_after(self, p, e):
+    def __add_after(self, p, e):
         """Inserisce un nuovo elemento e dopo il nodo nella Position p e restituisce la
         Position del nuovo elemento"""
+        node = self._validate(p)
+        new_position = super()._insert_between(e, node, node._next)
+        if self.last() == p:
+            self._trailer = new_position._node
+        return new_position
+
+    def add_before(self, p, e):
+        """richiama _add_before se il flag di reverse non è attivo"""
         if not self._reverse:
-            node = self._validate(p)
-            new_position = super()._insert_between(e, node, node._next)  # Uguale e sopra
-            if self.last() == p:
-                self._trailer = new_position._node
-            return new_position
+            return self.__add_before(p, e)
         else:
-            return self.add_before(p,e)
+            return self.__add_after(p, e)
+
+    def add_after(self, p, e):
+        """richiama _add_after se il flag di reverse non è attivo"""
+        if not self._reverse:
+            return self.__add_after(p, e)
+        else:
+            return self.__add_before(p, e)
 
     def find(self, e):
         """Restituisce una Position contenente la prima occorrenza dell’elemento e
@@ -121,17 +129,17 @@ class CircularPositionalList(PositionalList):
         node = self._validate(p)
         if len(self) == 1:
             element = node._element
-            node._element = node._prev = node._next = None      #Nodo Invalidato
+            node._element = node._prev = node._next = None  # Nodo Invalidato
             self._size = 0
             self._header = None
             self._trailer = None
             self._reverse = False
         else:
-            element = super()._delete_node(node)
             if self.first() == p:
                 self._header = self._header._next if not self._reverse else self._header._prev
             elif self.last() == p:
                 self._trailer = self._trailer._prev if not self._reverse else self._trailer._next
+            element = super()._delete_node(node)
         return element
 
     def clear(self):
@@ -153,8 +161,8 @@ class CircularPositionalList(PositionalList):
 
     def reverse(self):
         """Inverte l’ordine degli elementi nella lista"""
-        self._reverse = not self._reverse
-        tmp = self._header
+        self._reverse = not self._reverse  # impostiamo il flag per far invertire il funzionamento di _prev_position e _next_position
+        tmp = self._header  # e invertiamo header e trailer
         self._header = self._trailer
         self._trailer = tmp
 
@@ -184,14 +192,19 @@ class CircularPositionalList(PositionalList):
             return new_list
 
     def __contains__(self, item):
-        """restituisce True se item è presente nella lista e False altrimenti"""
-        self._validate(item)  #Se è una posizione validata..c'è nella lista
-        current_position = self.first()
-        for i in range(len(self)):
-            if current_position == item:
-                return True
-            current_position = self._next_position(current_position)
-        return False
+        """restituisce True se item è una position presente nella lista e False altrimenti"""
+        try:
+            self._validate(item)
+            return True
+        except:
+            return False
+        # self._validate(item)  #Se è una posizione validata..c'è nella lista
+        # current_position = self.first()
+        # for i in range(len(self)):
+        #     if current_position == item:
+        #         return True
+        #     current_position = self._next_position(current_position)
+        # return False
 
     def __getitem__(self, item):
         """Restituisce l’elemento contenuto nella position item"""
@@ -200,11 +213,11 @@ class CircularPositionalList(PositionalList):
 
     def __setitem__(self, p, e):
         """Sostituisce l’elemento nella position p con e"""
-        self.replace(p, e)          # in replace viene validata già la position
+        self.replace(p, e)  # La position viene valtata in replace
 
     def __delitem__(self, p):
         """Rimuove l’elemento nella position p invalidando la position"""
-        self.delete(p)              # il validate è in delete
+        self.delete(p)  # il validate è in delete
 
     def __iter__(self):
         """Iterator della classe"""

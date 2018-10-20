@@ -44,7 +44,7 @@ class CircularPositionalList(PositionalList):
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
         current_node = self.first()
-        while current_node != self.last() and current_node.element() < self._next_position(current_node).element():
+        while current_node != self.last() and current_node.element() <= self._next_position(current_node).element():
             current_node = self._next_position(current_node)
         return True if current_node == self.last() else False
 
@@ -119,11 +119,11 @@ class CircularPositionalList(PositionalList):
             self._header = None
             self._trailer = None
         else:
-            element = super()._delete_node(node)
             if self.first() == p:
                 self._header = self._header._next
             elif self.last() == p:
                 self._trailer = self._trailer._prev
+            element = super()._delete_node(node)
         return element
 
     def clear(self):
