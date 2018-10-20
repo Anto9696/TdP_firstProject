@@ -35,14 +35,14 @@ class CircularPositionalList(PositionalList):
     def before(self, p):
         """punta all'elemento precedente alla position p altrimenti restituisce None"""
         var = self._prev_position(p)
-        return var.element() if len(self) > 1 else None      #perchè se c'è un solo elemento, il predecessore di questo non deve essere se stesso (specifica)
+        return var.element() if len(self) > 1 else None      # perchè se c'è un solo elemento, il predecessore di questo non deve essere se stesso, dato che essendo una lista doppiamente linkata con un solo elemento il prev punterebbe a se stesso
 
     def after(self, p):
         """punta all'elemento successivo alla position p altrimenti restituisce None"""
         var = self._next_position(p)
-        return var.element() if len(self) > 1 else None      #perchè se c'è un solo elemento, il successore di questo non deve essere se stesso (specifica)
+        return var.element() if len(self) > 1 else None      # perchè se c'è un solo elemento, il successore di questo non deve essere se stesso, dato che essendo una lista doppiamente linkata con un solo elemento il next punterebbe a se stesso
 
-    #LA FUNZIONE is_empty la eredita da doubly_linked_base
+    # LA FUNZIONE is_empty la eredita da doubly_linked_base
 
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
@@ -52,7 +52,7 @@ class CircularPositionalList(PositionalList):
         return True if current_node == self.last() else False
 
     def _insert_first_node(self, e):
-        """inserisce il primo nodo con elemento e"""  #metodo usato per inserire il primo nodo qundo la lista è vuota quindi.
+        """inserisce il primo nodo con elemento e"""  # viene usato per inserire il primo nodo quando la lista è vuota
         if self.is_empty():
             node = self._Node(e, None, None)
             node._prev = node
@@ -70,10 +70,10 @@ class CircularPositionalList(PositionalList):
             node = self._insert_first_node(e)
         else:
             if not self._reverse:
-                node = super()._insert_between(e, self._trailer, self._header)._node    #._node perchè restituisce una position ma del tipo positional_list
-            else:                                                                       #distinguiamo qui tra i 2 casi perchè si utilizza la insert_between di doubly_linked_base e
-                node = super()._insert_between(e, self._header, self._trailer)._node    #questa utilizza i puntatori _next e _prev, quindi per condizionarne il comporrtamento scambiamo
-            self._header = node                                                         #predecessore e successore passatogli
+                node = super()._insert_between(e, self._trailer, self._header)._node    # "._node" perchè restituisce una position ma del tipo positional_list
+            else:                                                                       # distinguiamo qui tra i 2 casi perchè si utilizza la insert_between di doubly_linked_base e
+                node = super()._insert_between(e, self._header, self._trailer)._node    # questa utilizza i puntatori _next e _prev, quindi per condizionarne il comporrtamento scambiamo
+            self._header = node                                                         # predecessore e successore passatogli
         return self._make_position(node)
 
     def add_last(self, e):
@@ -94,10 +94,10 @@ class CircularPositionalList(PositionalList):
         Position del nuovo elemento"""
         node = self._validate(p)
         new_position = super()._insert_between(e, node._prev, node)
-        if not self._reverse and self.first() == p:     #se la lista non è invertita e aggiungo prima del primo aggiorno header
+        if not self._reverse and self.first() == p:     # se la lista non è invertita e aggiungo prima del primo allora aggiorno l'header
             self._header = new_position._node
-        elif self._reverse and self.last() == p:        #se la lista è invertita la add before viene chiamata da add after pubblica per inserire dopo, se inserisce dopo l'ultimo quindi
-            self._trailer = new_position._node          #questo sarà il nuovo ultimo
+        elif self._reverse and self.last() == p:        # se la lista è invertita la _add_before viene chiamata dalla add_after pubblica per inserire dopo l'elemento scelto, se questo è l'ultimo allora
+            self._trailer = new_position._node          # l'elemento scelto sarà il nuovo ultimo
         return new_position
 
     def __add_after(self, p, e):
@@ -105,10 +105,10 @@ class CircularPositionalList(PositionalList):
         Position del nuovo elemento"""
         node = self._validate(p)
         new_position = super()._insert_between(e, node, node._next)
-        if not self._reverse and self.last() == p:     #se la lista non è invertita e aggiungo dopo l'ultimo aggiorno trailer
+        if not self._reverse and self.last() == p:     # se la lista non è invertita e aggiungo dopo l'ultimo allora aggiorno trailer
             self._trailer = new_position._node
-        elif self._reverse and self.first() == p:      #se la lista è invertita la add after viene richiamata dalla add bedore pubblica per inserire prima, se inserisce prima del
-            self._header = new_position._node          #primo quindi aggiorno header
+        elif self._reverse and self.first() == p:      # se la lista è invertita la _add_after viene richiamata dalla add_bedore pubblica per inserire prima dell'elemento scelto, se inserisco prima del
+            self._header = new_position._node          # primo allora aggiorno l'header
         return new_position
 
     def add_before(self, p, e):
@@ -206,17 +206,10 @@ class CircularPositionalList(PositionalList):
     def __contains__(self, item):
         """restituisce True se item è una position presente nella lista e False altrimenti"""
         try:
-            self._validate(item)
+            self._validate(item)  # se il validate non restituisce nessuna eccezione allora la posizione esiste ed è presente
             return True
         except:
             return False
-        # self._validate(item)  #Se è una posizione validata..c'è nella lista
-        # current_position = self.first()
-        # for i in range(len(self)):
-        #     if current_position == item:
-        #         return True
-        #     current_position = self._next_position(current_position)
-        # return False
 
     def __getitem__(self, item):
         """Restituisce l’elemento contenuto nella position item"""

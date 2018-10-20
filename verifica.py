@@ -424,3 +424,6 @@ elif scelta.upper() == "S":
     list2.reverse()
     print("REVERSE OF LIST 1: ", str(list1))
     print("REVERSE OF LIST 2: ", str(list2))
+
+    # I TEST RELATIVI AGLI ESERCIZI 2, 3, 4 SONO STATI ESEGUITI ALL'INTERNO DEGLI STESSI PER POTER
+    # CONSENTIRE UNA LETTURA PIU' AGEVOLATA DI verifica.py
