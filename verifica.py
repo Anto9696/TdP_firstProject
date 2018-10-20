@@ -47,7 +47,8 @@ if scelta.upper() == "I":
         print("15. Is sorted")
         print("16. After")
         print("17. Before")
-        print("18. Stampa albero di natale con gli *")
+        print("18. Count")
+        print("19. Stampa albero di natale con gli *")
         print("Scrivere Q per terminare il programma")
         scelta = input("Digita la tua scelta: ")
 
@@ -57,6 +58,7 @@ if scelta.upper() == "I":
             for i in range(length):
                 el = int(input("Inserisci elemento: "))
                 list2.add_first(el)
+            list2.reverse()
             list1 = list1 + list2
             print("LIST 1: ", str(list1))
             print("-----------------------------------------------------------")
@@ -172,6 +174,11 @@ if scelta.upper() == "I":
                 print("Il valore inserito non è presente nella lista")
             print("-----------------------------------------------------------")
         elif scelta == "18":
+            n = int(input("Inserisci il valore di cui vuoi contare le occorrenze: "))
+            counter = list1.count(n)
+            print("Sono stati trovati ", counter, " elementi con valore ", n)
+            print("-----------------------------------------------------------")
+        elif scelta == "19":
             n = int(input("Inserire altezza albero: "))
             print("☆".center(n * 2 - 1))
             for i in range(1, n):
