@@ -96,6 +96,8 @@ class CircularPositionalList(PositionalList):
         new_position = super()._insert_between(e, node._prev, node)
         if self.first() == p:
             self._header = new_position._node
+        elif self.last() == p:
+            self._trailer = new_position._node
         return new_position
 
     def __add_after(self, p, e):
@@ -105,6 +107,8 @@ class CircularPositionalList(PositionalList):
         new_position = super()._insert_between(e, node, node._next)
         if self.last() == p:
             self._trailer = new_position._node
+        elif self.first() == p:
+            self._header = new_position._node
         return new_position
 
     def add_before(self, p, e):
