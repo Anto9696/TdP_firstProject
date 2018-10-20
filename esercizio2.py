@@ -22,6 +22,7 @@ def bubblesorted(list):
         yield element
 
 
+    # IL TEST E' STATO EFFETTUATO QUI E NON IN verifica.py
 if __name__ == "__main__":
     list1 = CircularPositionalList()
     list2 = CircularPositionalList()

@@ -31,6 +31,7 @@ def merge(list1, list2):
     return new_list
 
 
+# IL TEST E' STATO EFFETTUATO QUI E NON IN verifica.py
 if __name__ == "__main__":
     list_1 = CircularPositionalList()
     list_2 = CircularPositionalList()

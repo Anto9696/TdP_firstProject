@@ -108,6 +108,7 @@ class ScoreBoard:
             yield score
 
 
+# IL TEST E' STATO EFFETTUATO QUI E NON IN verifica.py
 if __name__ == "__main__":
     score1 = ScoreBoard.Score("AAA", 10, "15/10/2017")
     score2 = ScoreBoard.Score("BBB", 5, "15/10/2016")
