@@ -138,6 +138,7 @@ if scelta.upper() == "I":
 
             print("-----------------------------------------------------------")
         elif scelta == "12":
+            print("LIST 1 PRIMA DELLA REVERSE: ", str(list1))
             list1.reverse()
             print("REVERSE DELLA LIST 1: ", str(list1))
             print("-----------------------------------------------------------")
