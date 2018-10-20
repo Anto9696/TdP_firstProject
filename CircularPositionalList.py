@@ -35,12 +35,14 @@ class CircularPositionalList(PositionalList):
     def before(self, p):
         """punta all'elemento precedente alla position p altrimenti restituisce None"""
         var = self._prev_position(p)
-        return var.element() if len(self) > 1 else None
+        return var.element() if len(self) > 1 else None      #perchè se c'è un solo elemento, il predecessore di questo non deve essere se stesso (specifica)
 
     def after(self, p):
         """punta all'elemento successivo alla position p altrimenti restituisce None"""
         var = self._next_position(p)
-        return var.element() if len(self) > 1 else None
+        return var.element() if len(self) > 1 else None      #perchè se c'è un solo elemento, il successore di questo non deve essere se stesso (specifica)
+
+    #LA FUNZIONE is_empty la eredita da doubly_linked_base
 
     def is_sorted(self):
         """restituisce True se la lista è ordinata e False altrimenti"""
@@ -50,7 +52,7 @@ class CircularPositionalList(PositionalList):
         return True if current_node == self.last() else False
 
     def _insert_first_node(self, e):
-        """inserisce il primo nodo con elemento e"""
+        """inserisce il primo nodo con elemento e"""  #metodo usato per inserire il primo nodo qundo la lista è vuota quindi.
         if self.is_empty():
             node = self._Node(e, None, None)
             node._prev = node
@@ -67,8 +69,11 @@ class CircularPositionalList(PositionalList):
         if self.is_empty():
             node = self._insert_first_node(e)
         else:
-            node = super()._insert_between(e, self._trailer, self._header)._node
-            self._header = node
+            if not self._reverse:
+                node = super()._insert_between(e, self._trailer, self._header)._node    #._node perchè restituisce una position ma del tipo positional_list
+            else:                                                                       #distinguiamo qui tra i 2 casi perchè si utilizza la insert_between di doubly_linked_base e
+                node = super()._insert_between(e, self._header, self._trailer)._node    #questa utilizza i puntatori _next e _prev, quindi per condizionarne il comporrtamento scambiamo
+            self._header = node                                                         #predecessore e successore passatogli
         return self._make_position(node)
 
     def add_last(self, e):
@@ -77,7 +82,10 @@ class CircularPositionalList(PositionalList):
         if self.is_empty():
             node = self._insert_first_node(e)
         else:
-            node = super()._insert_between(e, self._trailer, self._header)._node
+            if not self._reverse:
+                node = super()._insert_between(e, self._trailer, self._header)._node   #distinguiamo qui tra i 2 casi perchè si utilizza la insert_between di doubly_linked_base e
+            else:                                                                      #questa utilizza i puntatori _next e _prev, quindi per condizionarne il comporrtamento scambiamo
+                node = super()._insert_between(e, self._header, self._trailer)._node   #predecessore e successore passatogli
             self._trailer = node
         return self._make_position(node)
 
