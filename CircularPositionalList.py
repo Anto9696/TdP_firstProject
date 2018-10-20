@@ -218,7 +218,7 @@ class CircularPositionalList(PositionalList):
 
     def __setitem__(self, p, e):
         """Sostituisce l’elemento nella position p con e"""
-        self.replace(p, e)  # La position viene valtata in replace
+        self.replace(p, e)  # La position viene validata in replace
 
     def __delitem__(self, p):
         """Rimuove l’elemento nella position p invalidando la position"""
