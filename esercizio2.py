@@ -5,9 +5,9 @@ def bubblesorted(list):
     """ordina gli elementi della CircularPositionalList e li restituisce nell’ordine risultante.
        Non modifica l'ordine di memorizzazione degli elementi nella lista passatagli."""
     list_ordered = list.copy()
-    if not list_ordered.is_empty():
+    if not list_ordered.is_empty():     # perchè se list è vuota allora sup sarebbe stato < 0
         sup = len(list_ordered) - 1
-        while sup != 0:                #perchè se list aveva meno di 2 elem
+        while sup != 0:
             last_swap = 0
             cursor = list_ordered.first()
             succ_cursor = list_ordered._next_position(cursor)
