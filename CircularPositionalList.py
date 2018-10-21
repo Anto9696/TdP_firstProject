@@ -113,14 +113,14 @@ class CircularPositionalList(PositionalList):
 
     def add_before(self, p, e):
         """richiama _add_before se il flag di reverse non è attivo, altrimenti __add_after"""
-        if not self._reverse:
+        if not self._reverse:                           # serve per richiamare la private giusta in base al flag della reverse
             return self.__add_before(p, e)
         else:
             return self.__add_after(p, e)
 
     def add_after(self, p, e):
         """richiama __add_after se il flag di reverse non è attivo, altrimenti __add_after"""
-        if not self._reverse:
+        if not self._reverse:                           # serve per richiamare la private giusta in base al flag della reverse
             return self.__add_after(p, e)
         else:
             return self.__add_before(p, e)
@@ -147,7 +147,7 @@ class CircularPositionalList(PositionalList):
             self._trailer = None
             self._reverse = False
         else:
-            if self.first() == p:
+            if self.first() == p:               # se la lista non ha un solo nodo va controllato se la position selezionata non sia header o trailer
                 self._header = self._header._next if not self._reverse else self._header._prev
             elif self.last() == p:
                 self._trailer = self._trailer._prev if not self._reverse else self._trailer._next
@@ -173,8 +173,8 @@ class CircularPositionalList(PositionalList):
 
     def reverse(self):
         """Inverte l’ordine degli elementi nella lista"""
-        self._reverse = not self._reverse  # impostiamo il flag per far invertire il funzionamento di _prev_position e _next_position
-        tmp = self._header  # e invertiamo header e trailer
+        self._reverse = not self._reverse   # impostiamo il flag per far invertire il funzionamento di _prev_position e _next_position
+        tmp = self._header                  # e invertiamo header e trailer
         self._header = self._trailer
         self._trailer = tmp
 

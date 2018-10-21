@@ -87,18 +87,6 @@ class ScoreBoard:
         score_list = self.last(i)
         self._best.reverse()
         return score_list
-        # score_list = []
-        # if not self.is_empty():
-        #     cur = self._best.last()
-        #     counter = 0
-        #     if i >= 1:
-        #         score_list.append(cur.element())
-        #         counter += 1
-        #     while cur != self._best.first() and counter < i:
-        #         cur = self._best._prev_position(cur) # super(CircularPositionalList, self._best).before(cur)
-        #         score_list.append(cur.element())
-        #         counter += 1
-        # return score_list
 
     def last(self, i=1):
         """Restituisce i peggiori i score nello ScoreBoard"""
