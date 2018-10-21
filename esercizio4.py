@@ -50,22 +50,21 @@ class ScoreBoard:
     def insert(self, s):
         """Inserisce un nuovo score nello scoreboard se e solo se non è peggiore dei risultati
                 correntemente salvati. Non incrementa la dimensione dello scoreboard"""
-        if self.size() == 0:
+        if self.size() == 0:                                   #se lo scoreboard è vuoto, lo inserisco come first
             self._best.add_first(s)
-        elif self._best.first().element() <= s or self.size() < len(self):
+        elif self._best.first().element() <= s or self.size() < len(self):     #lo scoreboard è ordinato crescente andando da first a last, per questo controlliamo il primo
             cursor = self._best.first()
-            while cursor != self._best.last() and cursor.element() < s:
+            while cursor != self._best.last() and cursor.element() < s:        #usciamo dal ciclo quando arriviamo all'ultimo elem o quando troviamo un elem maggiore o uguale a s (score)
                 cursor = self._best._next_position(cursor)
-            if cursor.element() < s:
+            if cursor.element() < s:                                           #se siamo usciti dal ciclo e l'elem corrente è ancora minore di s, allora inseriamo dopo
                 self._best.add_after(cursor, s)
-            elif str(s) != str(
-                    cursor.element()):  # Se sono completamente uguali su nome-data-punteggio non lo inserisco
+            elif str(s) != str(cursor.element()):        # Se sono completamente uguali su nome-data-punteggio non lo inserisco, se non lo sono lo inserisco prima
                 self._best.add_before(cursor, s)
-            if self.size() > len(self):
+            if self.size() > len(self):                 #ora controllo se eccedo la lunghezza massima, se è così cancello il primo (più piccolo score)
                 self._best.delete(self._best.first())
 
     def merge(self, new):
-        """Fonde lo scoreboard corrente con new selezionando i 10 migliori risultati"""
+        """Fonde lo scoreboard corrente con new selezionando gli x migliori risultati"""
         if not isinstance(new, ScoreBoard):
             raise TypeError("The operand is not a ScoreBoard")
         if not (new.is_empty() and self.is_empty()):
