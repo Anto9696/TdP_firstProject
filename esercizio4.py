@@ -67,17 +67,17 @@ class ScoreBoard:
         """Fonde lo scoreboard corrente con new selezionando gli x migliori risultati"""
         if not isinstance(new, ScoreBoard):
             raise TypeError("The operand is not a ScoreBoard")
-        if not (new.is_empty() and self.is_empty()):      #se entrambe le liste non sono vuote richiamiamo il merge dell'esercizio 3
+        if not (new.is_empty() and self.is_empty()):      # se entrambe le liste non sono vuote richiamiamo il merge dell'esercizio 3
             self._best = merge(self._best, new._best)
-            #ORA ANDIAMO AD ELIMINARE I DUPLICATI (nei 2 scoreboard potrebbero essere presenti score uguali)
-            if self.size() > 1:                          #altrimenti sicuro non ci sono duplicati
+            # ORA ANDIAMO AD ELIMINARE I DUPLICATI (nei 2 scoreboard potrebbero essere presenti score uguali)
+            if self.size() > 1:                          # altrimenti sicuro non ci sono duplicati
                 cursor = self._best.first()
                 while cursor != self._best.last():
-                    next_cursor = self._best._next_position(cursor)            #scorriamo una voolta lo scoreboard e confrontiamo ciascun elemento con il successivo,
-                    if str(cursor.element()) == str(next_cursor.element()):    #possono esserci al più due score uguali e se è così saranno adiacenti
+                    next_cursor = self._best._next_position(cursor)            # scorriamo una voolta lo scoreboard e confrontiamo ciascun elemento con il successivo,
+                    if str(cursor.element()) == str(next_cursor.element()):    # possono esserci al più due score uguali e se è così saranno adiacenti
                         self._best.delete(cursor)
                     cursor = next_cursor
-            #E ADESSO AGGIIUSTIAMO LA GRANDEZZA DELLO SCORE
+            # E ADESSO AGGIIUSTIAMO LA GRANDEZZA DELLO SCORE
             while self.size() > len(self):  # seleziona i primi X
                 self._best.delete(self._best.first())
 
