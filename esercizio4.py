@@ -69,6 +69,14 @@ class ScoreBoard:
             raise TypeError("The operand is not a ScoreBoard")
         if not (new.is_empty() and self.is_empty()):      #se entrambe le liste non sono vuote richiamiamo il merge dell'esercizio 3
             self._best = merge(self._best, new._best)
+            #ORA ANDIAMO AD ELIMINARE I DUPLICATI (nei 2 scoreboard potrebbero essere presenti score uguali)
+            if self.size() > 1:                          #altrimenti sicuro non ci sono duplicati
+                cursor = self._best.first()
+                while cursor != self._best.last():
+                    next_cursor = self._best._next_position(cursor)
+                    if str(cursor.element()) == str(next_cursor.element()):          #uso prev invece di next così non vado a cancellare l'elem corrente ma il prev e non devo salvarmi il next
+                        self._best.delete(cursor)
+                    cursor = next_cursor
             while self.size() > len(self):  # seleziona i primi X
                 self._best.delete(self._best.first())
 
@@ -214,6 +222,7 @@ if __name__ == "__main__":
         print(e)
 
     print("--------------------------VOID TEST----------------------------------")
+    print("a AND b ARE EMPTY SCOREBOARD")
     a = ScoreBoard(10)
     b = ScoreBoard(10)
     print("SIZE ", a.size(), "---- EMPTY ", a.is_empty(), " ---- LEN ", len(a))
@@ -227,7 +236,7 @@ if __name__ == "__main__":
     for e in a:
         print(e)
     SB1.merge(a)
-    print("----SB1 MERGING with a-----")
+    print("----SCOREBOARD 1 MERGING with a-----")
     for e in SB1:
         print(e)
     a.merge(b)
@@ -235,6 +244,6 @@ if __name__ == "__main__":
     for e in a:
         print(e)
     a.merge(SB1)
-    print("----a MERGING with SB1-----")
+    print("----a MERGING with SCOREBOARD 1-----")
     for e in a:
         print(e)
