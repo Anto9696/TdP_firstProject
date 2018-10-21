@@ -73,10 +73,11 @@ class ScoreBoard:
             if self.size() > 1:                          #altrimenti sicuro non ci sono duplicati
                 cursor = self._best.first()
                 while cursor != self._best.last():
-                    next_cursor = self._best._next_position(cursor)
-                    if str(cursor.element()) == str(next_cursor.element()):          #uso prev invece di next così non vado a cancellare l'elem corrente ma il prev e non devo salvarmi il next
+                    next_cursor = self._best._next_position(cursor)            #scorriamo una voolta lo scoreboard e confrontiamo ciascun elemento con il successivo,
+                    if str(cursor.element()) == str(next_cursor.element()):    #possono esserci al più due score uguali e se è così saranno adiacenti
                         self._best.delete(cursor)
                     cursor = next_cursor
+            #E ADESSO AGGIIUSTIAMO LA GRANDEZZA DELLO SCORE
             while self.size() > len(self):  # seleziona i primi X
                 self._best.delete(self._best.first())
 
