@@ -49,7 +49,7 @@ class ScoreBoard:
 
     def insert(self, s):
         """Inserisce un nuovo score nello scoreboard se e solo se non è peggiore dei risultati
-                correntemente salvati. Non incrementa la dimensione dello scoreboard"""
+           correntemente salvati quando lo scoreboard è pieno. Non incrementa la dimensione dello scoreboard."""
         if self.size() == 0:                                   #se lo scoreboard è vuoto, lo inserisco come first
             self._best.add_first(s)
         elif self._best.first().element() <= s or self.size() < len(self):     #lo scoreboard è ordinato crescente andando da first a last, per questo controlliamo il primo
