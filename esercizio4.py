@@ -67,14 +67,14 @@ class ScoreBoard:
         """Fonde lo scoreboard corrente con new selezionando gli x migliori risultati"""
         if not isinstance(new, ScoreBoard):
             raise TypeError("The operand is not a ScoreBoard")
-        if not (new.is_empty() and self.is_empty()):
+        if not (new.is_empty() and self.is_empty()):      #se entrambe le liste non sono vuote richiamiamo il merge dell'esercizio 3
             self._best = merge(self._best, new._best)
             while self.size() > len(self):  # seleziona i primi X
                 self._best.delete(self._best.first())
 
     def top(self, i=1):
         """Restituisce i migliori i score nello ScoreBoard"""
-        self._best.reverse()  # essendo già ordinato basta selezionare gli ultimi i della lista su cui viene applicato reverse
+        self._best.reverse()     # essendo già ordinato basta selezionare gli ultimi i della lista su cui viene applicato reverse
         score_list = self.last(i)
         self._best.reverse()
         return score_list
@@ -122,67 +122,94 @@ if __name__ == "__main__":
 
     SB1 = ScoreBoard(4)
 
-    print("EMPTY SCOREBOARD 1: ", SB1.is_empty())
+    print("\n\nEMPTY SCOREBOARD 1: ", SB1.is_empty())
     print("LENGTH OF SCOREBOARD 1: ", SB1.size(), "/", len(SB1))
-    print("INSERT SCORE")
+    print("----------------------------------------------------")
+
+    print("INSERT SCORE: ", score1)
     SB1.insert(score1)
     print("EMPTY SCOREBOARD 1: ", SB1.is_empty())
     print("LENGTH OF SCOREBOARD 1: ", SB1.size(), "/", len(SB1))
     for e in SB1:
         print(e)
-    print("INSERT SCORE IN SCOREBOARD 1")
+    print("----------------------------------------------------")
+
+    print("INSERT SCORE IN SCOREBOARD 1:")
     SB1.insert(score2)
     SB1.insert(score3)
     SB1.insert(score4)
+    print(score2)
+    print(score3)
+    print(score4)
+
     print("LENGTH OF SCOREBOARD 1: ", SB1.size(), "/", len(SB1))
     for e in SB1:
         print(e)
+    print("----------------------------------------------------")
 
     print("INSERT SCORE IN SCOREBOARD 2")
     SB2 = ScoreBoard(4)
     SB2.insert(score5)
     SB2.insert(score6)
     SB2.insert(score7)
+    print(score5)
+    print(score6)
+    print(score7)
     # print(SB2._best._header._next._element.give_score())
     print("LENGTH OF SCOREBOARD 2: ", SB2.size(), "/", len(SB2))
     for e in SB2._best:
         print(e)
 
     print()
-    print("TOPs 2")
+    print("TOPs 2 in SCOREBOARD 1:")
     for e in SB1.top(2):
         print(e)
 
-    print("LASTs 1")
+    print("LASTs 1 in SCOREBOARD 1:")
     for e in SB1.last():
         print(e)
+    print("----------------------------------------------------")
 
-    print()
+    print("SCOREBOARD 1:")
+    for e in SB1:
+        print(e)
     print("ADD ELEMENTS TO SCOREBOARD 1")
     SB1.insert(score7)
     SB1.insert(score9)
+    print(score7)
+    print(score9)
+
+    print("SCOREBOARD 1:")
     for e in SB1:
         print(e)
     print("NEW LENGTH OF SCOREBOARD 1: ", SB1.size(), "/", len(SB1))
+    print("----------------------------------------------------")
+
+    print("ADD ELEMENTS TO SCOREBOARD 1")
     SB1.insert(score10)
-    print("ADD ONE MORE ELEMENT: ", SB1.size(), "/", len(SB1))
+    print(score10)
+    print("NEW LENGTH OF SCOREBOARD 1: ", SB1.size(), "/", len(SB1))
     for e in SB1:
         print(e)
+    print("----------------------------------------------------")
 
-    print("MERGE SB1 & SB2")
+    print("<<<<< MERGE SCOREBOARD 1 & SCOREBOARD 2 >>>>>")
+    print("SCOREBOARD 1:")
     for e in SB1:
         print(e)
     print("---------")
+    print("SCOREBOARD 2:")
     for e in SB2:
         print(e)
     print("---------")
-
+    print("MERGE RESULT:")
     SB1.merge(SB2)
 
     for e in SB1:
         print(e)
 
-    print("TEST TOP/LAST")
+    print("<<<<< TEST TOP/LAST >>>>>")
+    print("TOPs SCOREBOARD 1:")
     for e in SB1.top(10):
         print(e)
 
